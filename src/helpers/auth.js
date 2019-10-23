@@ -3,10 +3,9 @@ import axios from "axios";
 
 export function login(credentials) {
     return new Promise((res) => {
-        axios.post('/api/auth/login', credentials, {
-        })
+        axios.post('/api/auth/login', credentials)
             .then((response) => {
-                setAuthorization(response.data.token);
+                setAuthorization(response.data.data.token);
                 res(response.data);
             })
             .catch(() => {

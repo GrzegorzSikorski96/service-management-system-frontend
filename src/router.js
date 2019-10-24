@@ -8,6 +8,8 @@ import TicketsList from "./components/Ticket/TicketsList";
 import Ticket from "./components/Ticket/Ticket";
 import Device from "./components/Device/Device";
 import Client from "./components/Client/Client";
+import ClientList from "./components/Client/ClientList";
+import ClientCreate from "./components/Client/ClientCreate";
 
 Vue.use(Router);
 
@@ -57,6 +59,16 @@ export default new Router({
             name: 'Client',
             component: Client,
             props: true
+        },
+        {
+            path: '/clients',
+            name: 'ClientList',
+            component: ClientList,
+        },
+        {
+            path: '/client/create',
+            name: 'ClientCreate',
+            component: ClientCreate,
         }
     ]
 })

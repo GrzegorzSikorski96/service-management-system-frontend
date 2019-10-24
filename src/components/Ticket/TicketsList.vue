@@ -23,13 +23,13 @@
                     :loading="!loading"
             >
                 <template v-slot:item.client.name="{ item }">
-                    <router-link :to="{name: 'Client', params: { id: item.id }}" class="route black--text">
+                    <router-link :to="{name: 'Client', params: { id: item.id }}" class="route">
                         {{ item.client.name }}
                     </router-link>
                 </template>
 
                 <template v-slot:item.device.name="{ item }">
-                    <router-link text :to="{name: 'Device', params: { id: item.id }}" class="route black--text">
+                    <router-link text :to="{name: 'Device', params: { id: item.id }}" class="route">
                         {{ item.device.name }}
                     </router-link>
                 </template>

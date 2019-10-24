@@ -27,14 +27,20 @@
             links: [
                 {
                     category: 'Główne', links: [
-                        {route: 'HomePage', label: 'Strona głowna', icon: 'home'}
+                        {route: 'HomePage', label: 'Strona głowna', icon: 'home'},
                     ]
                 },
                 {
                     category: 'Zgłoszenia', links: [
                         {route: 'TicketCheckStatus', label: 'Sprawdź status zgłoszenia', icon: 'clipboard-check'},
                         {route: 'TicketsList', label: 'Lista zgłoszeń', icon: 'clipboard-list'},
-                        {route: 'TicketCreate', label: 'Dodaj zgłoszenie', icon: 'plus'}
+                        {route: 'TicketCreate', label: 'Dodaj zgłoszenie', icon: 'plus'},
+                    ]
+                },
+                {
+                    category: 'Klienci', links: [
+                        {route: 'ClientList', label: 'Lista klientów', icon: 'users'},
+                        {route: 'ClientCreate', label: 'Dodaj klienta', icon: 'user-plus'},
                     ]
                 }
             ]

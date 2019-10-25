@@ -63,7 +63,7 @@
                 {text: 'Urządzenie', value: 'device.name'},
                 {text: 'Numer seryjny', value: 'device.serial_number',},
                 {text: 'Status', value: 'ticket_status.name'},
-                {value: 'actions', sortable: false,},
+                {value: 'actions', sortable: false, align: 'right'},
             ],
         }),
         methods: {

@@ -5,6 +5,7 @@
                     class="col-8 mx-auto"
                     raised
                     shaped
+                    v-if="!loading"
             >
                 <v-card-text>
                     <v-card-title class="display-1 text--primary">
@@ -16,78 +17,31 @@
                     </v-card-subtitle>
 
                     <v-expansion-panels multiple>
-                        <v-expansion-panel>
+                        <v-expansion-panel v-for="panel in panels" :key="panel.title">
                             <v-expansion-panel-header>
                                 <span>
                                     <span class="font-weight-bold">
-                                        Klient:
+                                        {{ panel.title }}
                                     </span>
-                                    {{ ticket.client.name }}
+                                    {{ panel.titleValue }}
                                 </span>
                             </v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <v-row>
-                                    <span>
+                            <v-expansion-panel-content v-for="detail in panel.details" :key="detail.label">
+                                <v-row dense>
+                                    <span v-if="detail.type">
                                         <span class="font-weight-bold">
-                                            Adres:
+                                            {{ detail.label }}
                                         </span>
-                                        {{ ticket.client.address }}
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Email:
-                                        </span>
-                                        <a :href="'mailto:' + ticket.client.email">
-                                            {{ ticket.client.email }}
+                                        <a :href="detail.type + detail.value">
+                                            {{ detail.value }}
                                         </a>
                                     </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
+
+                                    <span v-else>
                                         <span class="font-weight-bold">
-                                            Numer telefonu:
+                                            {{ detail.label }}
                                         </span>
-                                        <a :href="'tel:' +ticket.client.phone_number">
-                                        {{ ticket.client.phone_number }}
-                                        </a>
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Opis:
-                                        </span>
-                                        {{ ticket.device.description }}
-                                    </span>
-                                </v-row>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                        <v-expansion-panel>
-                            <v-expansion-panel-header>
-                                <span>
-                                    <span class="font-weight-bold">
-                                        Urządzenie:
-                                    </span>
-                                    {{ ticket.device.name }}
-                                </span>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Numer seryjny:
-                                        </span>
-                                        {{ ticket.device.serial_number }}
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Opis:
-                                        </span>
-                                        {{ ticket.device.description }}
+                                        {{ detail.value }}
                                     </span>
                                 </v-row>
                             </v-expansion-panel-content>
@@ -102,7 +56,7 @@
                                 </span>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                <v-timeline dense>
+                                <v-timeline dense v-if="ticket.notes.length">
                                     <v-timeline-item
                                             v-for="note in ticket.notes"
                                             :key="note.id"
@@ -125,11 +79,22 @@
                                         </v-card>
                                     </v-timeline-item>
                                 </v-timeline>
+
+                                <span v-else>
+                                    Brak zgłoszeń
+                                </span>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                     </v-expansion-panels>
                 </v-card-text>
             </v-card>
+
+            <v-progress-circular v-else
+                                 class="mx-auto"
+                                 :size="80"
+                                 indeterminate
+                                 color="primary"
+            ></v-progress-circular>
         </v-row>
     </v-container>
 </template>
@@ -139,17 +104,40 @@
         name: 'Ticket',
         data: () => ({
             ticket: [],
+            panels: [],
+            loading: true,
         }),
         methods: {
-            async fetchTicket() {
+            async fetchData() {
                 this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
                     this.ticket = response.data.data.ticket;
+                    this.loading = false;
+                    this.loadPanels();
                 });
             },
+
+            async loadPanels() {
+                this.panels.push(
+                    {
+                        title: 'Klient: ', titleValue: this.ticket.client.name, details: [
+                            {label: 'Adres: ', value: this.ticket.client.address},
+                            {label: 'Email: ', value: this.ticket.client.email, type: 'mailto:'},
+                            {label: 'Numer telefonu: ', value: this.ticket.client.phone_number, type: 'tel:'},
+                            {label: 'Opis: ', value: this.ticket.client.description},
+                        ]
+                    },
+                    {
+                        title: 'Urządzenie: : ', titleValue: this.ticket.device.name, details: [
+                            {label: 'Numer seryjny: ', value: this.ticket.device.serial_number},
+                            {label: 'Opis: ', value: this.ticket.device.description},
+                        ]
+                    }
+                )
+            }
         },
         created() {
-            this.fetchTicket();
-        }
+            this.fetchData()
+        },
     }
 </script>
 

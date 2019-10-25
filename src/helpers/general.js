@@ -2,23 +2,23 @@ import axios from 'axios';
 
 export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
-        const currentUser = store.state.currentUser;
+            const currentUser = store.state.currentUser;
 
-        if (to.matched.some(record => record.meta.forVisitors)) {
-            if (currentUser) {
-                next({
-                    path: "/"
-                })
-            } else next();
-        } else if (to.matched.some(record => record.meta.forAdmins)) {
-            if (currentUser.role.name !== "ADMIN" && currentUser.role.name !== "SUPERADMIN") {
-                next({
-                    path: "/"
-                })
-            } else next();
-        } else next();
-
-    });
+            if (!(to.meta.forVisitors && currentUser)) {
+                if (to.matched.some(record => record.meta.roles)) {
+                    if (currentUser) {
+                        if (!(to.meta.roles.includes(currentUser.role.name))) {
+                            return next({path: '/'})
+                        }
+                    } else {
+                        return next({path: '/login'})
+                    }
+                }
+                return next()
+            }
+            return next({path: '/'})
+        }
+    );
 
     axios.interceptors.response.use(null, (error => {
         if (error.response.status === 401) {

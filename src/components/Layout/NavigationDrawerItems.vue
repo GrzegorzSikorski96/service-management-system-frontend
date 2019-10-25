@@ -42,6 +42,12 @@
                         {route: 'ClientList', label: 'Lista klientów', icon: 'users'},
                         {route: 'ClientCreate', label: 'Dodaj klienta', icon: 'user-plus'},
                     ]
+                },
+                {
+                    category: 'Urządzenia', links: [
+                        {route: 'DeviceList', label: 'Lista urządzeń', icon: 'laptop'},
+                        {route: 'DeviceCreate', label: 'Dodaj urządzenie', icon: 'laptop-medical'},
+                    ]
                 }
             ]
         }),

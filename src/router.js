@@ -10,6 +10,8 @@ import Device from "./components/Device/Device";
 import Client from "./components/Client/Client";
 import ClientList from "./components/Client/ClientList";
 import ClientCreate from "./components/Client/ClientCreate";
+import DeviceList from "./components/Device/DeviceList";
+import DeviceCreate from "./components/Device/DeviceCreate";
 
 Vue.use(Router);
 
@@ -26,6 +28,9 @@ export default new Router({
             path: '/login',
             name: 'Login',
             component: Login,
+            meta: {
+                forVisitors: true
+            },
         },
         {
             path: '/check',
@@ -36,39 +41,76 @@ export default new Router({
             path: '/ticket/create',
             name: 'TicketCreate',
             component: TicketCreate,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
         },
         {
             path: '/tickets',
             name: 'TicketsList',
             component: TicketsList,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
         },
         {
             path: '/ticket/:id',
             name: 'Ticket',
             component: Ticket,
-            props: true
-        },
-        {
-            path: '/device/:id',
-            name: 'Device',
-            component: Device,
-            props: true
+            props: true,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
         },
         {
             path: '/client/:id',
             name: 'Client',
             component: Client,
-            props: true
+            props: true,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
         },
         {
             path: '/clients',
             name: 'ClientList',
             component: ClientList,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
         },
         {
             path: '/client/create',
             name: 'ClientCreate',
             component: ClientCreate,
-        }
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
+        },
+        {
+            path: '/devices',
+            name: 'DeviceList',
+            component: DeviceList,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
+        },
+        {
+            path: '/device/create',
+            name: 'DeviceCreate',
+            component: DeviceCreate,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
+        },
+        {
+            path: '/device/:id',
+            name: 'Device',
+            component: Device,
+            props: true,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
+        },
     ]
 })

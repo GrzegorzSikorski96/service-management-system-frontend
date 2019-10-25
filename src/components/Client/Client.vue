@@ -5,6 +5,7 @@
                     class="col-8 mx-auto"
                     raised
                     shaped
+                    v-if="!loading"
             >
                 <v-card-text>
                     <v-card-title class="display-1 text--primary">
@@ -19,57 +20,31 @@
                     </v-card-subtitle>
 
                     <v-expansion-panels multiple>
-                        <v-expansion-panel>
+                        <v-expansion-panel v-for="panel in panels" :key="panel.title">
                             <v-expansion-panel-header>
                                 <span>
                                     <span class="font-weight-bold">
-                                        Dane klienta
+                                        {{ panel.title }}
                                     </span>
+                                    {{ panel.titleValue }}
                                 </span>
                             </v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <v-row>
-                                    <span>
+                            <v-expansion-panel-content v-for="detail in panel.details" :key="detail.label">
+                                <v-row dense v-if="detail.value">
+                                    <span v-if="detail.type">
                                         <span class="font-weight-bold">
-                                            Nazwa:
+                                            {{ detail.label }}
                                         </span>
-                                        {{ client.name }}
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Adres:
-                                        </span>
-                                        {{ client.address }}
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Email:
-                                        </span>
-                                        <a :href="'mailto:' + client.email">
-                                            {{ client.email }}
+                                        <a :href="detail.type + detail.value">
+                                            {{ detail.value }}
                                         </a>
                                     </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
+
+                                    <span v-else>
                                         <span class="font-weight-bold">
-                                            Numer telefonu:
+                                            {{ detail.label }}
                                         </span>
-                                        <a :href="'tel:' + client.phone_number">
-                                        {{ client.phone_number }}
-                                        </a>
-                                    </span>
-                                </v-row>
-                                <v-row>
-                                    <span>
-                                        <span class="font-weight-bold">
-                                            Opis:
-                                        </span>
-                                        {{ client.description }}
+                                        {{ detail.value }}
                                     </span>
                                 </v-row>
                             </v-expansion-panel-content>
@@ -84,7 +59,7 @@
                                 </span>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                <v-timeline dense>
+                                <v-timeline dense v-if="client.tickets.length">
                                     <v-timeline-item
                                             v-for="ticket in client.tickets"
                                             :key="ticket.id"
@@ -94,7 +69,8 @@
                                         <template>
                                             <router-link :to="{name: 'Ticket', params: { id: ticket.id }}"
                                                          class="route">
-                                                <span class="font-weight-bold text--primary">Numer zgłoszenia: {{ ticket.token }} </span>
+                                                <span class="font-weight-bold text--primary">Numer zgłoszenia: </span>
+                                                {{ ticket.token }}
                                             </router-link>
                                         </template>
 
@@ -110,12 +86,23 @@
                                         </v-card>
                                     </v-timeline-item>
                                 </v-timeline>
+
+                                <span v-else>
+                                    Brak zgłoszeń
+                                </span>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
 
                     </v-expansion-panels>
                 </v-card-text>
             </v-card>
+
+            <v-progress-circular v-else
+                                 class="mx-auto"
+                                 :size="80"
+                                 indeterminate
+                                 color="primary"
+            ></v-progress-circular>
         </v-row>
     </v-container>
 </template>
@@ -124,14 +111,31 @@
     export default {
         name: 'Client',
         data: () => ({
+            loading: true,
             client: [],
+            panels: [],
         }),
         methods: {
             async fetchClient() {
                 this.$http.get(`/api/client/${this.$route.params.id}`).then((response) => {
                     this.client = response.data.data.client;
+                    this.loading = false;
+                    this.loadPanels()
                 });
             },
+            async loadPanels() {
+                this.panels.push(
+                    {
+                        title: 'Dane klienta: ', titleValue: '', details: [
+                            {label: 'Nazwa: ', value: this.client.name},
+                            {label: 'Adres: ', value: this.client.address},
+                            {label: 'Email: ', value: this.client.email, type: 'mailto:'},
+                            {label: 'Numer telefonu: ', value: this.client.phone_number, type: 'tel:'},
+                            {label: 'Opis: ', value: this.client.description},
+                        ]
+                    },
+                )
+            }
         },
         created() {
             this.fetchClient();

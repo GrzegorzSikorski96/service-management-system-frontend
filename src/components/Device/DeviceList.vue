@@ -6,7 +6,7 @@
                 class="mx-auto col-8"
         >
             <v-card-title>
-                Klienci
+                Urządzenia
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -18,24 +18,12 @@
             </v-card-title>
             <v-data-table
                     :headers="headers"
-                    :items="clients"
+                    :items="devices"
                     :search="search"
                     :loading="loading"
             >
-                <template v-slot:item.email="{ item }">
-                    <a :href="'mailto:' + item.email" class="route">
-                        {{ item.email }}
-                    </a>
-                </template>
-
-                <template v-slot:item.phone_number="{ item }">
-                    <a :href="'tel:'+item.phone_number" class="route">
-                        {{ item.phone_number }}
-                    </a>
-                </template>
-
                 <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'Client', params: { id: item.id }}"
+                    <v-btn text icon color="info" :to="{name: 'Device', params: { id: item.id }}"
                            elevation="2">
                         <v-icon>keyboard_arrow_right</v-icon>
                     </v-btn>
@@ -47,36 +35,32 @@
 
 <script>
     export default {
-        name: 'ClientList',
+        name: 'DeviceList',
         loading: true,
         data: () => ({
             search: '',
             loading: true,
-            clients: [],
+            devices: [],
             headers: [
-                {text: 'Nazwa', value: 'name', align: 'left'},
-                {text: 'Adres', value: 'address'},
-                {text: 'Email', value: 'email'},
-                {text: 'Numer Telefonu', value: 'phone_number', sortable: false,},
+                {text: 'Numer seryjny', value: 'serial_number', sortable: false, align: 'left'},
+                {text: 'Nazwa', value: 'name'},
+                {text: 'Opis', value: 'description'},
                 {value: 'actions', sortable: false, align: 'right'},
             ],
         }),
         methods: {
-            async fetchClients() {
-                this.$http.get(`/api/clients`).then((response) => {
-                    this.clients = response.data.data.clients;
+            async fetchDevices() {
+                this.$http.get(`/api/devices`).then((response) => {
+                    this.devices = response.data.data.devices;
                     this.loading = false;
                 });
             },
         },
         created() {
-            this.fetchClients();
+            this.fetchDevices();
         },
     }
 </script>
 
 <style>
-    .route {
-        text-transform: none;
-    }
 </style>

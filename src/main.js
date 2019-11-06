@@ -9,6 +9,7 @@ import Vuex from 'vuex';
 import store from './store';
 import {initialize} from "./helpers/general";
 import Toasted from 'vue-toasted';
+import * as pusher from './plugins/pusher'
 
 Vue.use(Vuex);
 
@@ -29,5 +30,6 @@ new Vue({
     vuetify,
     router,
     store,
+    pusher,
     render: h => h(App)
 }).$mount('#app')

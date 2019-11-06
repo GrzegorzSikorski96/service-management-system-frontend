@@ -17,32 +17,34 @@
                     </v-card-subtitle>
 
                     <v-expansion-panels multiple>
-                        <v-expansion-panel v-for="panel in panels" :key="panel.title">
+                        <v-expansion-panel>
                             <v-expansion-panel-header>
                                 <span>
                                     <span class="font-weight-bold">
-                                        {{ panel.title }}
+                                        Dane urządzenia:
                                     </span>
-                                    {{ panel.titleValue }}
                                 </span>
                             </v-expansion-panel-header>
-                            <v-expansion-panel-content v-for="detail in panel.details" :key="detail.label">
-                                <v-row dense v-if="detail.value">
-                                    <span v-if="detail.type">
-                                        <span class="font-weight-bold">
-                                            {{ detail.label }}
-                                        </span>
-                                        <a :href="detail.type + detail.value">
-                                            {{ detail.value }}
-                                        </a>
+                            <v-expansion-panel-content>
+                                <v-row dense>
+                                    <span class="font-weight-bold mr-1">
+                                        Nazwa:
                                     </span>
+                                    {{ device.name }}
+                                </v-row>
 
-                                    <span v-else>
-                                        <span class="font-weight-bold">
-                                            {{ detail.label }}
-                                        </span>
-                                        {{ detail.value }}
+                                <v-row dense>
+                                    <span class="font-weight-bold mr-1">
+                                        Numer seryjny:
                                     </span>
+                                    {{ device.serial_number }}
+                                </v-row>
+
+                                <v-row dense>
+                                    <span class="font-weight-bold mr-1">
+                                        Opis:
+                                    </span>
+                                    {{ device.description }}
                                 </v-row>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
@@ -110,31 +112,27 @@
         data: () => ({
             loading: true,
             device: [],
-            panels: [],
+            channel: {},
         }),
         methods: {
             async fetchDevices() {
                 this.$http.get(`/api/device/${this.$route.params.id}`).then((response) => {
                     this.device = response.data.data.device;
                     this.loading = false;
-                    this.loadPanels()
+                    this.initPusher()
                 });
             },
-            async loadPanels() {
-                this.panels.push(
-                    {
-                        title: 'Dane urządzenia: ', titleValue: '', details: [
-                            {label: 'Nazwa: ', value: this.device.name},
-                            {label: 'Numer seryjny: ', value: this.device.serial_number},
-                            {label: 'Opis: ', value: this.device.description},
-                        ]
-                    },
-                )
-            }
+
+            async initPusher() {
+                this.channel = this.$pusher.subscribe(`device-${this.device.id}`);
+                this.channel.bind('deviceUpdate', data => {
+                    this.device = data.device;
+                })
+            },
         },
         created() {
             this.fetchDevices();
-        }
+        },
     }
 </script>
 

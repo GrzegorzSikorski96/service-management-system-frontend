@@ -67,14 +67,21 @@
             ],
         }),
         methods: {
-            async fetchTickets() {
+            fetchTickets() {
                 this.$http.get(`/api/tickets`).then((response) => {
                     this.tickets = response.data.data.tickets;
                 });
             },
+            initPusher() {
+                this.channel = this.$pusher.subscribe(`tickets`);
+                this.channel.bind('ticketsListUpdated', () => {
+                    this.fetchTickets();
+                })
+            },
         },
         created() {
             this.fetchTickets();
+            this.initPusher();
         },
         computed: {
             loading() {

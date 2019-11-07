@@ -3,7 +3,7 @@
         <v-card
                 raised
                 shaped
-                class="mx-auto col-8"
+                class="mx-auto col-10"
         >
             <v-card-title>
                 Urządzenia
@@ -49,15 +49,22 @@
             ],
         }),
         methods: {
-            async fetchDevices() {
+            fetchDevices() {
                 this.$http.get(`/api/devices`).then((response) => {
                     this.devices = response.data.data.devices;
                     this.loading = false;
                 });
             },
+            initPusher() {
+                this.channel = this.$pusher.subscribe(`devices`);
+                this.channel.bind('devicesListUpdated', () => {
+                    this.fetchDevices();
+                })
+            },
         },
         created() {
             this.fetchDevices();
+            this.initPusher();
         },
     }
 </script>

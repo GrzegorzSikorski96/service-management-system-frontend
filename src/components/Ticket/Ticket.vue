@@ -1,101 +1,145 @@
 <template>
-    <v-container fluid fill-height>
-        <v-row>
-            <v-card
-                    class="col-8 mx-auto"
-                    raised
-                    shaped
-                    v-if="!loading"
-            >
-                <v-card-text>
-                    <v-card-title class="display-1 text--primary">
-                        Zgłoszenie serwisowe
+    <v-container fluid>
+        <v-row v-if="!loading">
+            <v-col class="col-4">
+                <v-card class="ma-3 pa-1">
+                    <v-card-title>
+                        Dane urządzenia
+                        <v-spacer>
+                        </v-spacer>
+
+                        <span v-if="deviceEdit">
+                            <v-btn icon @click="deviceEdit = false" :ripple="{ class: 'green--text' }">
+                                <font-awesome-icon icon="save" size="lg"/>
+                            </v-btn>
+                            <v-btn icon @click="deviceEdit = false" :ripple="{ class: 'red--text' }">
+                                <font-awesome-icon icon="times" class="red--text" size="lg"/>
+                            </v-btn>
+                        </span>
+
+                        <span v-else>
+                            <v-btn icon @click="deviceEdit = true" :ripple="{ class: 'green--text' }">
+                                <font-awesome-icon icon="edit" size="lg"/>
+                            </v-btn>
+                        </span>
+
+
                     </v-card-title>
 
-                    <v-card-subtitle>
-                        Kod zgłoszenia: {{ ticket.token }}
-                    </v-card-subtitle>
+                    <v-card-text>
+                        <span class="font-weight-bold">
+                            Nazwa:
+                        </span>
+                        {{ ticket.device.name }}
 
-                    <v-expansion-panels multiple>
-                        <v-expansion-panel v-for="panel in panels" :key="panel.title">
-                            <v-expansion-panel-header>
-                                <span>
-                                    <span class="font-weight-bold">
-                                        {{ panel.title }}
-                                    </span>
-                                    {{ panel.titleValue }}
-                                </span>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content v-for="detail in panel.details" :key="detail.label">
-                                <v-row dense>
-                                    <span v-if="detail.type">
-                                        <span class="font-weight-bold">
-                                            {{ detail.label }}
-                                        </span>
-                                        <a :href="detail.type + detail.value">
-                                            {{ detail.value }}
-                                        </a>
-                                    </span>
+                        <br>
 
-                                    <span v-else>
-                                        <span class="font-weight-bold">
-                                            {{ detail.label }}
-                                        </span>
-                                        {{ detail.value }}
-                                    </span>
-                                </v-row>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
+                        <span class="font-weight-bold">
+                            Numer seryjny:
+                        </span>
+                        {{ ticket.device.serial_number }}
 
-                        <v-expansion-panel>
-                            <v-expansion-panel-header>
-                                <span>
-                                    <span class="font-weight-bold">
-                                        Notatki
-                                    </span>
-                                </span>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <v-timeline dense v-if="ticket.notes.length">
-                                    <v-timeline-item
-                                            v-for="note in ticket.notes"
-                                            :key="note.id"
-                                            color="blue lighten-2"
-                                            icon="assignment"
-                                    >
-                                        <template>
-                                            <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>
-                                        </template>
+                        <br>
 
-                                        <v-card class="elevation-2">
-                                            <v-card-text class="text--primary">
-                                                {{ note.content }}
-                                            </v-card-text>
+                        <span class="font-weight-bold">
+                            Opis:
+                        </span>
+                        {{ ticket.device.description }}
+                    </v-card-text>
+                </v-card>
 
-                                            <v-card-actions class="text--secondary">
-                                                <v-spacer></v-spacer>
-                                                {{ note.created_at }}
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-timeline-item>
-                                </v-timeline>
+                <v-card class="ma-3 pa-1">
+                    <v-card-title>
+                        Dane klienta
 
-                                <span v-else>
-                                    Brak zgłoszeń
-                                </span>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                    </v-expansion-panels>
-                </v-card-text>
-            </v-card>
+                        <v-spacer></v-spacer>
 
-            <v-progress-circular v-else
-                                 class="mx-auto"
-                                 :size="80"
-                                 indeterminate
-                                 color="primary"
-            ></v-progress-circular>
+                        <v-btn icon>
+                            <font-awesome-icon icon="user-edit" size="lg"/>
+                        </v-btn>
+                    </v-card-title>
+
+                    <v-card-text>
+                        <span class="font-weight-bold">
+                            Nazwa:
+                        </span>
+                        {{ ticket.client.name }}
+
+                        <br>
+
+                        <span class="font-weight-bold">
+                            Adres:
+                        </span>
+                        {{ ticket.client.address }}
+
+                        <br>
+
+                        <span class="font-weight-bold">
+                            Email:
+                        </span>
+                        <a :href="'mailto:'+ticket.client.email">
+                            {{ ticket.client.email }}
+                        </a>
+
+                        <br>
+
+                        <span class="font-weight-bold">
+                            Numer telefonu:
+                        </span>
+                        <a :href="'tel:'+ticket.client.phone_number">
+                            {{ ticket.client.phone_number }}
+                        </a>
+
+                        <br>
+                        <span class="font-weight-bold">
+                            Opis:
+                        </span>
+                        {{ ticket.client.description }}
+                    </v-card-text>
+                </v-card>
+            </v-col>
+
+            <v-col class="col-8">
+                <v-card class="ma-3 pa-1">
+                    <v-card-title>
+                        Notatki
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-timeline dense v-if="ticket.notes.length">
+                            <v-timeline-item
+                                    v-for="note in ticket.notes"
+                                    :key="note.id"
+                                    color="green lighten-2"
+                                    icon="assignment"
+                            >
+                                <template>
+                                    <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>
+                                </template>
+
+                                <v-card class="elevation-2">
+                                    <v-card-text class="text--primary">
+                                        {{ note.content }}
+                                    </v-card-text>
+
+                                    <v-card-actions class="text--secondary">
+                                        <v-spacer></v-spacer>
+                                        {{ note.created_at }}
+                                    </v-card-actions>
+                                </v-card>
+                            </v-timeline-item>
+                        </v-timeline>
+                    </v-card-text>
+                </v-card>
+            </v-col>
         </v-row>
+
+        <v-progress-circular v-else
+                             class="mx-auto my-auto"
+                             :size="80"
+                             indeterminate
+                             color="primary"
+        ></v-progress-circular>
     </v-container>
 </template>
 
@@ -106,34 +150,16 @@
             ticket: [],
             panels: [],
             loading: true,
+            userEdit: false,
+            deviceEdit: false,
         }),
         methods: {
             async fetchData() {
                 this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
                     this.ticket = response.data.data.ticket;
                     this.loading = false;
-                    this.loadPanels();
                 });
             },
-
-            async loadPanels() {
-                this.panels.push(
-                    {
-                        title: 'Klient: ', titleValue: this.ticket.client.name, details: [
-                            {label: 'Adres: ', value: this.ticket.client.address},
-                            {label: 'Email: ', value: this.ticket.client.email, type: 'mailto:'},
-                            {label: 'Numer telefonu: ', value: this.ticket.client.phone_number, type: 'tel:'},
-                            {label: 'Opis: ', value: this.ticket.client.description},
-                        ]
-                    },
-                    {
-                        title: 'Urządzenie: : ', titleValue: this.ticket.device.name, details: [
-                            {label: 'Numer seryjny: ', value: this.ticket.device.serial_number},
-                            {label: 'Opis: ', value: this.ticket.device.description},
-                        ]
-                    }
-                )
-            }
         },
         created() {
             this.fetchData()
@@ -142,5 +168,4 @@
 </script>
 
 <style>
-
 </style>

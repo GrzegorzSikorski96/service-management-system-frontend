@@ -3,7 +3,7 @@
         <v-card
                 raised
                 shaped
-                class="mx-auto col-8"
+                class="mx-auto col-12"
         >
             <v-card-title>
                 Klienci

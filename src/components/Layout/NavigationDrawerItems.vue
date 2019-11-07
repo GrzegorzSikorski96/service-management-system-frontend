@@ -3,7 +3,7 @@
         <span v-for="category in links" :key="category.name">
             <v-subheader class="mt-4 white--text font-weight-bold text--darken-1">{{category.name}}</v-subheader>
             <span v-for="link in category.links" :key="link.route">
-                <v-list-item v-if="checkPermitted(link)" ripple link :to="{name: link.route}" class="route"
+                <v-list-item v-if="checkPermitted(link)" ripple link :to="{name: link.route}" class="route" active-class="item-active"
                              exact>
                     <v-list-item-action>
                         <font-awesome-icon :icon="link.icon" size="lg"/>
@@ -67,5 +67,7 @@
 </script>
 
 <style scoped>
-
+    .item-active{
+        background-color: #48614b;
+    }
 </style>

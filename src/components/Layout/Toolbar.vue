@@ -2,10 +2,10 @@
     <v-app-bar
             app
             clipped-left
-            light
+            color="#f2cdba"
     >
         <slot></slot>
-        <v-toolbar-title>{{ applicationName }}</v-toolbar-title>
+        <v-toolbar-title class="toolbar">{{ applicationName }}</v-toolbar-title>
     </v-app-bar>
 </template>
 
@@ -19,5 +19,7 @@
 </script>
 
 <style scoped>
-
+    .toolbar {
+        color: #202338;
+    }
 </style>

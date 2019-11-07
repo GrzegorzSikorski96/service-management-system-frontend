@@ -5,6 +5,7 @@
                 app
                 clipped
                 dark
+                color="#202338"
         >
 
             <NavigationDrawerItems>
@@ -37,11 +38,9 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </Toolbar>
 
-        <v-content>
+        <v-content class="content">
             <router-view></router-view>
         </v-content>
-
-        <Footer></Footer>
 
     </v-app>
 </template>
@@ -50,10 +49,12 @@
     .route {
         text-decoration: none;
     }
+    .content{
+        background-color: #f5ebe1;
+    }
 </style>
 
 <script>
-    import Footer from "./components/Layout/Footer";
     import Toolbar from "./components/Layout/Toolbar";
     import NavigationDrawerItems from "./components/Layout/NavigationDrawerItems";
 
@@ -65,7 +66,6 @@
         components: {
             Toolbar,
             NavigationDrawerItems,
-            Footer,
         },
         methods: {
             logout() {

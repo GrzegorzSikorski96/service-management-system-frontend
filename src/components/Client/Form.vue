@@ -41,10 +41,10 @@
         name: 'Form',
         props: {
             client: {},
-            valid: {type: Boolean},
         },
         data: () => ({
             credentials: {},
+            valid: false,
             rules: {
                 client: {
                     description: [
@@ -67,7 +67,12 @@
         }),
         created() {
             this.credentials = JSON.parse(JSON.stringify(this.client))
-        }
+        },
+        watch: {
+            valid: function (value) {
+                this.$emit('valid', value)
+            },
+        },
     }
 </script>
 

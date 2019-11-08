@@ -12,7 +12,10 @@
 
             <v-col class="col-4">
                 <device-details :device="ticket.device" :loading="loading"></device-details>
-                <client-details :client="ticket.client" :loading="loading"></client-details>
+
+                <client-details v-if="!editClient" :client="ticket.client" :loading="loading"
+                                @editCard="clientEdit"></client-details>
+                <client-edit v-else :client="ticket.client" @editCard="clientEdit"></client-edit>
             </v-col>
 
             <v-col class="col-8">
@@ -31,11 +34,13 @@
     import ClientDetails from "../Client/Details";
     import Timeline from "../Timelines/Timeline";
     import Note from "../Timelines/Items/Note";
+    import ClientEdit from "../Client/Edit";
 
     export default {
         name: 'Ticket',
         data: () => ({
             ticket: [],
+            editClient: false,
             loading: true,
         }),
         components: {
@@ -43,13 +48,17 @@
             DeviceDetails,
             Timeline,
             Note,
+            ClientEdit,
         },
         methods: {
-            async fetchData() {
+            fetchData() {
                 this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
                     this.ticket = response.data.data.ticket;
                     this.loading = false;
                 });
+            },
+            clientEdit(value) {
+                this.editClient = value
             },
         },
         created() {
@@ -57,12 +66,12 @@
         },
         computed: {
             notesLength() {
-                if('notes' in this.ticket){
+                if ('notes' in this.ticket) {
                     return this.ticket.notes.length;
                 } else {
                     return 0;
                 }
-            }
+            },
         }
     }
 </script>

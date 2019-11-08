@@ -48,7 +48,7 @@
 
 <script>
     export default {
-        name: 'TicketCheckStatus',
+        name: 'CheckStatus',
         data: () => ({
             valid: false,
             token: '',

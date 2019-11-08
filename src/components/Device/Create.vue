@@ -46,7 +46,7 @@
 
 <script>
     export default {
-        name: 'DeviceCreate',
+        name: 'Create',
         data: () => ({
             valid: false,
             credentials: {

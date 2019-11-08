@@ -53,7 +53,7 @@
 
 <script>
     export default {
-        name: 'TicketsList',
+        name: 'List',
         data: () => ({
             search: '',
             tickets: [],

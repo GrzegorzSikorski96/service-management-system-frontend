@@ -78,7 +78,7 @@
 
 <script>
     export default {
-        name: 'TicketCreate',
+        name: 'Create',
         data: () => ({
             valid: false,
             credentials: {

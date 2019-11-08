@@ -7,11 +7,11 @@ import TicketCheckStatus from "./components/Ticket/TicketCheckStatus";
 import TicketsList from "./components/Ticket/TicketsList";
 import Ticket from "./components/Ticket/Ticket";
 import Device from "./components/Device/Device";
+import ClientCreate from "./components/Client/Create";
+import DeviceList from "./components/Device/List";
+import DeviceCreate from "./components/Device/Create";
 import Client from "./components/Client/Client";
-import ClientList from "./components/Client/ClientList";
-import ClientCreate from "./components/Client/ClientCreate";
-import DeviceList from "./components/Device/DeviceList";
-import DeviceCreate from "./components/Device/DeviceCreate";
+import ClientList from "./components/Client/List"
 
 Vue.use(Router);
 

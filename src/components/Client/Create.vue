@@ -57,7 +57,7 @@
 
 <script>
     export default {
-        name: 'ClientCreate',
+        name: 'Create',
         data: () => ({
             valid: false,
             credentials: {

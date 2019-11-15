@@ -1,16 +1,15 @@
 <template>
     <v-container fluid>
-
         <v-row class="col-12">
             <v-col class="col-12">
-                <v-card class="ma-3">
+                <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Informacje o zgłoszeniu: {{ ticket.token }}
                     </v-card-title>
                 </v-card>
             </v-col>
 
-            <v-col class="col-4">
+            <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <device-details :device="ticket.device" :loading="loading"></device-details>
 
                 <client-details v-if="!editClient" :client="ticket.client" :loading="loading"
@@ -18,14 +17,12 @@
                 <client-edit v-else :client="ticket.client" @editCard="clientEdit"></client-edit>
             </v-col>
 
-            <v-col class="col-8">
+            <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
                 <timeline :loading="loading" title="Notatki" :itemsCount="notesLength">
                     <note v-for="note in ticket.notes" :key="note.id" :note="note"></note>
                 </timeline>
             </v-col>
         </v-row>
-
-
     </v-container>
 </template>
 

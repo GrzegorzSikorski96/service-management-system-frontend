@@ -11,6 +11,7 @@
         </v-btn>
 
         <v-spacer></v-spacer>
+
         <span>Grzegorz <span class="font-weight-bold">Sikorski</span> &copy; 2019</span>
     </v-footer>
 </template>

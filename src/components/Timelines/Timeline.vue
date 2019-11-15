@@ -1,5 +1,5 @@
 <template>
-    <v-card class="ma-3 pa-1">
+    <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
             {{ title }}

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="ma-3 pa-1">
+    <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
                 Dane klienta
@@ -9,6 +9,7 @@
                 <v-btn icon @click="changeEditState" color="info">
                     <font-awesome-icon icon="user-edit" size="lg"/>
                 </v-btn>
+
                 <v-btn v-if="!checkRoute" icon :to="{name: 'Client', params: { id: client.id,}}">
                     <font-awesome-icon icon="external-link-alt" size="lg"/>
                 </v-btn>

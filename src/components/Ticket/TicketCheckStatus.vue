@@ -40,7 +40,6 @@
                         Sprawdź status
                     </v-btn>
                 </v-card-actions>
-
             </v-card>
         </v-row>
     </v-container>

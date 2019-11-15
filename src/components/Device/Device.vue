@@ -1,63 +1,33 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <v-col class="col-12">
-                <v-card class="ma-3">
-                    <v-card-title>
-                        Informacje o urządzeniu: {{ device.name }}
-                    </v-card-title>
-                </v-card>
-            </v-col>
-
-            <v-col class="col-4">
-                <device-details :device="device" :loading="loading"></device-details>
-            </v-col>
-
-            <v-col class="col-8">
-                <timeline :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
-                    <ticket v-for="ticket in device.tickets" :key="ticket.id" :ticket="ticket"></ticket>
-                </timeline>
-            </v-col>
-        </v-row>
-    </v-container>
+    <span>
+        <device-details v-if="!editDevice" :device="device" :loading="loading"
+                        @editCard="deviceEdit"></device-details>
+        <device-edit v-else :device="device" @editCard="deviceEdit"></device-edit>
+    </span>
 </template>
 
 <script>
     import DeviceDetails from "./Details";
-    import Timeline from "../Timelines/Timeline";
-    import Ticket from "../Timelines/Items/Ticket";
+    import DeviceEdit from "./Edit";
 
     export default {
         name: 'Device',
         data: () => ({
-            device: {},
-            loading: true,
+            editDevice: false,
         }),
+        props: {
+            device: {},
+            loading: {},
+        },
         components: {
             DeviceDetails,
-            Timeline,
-            Ticket,
+            DeviceEdit,
         },
         methods: {
-            async fetchDevice() {
-                this.$http.get(`/api/device/${this.$route.params.id}`).then((response) => {
-                    this.device = response.data.data.device;
-                    this.loading = false;
-                });
+            deviceEdit(value) {
+                this.editDevice = value
             },
         },
-        created() {
-            this.fetchDevice()
-        },
-        computed: {
-            ticketsLength() {
-                if ('tickets' in this.device) {
-                    return this.device.tickets.length;
-                } else {
-                    return 0;
-                }
-            }
-        }
     }
 </script>
 

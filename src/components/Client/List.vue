@@ -36,7 +36,7 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'Client', params: { id: item.id,}}"
+                    <v-btn text icon color="info" :to="{name: 'ClientSummary', params: { id: item.id, client: item}}"
                            elevation="2">
                         <v-icon>keyboard_arrow_right</v-icon>
                     </v-btn>
@@ -48,7 +48,7 @@
 
 <script>
     export default {
-        name: 'List',
+        name: 'ClientList',
         loading: true,
         data: () => ({
             search: '',

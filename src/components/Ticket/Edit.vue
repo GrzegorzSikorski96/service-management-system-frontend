@@ -2,11 +2,11 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
-                Edycja klienta
+                Edycja Zgłoszenia
 
                 <v-spacer></v-spacer>
 
-                <v-btn color="green" :disabled="!valid" icon @click="updateClient">
+                <v-btn color="green" :disabled="!valid" icon @click="updateTicket">
                     <font-awesome-icon icon="save" size="lg"/>
                 </v-btn>
 
@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <client-form :client="client" ref="editForm" @valid="checkValid"></client-form>
+                <ticket-form :ticket="ticket" ref="editForm" @valid="checkValid"></ticket-form>
             </v-card-text>
         </span>
 
@@ -30,25 +30,25 @@
 </template>
 
 <script>
-    import ClientForm from "./Form";
+    import TicketForm from "./Form";
 
     export default {
-        name: 'ClientEdit',
+        name: 'TicketEdit',
         data: () => ({
             valid: false,
         }),
         props: {
-            client: {},
+            ticket: {},
             loading: {},
         },
         components: {
-            ClientForm
+            TicketForm
         },
         methods: {
-            async updateClient() {
-                this.$http.put('/api/client', this.$refs.editForm.credentials)
+            async updateTicket() {
+                this.$http.put('/api/ticket', this.$refs.editForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Zedytowano Klienta', {
+                        this.$toasted.show('Zedytowano zgłoszenie', {
                             type: 'success'
                         });
                     })
@@ -65,16 +65,8 @@
                 this.valid = value
             }
         },
-        computed: {
-            checkRoute() {
-                return this.$router.currentRoute.name === 'Client'
-            },
-        },
     }
 </script>
 
 <style>
-    a {
-        text-decoration: none;
-    }
 </style>

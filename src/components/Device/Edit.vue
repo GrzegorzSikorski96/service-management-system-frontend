@@ -2,11 +2,11 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
-                Edycja klienta
+                Edycja urządzenia
 
                 <v-spacer></v-spacer>
 
-                <v-btn color="green" :disabled="!valid" icon @click="updateClient">
+                <v-btn color="green" :disabled="!valid" icon @click="updateDevice">
                     <font-awesome-icon icon="save" size="lg"/>
                 </v-btn>
 
@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <client-form :client="client" ref="editForm" @valid="checkValid"></client-form>
+                <device-form :device="device" ref="editForm" @valid="checkValid"></device-form>
             </v-card-text>
         </span>
 
@@ -30,25 +30,25 @@
 </template>
 
 <script>
-    import ClientForm from "./Form";
+    import DeviceForm from "./Form";
 
     export default {
-        name: 'ClientEdit',
+        name: 'Edit',
         data: () => ({
             valid: false,
         }),
         props: {
-            client: {},
+            device: {},
             loading: {},
         },
         components: {
-            ClientForm
+            DeviceForm
         },
         methods: {
-            async updateClient() {
-                this.$http.put('/api/client', this.$refs.editForm.credentials)
+            async updateDevice() {
+                this.$http.put('/api/device', this.$refs.editForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Zedytowano Klienta', {
+                        this.$toasted.show('Zedytowano Urządzenie', {
                             type: 'success'
                         });
                     })
@@ -67,7 +67,7 @@
         },
         computed: {
             checkRoute() {
-                return this.$router.currentRoute.name === 'Client'
+                return this.$router.currentRoute.name === 'Device'
             },
         },
     }

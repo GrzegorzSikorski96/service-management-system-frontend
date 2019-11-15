@@ -4,7 +4,7 @@
             icon="assignment"
     >
         <template>
-            <router-link :to="{name: 'Ticket', params: { id: ticket.id }}"
+            <router-link :to="{name: 'TicketSummary', params: { id: ticket.id }}"
                          class="route">
                 <span class="font-weight-bold text--primary">Numer zgłoszenia: </span>
                 {{ ticket.token }}

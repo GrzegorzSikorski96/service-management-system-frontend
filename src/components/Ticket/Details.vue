@@ -2,7 +2,7 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
-                Dane klienta
+                Dane zgłoszenia
 
                 <v-spacer></v-spacer>
 
@@ -10,47 +10,37 @@
                     <font-awesome-icon icon="user-edit" size="lg"/>
                 </v-btn>
 
-                <v-btn v-if="!checkRoute" icon :to="{name: 'ClientSummary', params: { id: client.id,}}">
+                <v-btn v-if="!checkRoute" icon :to="{name: 'TicketSummary', params: { id: ticket.id,}}">
                     <font-awesome-icon icon="external-link-alt" size="lg"/>
                 </v-btn>
             </v-card-title>
 
             <v-card-text>
                 <span class="font-weight-bold">
-                    Nazwa:
+                    Numer:
                 </span>
-                {{ client.name }}
+                {{ ticket.token }}
 
                 <br>
 
-                <span class="font-weight-bold">
-                                Adres:
-                            </span>
-                {{ client.address }}
-
-                <br>
-
-                <span class="font-weight-bold">
-                                Email:
-                            </span>
-                <a :href="'mailto:'+client.email">
-                    {{ client.email }}
-                </a>
-
-                <br>
-
-                <span class="font-weight-bold">
-                                Numer telefonu:
-                            </span>
-                <a :href="'tel:'+client.phone_number">
-                    {{ client.phone_number }}
-                </a>
-
-                <br>
                 <span class="font-weight-bold">
                                 Opis:
                             </span>
-                {{ client.description }}
+                {{ ticket.description }}
+
+                <br>
+
+                <span class="font-weight-bold">
+                                Dodatkowe informacje:
+                            </span>
+                {{ ticket.additional_information }}
+
+                <br>
+
+                <span class="font-weight-bold">
+                                Wiadomość zwrotna:
+                            </span>
+                {{ ticket.message }}
             </v-card-text>
         </span>
 
@@ -65,9 +55,9 @@
 
 <script>
     export default {
-        name: 'ClientDetails',
+        name: 'TicketDetails',
         props: {
-            client: {},
+            ticket: {},
             loading: {},
         },
         methods: {
@@ -77,7 +67,7 @@
         },
         computed: {
             checkRoute() {
-                return this.$router.currentRoute.name === 'ClientSummary'
+                return this.$router.currentRoute.name === 'TicketSummary'
             }
         },
     }

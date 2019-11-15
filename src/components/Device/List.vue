@@ -1,9 +1,8 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid>
         <v-card
                 raised
-                shaped
-                class="mx-auto col-10"
+                class="mx-auto"
         >
             <v-card-title>
                 Urządzenia
@@ -24,7 +23,7 @@
                     :loading="loading"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'Device', params: { id: item.id }}"
+                    <v-btn text icon color="info" :to="{name: 'DeviceSummary', params: { id: item.id, device: item }}"
                            elevation="2">
                         <v-icon>keyboard_arrow_right</v-icon>
                     </v-btn>

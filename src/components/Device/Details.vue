@@ -1,15 +1,16 @@
 <template>
-    <v-card class="ma-3 pa-1">
+    <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
                 Dane urządzenia
                 <v-spacer>
                 </v-spacer>
 
-                <v-btn icon>
-                    <font-awesome-icon icon="user-edit" size="lg"/>
+                <v-btn icon @click="changeEditState" color="info">
+                    <font-awesome-icon icon="pen" size="lg"/>
                 </v-btn>
-                <v-btn v-if="!checkRoute" icon :to="{name: 'Device', params: { id: device.id,}}">
+
+                <v-btn v-if="!checkRoute" icon :to="{name: 'DeviceSummary', params: { id: device.id,}}">
                     <font-awesome-icon icon="external-link-alt" size="lg"/>
                 </v-btn>
             </v-card-title>
@@ -48,16 +49,18 @@
 <script>
     export default {
         name: 'Details',
-        data: () => ({
-            channel: {},
-        }),
         props: {
             device: {},
             loading: {},
         },
+        methods: {
+            changeEditState() {
+                this.$emit('editCard', true)
+            }
+        },
         computed: {
             checkRoute() {
-                return this.$router.currentRoute.name === 'Device'
+                return this.$router.currentRoute.name === 'DeviceSummary'
             }
         },
     }

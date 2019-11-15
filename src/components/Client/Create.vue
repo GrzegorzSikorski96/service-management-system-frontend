@@ -1,94 +1,52 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid>
         <v-row>
-            <v-card
-                    class="col-8 mx-auto"
-                    raised
-                    shaped
-            >
-                <v-card-text>
-                    <p class="display-1 text--primary">Tworzenie klienta</p>
-                    <v-form v-model="valid">
-                        <v-text-field
-                                v-model="credentials.name"
-                                :rules="rules.client.name"
-                                label="Nazwa klienta"
-                                required
-                        ></v-text-field>
+            <v-col class="col-12">
+                <v-card class="ma-3" :elevation="5">
+                    <v-card-title>
+                        Tworzenie klienta
+                    </v-card-title>
+                </v-card>
+            </v-col>
 
-                        <v-text-field
-                                v-model="credentials.address"
-                                label="Adres"
-                                required
-                        ></v-text-field>
+            <v-col class="col-12">
+                <v-card class="ma-3" :elevation="5">
+                    <v-card-text>
+                        <client-form ref="createForm" @valid="checkValid"></client-form>
+                    </v-card-text>
 
-                        <v-text-field
-                                v-model="credentials.phone_number"
-                                label="Numer telefonu"
-                                required
-                        ></v-text-field>
-
-                        <v-text-field
-                                v-model="credentials.email"
-                                label="Email"
-                                required
-                        ></v-text-field>
-
-                        <v-textarea
-                                v-model="credentials.description"
-                                label="Opis"
-                        ></v-textarea>
-                    </v-form>
-                </v-card-text>
-                <v-card-actions>
-                    <v-btn
-                            text
-                            class="mx-auto font-weight-bold"
-                            @click="createClient"
-                            :disabled="!valid"
-                    >
-                        Dodaj klienta
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+                    <v-card-actions>
+                        <v-btn
+                                text
+                                class="mx-auto font-weight-bold"
+                                @click="createClient"
+                                :disabled="!valid"
+                        >
+                            Dodaj klienta
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+    import ClientForm from "./Form"
+
     export default {
-        name: 'Create',
+        name: 'ClientCreate',
         data: () => ({
             valid: false,
-            credentials: {
-                description: '',
-                phone_number: '',
-                name: '',
-                email: '',
-                address: '',
-            },
-            rules: {
-                client: {
-                    description: [
-                        v => !!v || 'Opis jest wymagany.',
-                    ],
-                    name: [
-                        v => !!v || 'Nazwa jest wymagana.',
-                    ],
-                    phone_number: [
-                        v => !!v || 'Numer telefonu jest wymagany.',
-                    ],
-                    email: [
-                        v => /.+@.+/.test(v) || 'Wprowawdź prawidłowy adres E-mail',
-                    ],
-                }
-            },
         }),
+        components: {
+            ClientForm
+        },
         methods: {
             async createClient() {
-                this.$http.post('/api/client', this.credentials)
+                this.$http.post('/api/client', this.$refs.createForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Utworzono Klienta', {
+                        this.$toasted.show('Utworzono zgłoszenie', {
                             type: 'success'
                         });
                     })
@@ -97,6 +55,9 @@
                             type: 'error'
                         });
                     })
+            },
+            checkValid(value) {
+                this.valid = value
             }
         },
     }

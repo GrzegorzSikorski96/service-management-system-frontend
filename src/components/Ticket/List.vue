@@ -23,13 +23,13 @@
                     :loading="!loading"
             >
                 <template v-slot:item.client.name="{ item }">
-                    <router-link :to="{name: 'Client', params: { id: item.id }}" class="route">
+                    <router-link :to="{name: 'ClientSummary', params: { id: item.id }}" class="route">
                         {{ item.client.name }}
                     </router-link>
                 </template>
 
                 <template v-slot:item.device.name="{ item }">
-                    <router-link text :to="{name: 'Device', params: { id: item.id }}" class="route">
+                    <router-link text :to="{name: 'DeviceSummary', params: { id: item.id }}" class="route">
                         {{ item.device.name }}
                     </router-link>
                 </template>
@@ -41,7 +41,7 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'Ticket', params: { id: item.id }}"
+                    <v-btn text icon color="info" :to="{name: 'TicketSummary', params: { id: item.id }}"
                            elevation="2">
                         <v-icon>keyboard_arrow_right</v-icon>
                     </v-btn>

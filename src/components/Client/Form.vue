@@ -24,7 +24,7 @@
 
         <v-text-field
                 v-model="credentials.email"
-                :rules="rules.client.phone_number"
+                :rules="rules.client.email"
                 label="Email"
                 required
         ></v-text-field>
@@ -38,7 +38,7 @@
 
 <script>
     export default {
-        name: 'Form',
+        name: 'ClientForm',
         props: {
             client: {},
         },
@@ -65,8 +65,15 @@
                 }
             },
         }),
+        methods:{
+            parseFormData(){
+                if(this.client){
+                    this.credentials = JSON.parse(JSON.stringify(this.client))
+                }
+            }
+        },
         created() {
-            this.credentials = JSON.parse(JSON.stringify(this.client))
+            this.parseFormData()
         },
         watch: {
             valid: function (value) {

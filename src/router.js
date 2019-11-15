@@ -2,16 +2,16 @@ import Vue from "vue"
 import Router from "vue-router"
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
-import TicketCreate from "./components/Ticket/TicketCreate";
-import TicketCheckStatus from "./components/Ticket/TicketCheckStatus";
-import TicketsList from "./components/Ticket/TicketsList";
-import Ticket from "./components/Ticket/Ticket";
-import Device from "./components/Device/Device";
+import TicketCreate from "./components/Ticket/Create";
+import TicketCheckStatus from "./components/Ticket/CheckStatus";
+import TicketsList from "./components/Ticket/List";
+import TicketSummary from "./components/Ticket/Summary";
+import DeviceSummary from "./components/Device/Summary";
 import ClientCreate from "./components/Client/Create";
 import DeviceList from "./components/Device/List";
 import DeviceCreate from "./components/Device/Create";
-import Client from "./components/Client/Client";
 import ClientList from "./components/Client/List"
+import ClientSummary from "./components/Client/Summary";
 
 Vue.use(Router);
 
@@ -55,17 +55,25 @@ export default new Router({
         },
         {
             path: '/ticket/:id',
-            name: 'Ticket',
-            component: Ticket,
+            name: 'TicketSummary',
+            component: TicketSummary,
             props: true,
             meta: {
                 roles: ['administrator', 'manager', 'serviceman'],
             },
         },
         {
+            path: '/client/create',
+            name: 'ClientCreate',
+            component: ClientCreate,
+            meta: {
+                roles: ['administrator', 'manager', 'serviceman'],
+            },
+        },
+        {
             path: '/client/:id',
-            name: 'Client',
-            component: Client,
+            name: 'ClientSummary',
+            component: ClientSummary,
             props: true,
             meta: {
                 roles: ['administrator', 'manager', 'serviceman'],
@@ -75,14 +83,6 @@ export default new Router({
             path: '/clients',
             name: 'ClientList',
             component: ClientList,
-            meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
-            },
-        },
-        {
-            path: '/client/create',
-            name: 'ClientCreate',
-            component: ClientCreate,
             meta: {
                 roles: ['administrator', 'manager', 'serviceman'],
             },
@@ -105,8 +105,8 @@ export default new Router({
         },
         {
             path: '/device/:id',
-            name: 'Device',
-            component: Device,
+            name: 'DeviceSummary',
+            component: DeviceSummary,
             props: true,
             meta: {
                 roles: ['administrator', 'manager', 'serviceman'],

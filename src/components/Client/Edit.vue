@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import ClientForm from "./Form";
+    import ClientForm from "./Forms/Form";
 
     export default {
         name: 'ClientEdit',

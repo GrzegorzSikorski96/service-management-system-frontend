@@ -1,16 +1,16 @@
 <template>
     <v-form v-model="valid">
         <v-text-field
-                v-model="credentials.name"
-                :rules="rules.device.name"
-                label="Nazwa urządzenia"
+                v-model="credentials.serial_number"
+                :rules="rules.device.serial_number"
+                label="Numer seryjny"
                 required
         ></v-text-field>
 
         <v-text-field
-                v-model="credentials.serial_number"
-                :rules="rules.device.serial_number"
-                label="Numer seryjny"
+                v-model="credentials.name"
+                :rules="rules.device.name"
+                label="Nazwa urządzenia"
                 required
         ></v-text-field>
 

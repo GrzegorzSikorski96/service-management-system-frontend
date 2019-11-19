@@ -1,35 +1,45 @@
 <template>
     <v-container fluid>
-        <v-card
-                raised
-                class="mx-auto"
-        >
-            <v-card-title>
-                Urządzenia
-                <v-spacer></v-spacer>
-                <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Szukaj"
-                        single-line
-                        hide-details
-                ></v-text-field>
-            </v-card-title>
+        <v-row>
+            <v-col class="col-12">
+                <v-card class="ma-3" :elevation="5">
+                    <v-card-title>
+                        Urządzenia
+                    </v-card-title>
+                </v-card>
+            </v-col>
 
-            <v-data-table
-                    :headers="headers"
-                    :items="devices"
-                    :search="search"
-                    :loading="loading"
-            >
-                <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'DeviceSummary', params: { id: item.id, device: item }}"
-                           elevation="2">
-                        <v-icon>keyboard_arrow_right</v-icon>
-                    </v-btn>
-                </template>
-            </v-data-table>
-        </v-card>
+            <v-col class="col-12">
+                <v-card
+                        elevation="5"
+                        class="ma-3"
+                >
+                    <v-card-title>
+                        <v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Szukaj"
+                                single-line
+                                hide-details
+                        ></v-text-field>
+                    </v-card-title>
+
+                    <v-data-table
+                            :headers="headers"
+                            :items="devices"
+                            :search="search"
+                            :loading="loading"
+                    >
+                        <template v-slot:item.actions="{ item }">
+                            <v-btn text icon color="info" :to="{name: 'DeviceSummary', params: { id: item.id, device: item }}"
+                                   elevation="2">
+                                <v-icon>keyboard_arrow_right</v-icon>
+                            </v-btn>
+                        </template>
+                    </v-data-table>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 

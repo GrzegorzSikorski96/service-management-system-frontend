@@ -1,48 +1,57 @@
 <template>
-    <v-container fluid fill-height>
-        <v-card
-                raised
-                shaped
-                class="mx-auto col-12"
-        >
-            <v-card-title>
-                Klienci
-                <v-spacer></v-spacer>
-                <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Szukaj"
-                        single-line
-                        hide-details
-                ></v-text-field>
-            </v-card-title>
+    <v-container fluid>
+        <v-row>
+            <v-col class="col-12">
+                <v-card class="ma-3" :elevation="5">
+                    <v-card-title>
+                       Klienci
+                    </v-card-title>
+                </v-card>
+            </v-col>
 
-            <v-data-table
-                    :headers="headers"
-                    :items="clients"
-                    :search="search"
-                    :loading="loading"
-            >
-                <template v-slot:item.email="{ item }">
-                    <a :href="'mailto:' + item.email" class="route">
-                        {{ item.email }}
-                    </a>
-                </template>
+            <v-col class="col-12">
+                <v-card
+                        class="ma-3"
+                        elevation="5"
+                >
+                    <v-card-title>
+                        <v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                        ></v-text-field>
+                    </v-card-title>
 
-                <template v-slot:item.phone_number="{ item }">
-                    <a :href="'tel:'+item.phone_number" class="route">
-                        {{ item.phone_number }}
-                    </a>
-                </template>
+                    <v-data-table
+                            :headers="headers"
+                            :items="clients"
+                            :search="search"
+                            :loading="loading"
+                    >
+                        <template v-slot:item.email="{ item }">
+                            <a :href="'mailto:' + item.email" class="route">
+                                {{ item.email }}
+                            </a>
+                        </template>
 
-                <template v-slot:item.actions="{ item }">
-                    <v-btn text icon color="info" :to="{name: 'ClientSummary', params: { id: item.id, client: item}}"
-                           elevation="2">
-                        <v-icon>keyboard_arrow_right</v-icon>
-                    </v-btn>
-                </template>
-            </v-data-table>
-        </v-card>
+                        <template v-slot:item.phone_number="{ item }">
+                            <a :href="'tel:'+item.phone_number" class="route">
+                                {{ item.phone_number }}
+                            </a>
+                        </template>
+
+                        <template v-slot:item.actions="{ item }">
+                            <v-btn text icon color="info" :to="{name: 'ClientSummary', params: { id: item.id, client: item}}"
+                                   elevation="2">
+                                <v-icon>keyboard_arrow_right</v-icon>
+                            </v-btn>
+                        </template>
+                    </v-data-table>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 

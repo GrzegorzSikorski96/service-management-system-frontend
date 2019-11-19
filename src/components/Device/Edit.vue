@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import DeviceForm from "./Form";
+    import DeviceForm from "./Forms/Form";
 
     export default {
         name: 'Edit',

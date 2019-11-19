@@ -42,7 +42,7 @@ export default new Router({
             name: 'TicketCreate',
             component: TicketCreate,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -50,7 +50,7 @@ export default new Router({
             name: 'TicketsList',
             component: TicketsList,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -59,7 +59,7 @@ export default new Router({
             component: TicketSummary,
             props: true,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -67,7 +67,7 @@ export default new Router({
             name: 'ClientCreate',
             component: ClientCreate,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -76,7 +76,7 @@ export default new Router({
             component: ClientSummary,
             props: true,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -84,7 +84,7 @@ export default new Router({
             name: 'ClientList',
             component: ClientList,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -92,7 +92,7 @@ export default new Router({
             name: 'DeviceList',
             component: DeviceList,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -100,7 +100,7 @@ export default new Router({
             name: 'DeviceCreate',
             component: DeviceCreate,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -109,7 +109,7 @@ export default new Router({
             component: DeviceSummary,
             props: true,
             meta: {
-                roles: ['administrator', 'manager', 'serviceman'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
     ]

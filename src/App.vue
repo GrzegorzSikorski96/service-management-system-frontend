@@ -8,6 +8,17 @@
                 color="#202338"
         >
 
+            <v-list-item v-if="currentUser">
+                <v-list-item-content>
+                    <v-list-item-title class="title">
+                        {{ currentUser.name }} {{ currentUser.surname }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                        {{ currentUser.role.name }}
+                    </v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+
             <NavigationDrawerItems>
             </NavigationDrawerItems>
 

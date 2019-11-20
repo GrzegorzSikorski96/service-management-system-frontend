@@ -12,6 +12,9 @@ import DeviceList from "./components/Device/List";
 import DeviceCreate from "./components/Device/Create";
 import ClientList from "./components/Client/List"
 import ClientSummary from "./components/Client/Summary";
+import UserSummary from "./components/User/Summary"
+import UserCreate from "./components/User/Create"
+import UsersList from "./components/User/List"
 
 Vue.use(Router);
 
@@ -110,6 +113,31 @@ export default new Router({
             props: true,
             meta: {
                 roles: ['administrator', 'manager', 'serwisant'],
+            },
+        },
+        {
+            path: '/users',
+            name: 'UsersList',
+            component: UsersList,
+            meta: {
+                roles: ['administrator', 'manager'],
+            },
+        },
+        {
+            path: '/user/create',
+            name: 'UserCreate',
+            component: UserCreate,
+            meta: {
+                roles: ['administrator', 'manager'],
+            },
+        },
+        {
+            path: '/user/:id',
+            name: 'UserSummary',
+            component: UserSummary,
+            props: true,
+            meta: {
+                roles: ['administrator', 'manager'],
             },
         },
     ]

@@ -22,7 +22,7 @@ Vue.use(Toasted, {
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
-axios.defaults.baseURL = "http://sms.test/";
+axios.defaults.baseURL = "http://sms.test";
 
 initialize(store, router);
 

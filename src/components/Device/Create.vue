@@ -16,6 +16,8 @@
                             centered
                             grow
                             icons-and-text
+                            color="#202338"
+                            background-color="transparent"
                     >
                         <v-tabs-slider></v-tabs-slider>
 

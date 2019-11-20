@@ -13,38 +13,39 @@
                 required
         ></v-text-field>
 
-        <v-autocomplete
-                :items="clients"
-                :rules="rules.ticket.client_id"
-                v-model="credentials.client_id"
-                label="Klient"
-                item-text="clientString"
-                item-value="id"
-        >
-            <template v-slot:item="data">
-                <v-list-item-content>
-                    <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ data.item.address }}</v-list-item-subtitle>
-                </v-list-item-content>
-            </template>
-        </v-autocomplete>
+        <template v-if="!edit">
+            <v-autocomplete
+                    :items="clients"
+                    :rules="rules.ticket.client_id"
+                    v-model="credentials.client_id"
+                    label="Klient"
+                    item-text="clientString"
+                    item-value="id"
+            >
+                <template v-slot:item="data">
+                    <v-list-item-content>
+                        <v-list-item-title>{{ data.item.name }}</v-list-item-title>
+                        <v-list-item-subtitle>{{ data.item.address }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                </template>
+            </v-autocomplete>
 
-        <v-autocomplete
-                :items="devices"
-                :rules="rules.ticket.device_id"
-                v-model="credentials.device_id"
-                label="Urządzenie"
-                item-text="deviceString"
-                item-value="id"
-        >
-            <template v-slot:item="data">
-                <v-list-item-content>
-                    <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ data.item.serial_number }}</v-list-item-subtitle>
-                </v-list-item-content>
-            </template>
-        </v-autocomplete>
-
+            <v-autocomplete
+                    :items="devices"
+                    :rules="rules.ticket.device_id"
+                    v-model="credentials.device_id"
+                    label="Urządzenie"
+                    item-text="deviceString"
+                    item-value="id"
+            >
+                <template v-slot:item="data">
+                    <v-list-item-content>
+                        <v-list-item-title>{{ data.item.name }}</v-list-item-title>
+                        <v-list-item-subtitle>{{ data.item.serial_number }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                </template>
+            </v-autocomplete>
+        </template>
         <v-select
                 :items="ticketStatuses"
                 :rules="rules.ticket.ticket_status_id"
@@ -61,6 +62,7 @@
         name: 'TicketForm',
         props: {
             ticket: {},
+            edit: {},
         },
         data: () => ({
             credentials: {},

@@ -49,6 +49,12 @@
                         {route: 'DeviceList', label: 'Lista urządzeń', icon: 'laptop',},
                         {route: 'DeviceCreate', label: 'Dodaj urządzenie', icon: 'laptop-medical',},
                     ]
+                },
+                {
+                    name: 'Użytkownicy', available: 0, links: [
+                        {route: 'UsersList', label: 'Lista użytkowników', icon: 'users',},
+                        {route: 'UserCreate', label: 'Dodaj użytkownika', icon: 'user-plus',},
+                    ]
                 }
             ]
         }),

@@ -8,8 +8,6 @@ export function login(credentials) {
                 setAuthorization(response.data.data.token);
                 res(response.data);
             })
-            .catch(() => {
-            })
     })
 }
 

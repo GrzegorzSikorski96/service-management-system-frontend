@@ -17,7 +17,13 @@
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
                 <timeline :loading="loading" title="Notatki" :itemsCount="notesLength">
-                    <note v-for="note in ticket.notes" :key="note.id" :note="note"></note>
+
+                    <template v-slot:createForm>
+                        <notes-create :ticket_id="ticket.id"></notes-create>
+                    </template>
+
+                    <note v-for="note in ticket.notes" :key="note.id"
+                          :note="note"></note>
                 </timeline>
             </v-col>
         </v-row>
@@ -30,6 +36,7 @@
     import Note from "../Timelines/Items/Note";
     import Client from "../Client/Client";
     import Ticket from "../Ticket/Ticket"
+    import NotesCreate from "../Notes/Create"
 
     export default {
         name: 'TicketSummary',
@@ -37,27 +44,43 @@
             ticket: [],
             editTicket: false,
             loading: true,
+            note: {
+                credentials: {},
+            }
         }),
         components: {
             Device,
             Client,
             Timeline,
             Note,
-            Ticket
+            Ticket,
+            NotesCreate,
         },
         methods: {
             fetchData() {
                 this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
                     this.ticket = response.data.data.ticket;
                     this.loading = false;
+                    this.loadDefault();
                 });
             },
             ticketEdit(value) {
                 this.editTicket = value
             },
+            async addNote() {
+                this.$http.post('/api/note', this.note.credentials)
+                    .then(() => {
+                        this.$toasted.show('Utworzono notatkę', {
+                            type: 'success'
+                        });
+                    })
+            },
+            loadDefault() {
+                this.note.credentials.ticket_id = this.ticket.id
+            },
         },
         created() {
-            this.fetchData()
+            this.fetchData();
         },
         computed: {
             notesLength() {

@@ -14,62 +14,43 @@
         ></v-text-field>
 
         <template v-if="!edit">
-            <v-autocomplete
-                    :items="clients"
-                    :rules="rules.ticket.client_id"
-                    v-model="credentials.client_id"
-                    label="Klient"
-                    item-text="clientString"
-                    item-value="id"
-            >
-                <template v-slot:item="data">
-                    <v-list-item-content>
-                        <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                        <v-list-item-subtitle>{{ data.item.address }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                </template>
-            </v-autocomplete>
+            <agencies-autocomplete v-if="isAdmin()" v-model="agency_id"/>
 
-            <v-autocomplete
-                    :items="devices"
-                    :rules="rules.ticket.device_id"
-                    v-model="credentials.device_id"
-                    label="Urządzenie"
-                    item-text="deviceString"
-                    item-value="id"
-            >
-                <template v-slot:item="data">
-                    <v-list-item-content>
-                        <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                        <v-list-item-subtitle>{{ data.item.serial_number }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                </template>
-            </v-autocomplete>
+            <clients-autocomplete v-model="credentials.client_id" :agency_id="agency_id"/>
+
+            <devices-autocomplete v-model="credentials.device_id" :agency_id="agency_id"/>
         </template>
-        <v-select
-                :items="ticketStatuses"
-                :rules="rules.ticket.ticket_status_id"
-                label="Status zgłoszenia"
-                v-model="credentials.ticket_status_id"
-                item-text="name"
-                item-value="id"
-        ></v-select>
+
+        <ticket-statuses-select v-model="credentials.ticket_status_id"
+                                :ticket_status_id="credentials.ticket_status_id"/>
+
     </v-form>
 </template>
 
 <script>
+    import AgenciesAutocomplete from "../Forms/Autocomplete/Agencies";
+    import DevicesAutocomplete from "../Forms/Autocomplete/Devices";
+    import ClientsAutocomplete from "../Forms/Autocomplete/Clients";
+    import TicketStatusesSelect from "../Forms/Select/TicketStatuses";
+
     export default {
         name: 'TicketForm',
         props: {
             ticket: {},
             edit: {},
         },
+        components: {
+            AgenciesAutocomplete,
+            DevicesAutocomplete,
+            ClientsAutocomplete,
+            TicketStatusesSelect,
+        },
         data: () => ({
-            credentials: {},
-            clients: [],
-            devices: [],
-            ticketStatuses: [],
+            agency_id: null,
             valid: false,
+            credentials: {
+                description: '',
+            },
             rules: {
                 ticket: {
                     description: [
@@ -82,49 +63,17 @@
                         v => !!v || 'Urządzenie jest wymagane.',
                     ],
                     ticket_status_id: [
-                        v => !!v || 'Status zgłoszenia jest wymagany..',
+                        v => !!v || 'Status zgłoszenia jest wymagany.',
                     ],
                 }
             },
         }),
         methods: {
-            createClientsString() {
-                this.clients.forEach(function (value) {
-                    value['clientString'] = value.name + ' ' + value.address;
-                })
-            },
-            createDevicesString() {
-                this.devices.forEach(function (value) {
-                    value['deviceString'] = value.name + ' ' + value.serial_number;
-                })
-            },
-            async fetchClients() {
-                this.$http.get(`/api/clients`,).then((response) => {
-                    this.clients = response.data.data.clients;
-                    this.createClientsString()
-                });
-            },
-            async fetchDevices() {
-                this.$http.get(`/api/devices`).then((response) => {
-                    this.devices = response.data.data.devices;
-                    this.createDevicesString();
-                });
-            },
-            async fetchTicketStatuses() {
-                this.$http.get(`/api/ticketStatuses`).then((response) => {
-                    this.ticketStatuses = response.data.data.ticket_statuses;
-                });
-            },
             async createTicket() {
                 this.$http.post('/api/ticket', this.credentials)
                     .then(() => {
                         this.$toasted.show('Utworzono zgłoszenie', {
                             type: 'success'
-                        });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
                         });
                     })
             },
@@ -136,9 +85,6 @@
         },
         created() {
             this.parseFormData();
-            this.fetchClients();
-            this.fetchDevices();
-            this.fetchTicketStatuses();
         },
         watch: {
             valid: function (value) {

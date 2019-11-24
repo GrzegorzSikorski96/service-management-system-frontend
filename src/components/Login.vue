@@ -56,9 +56,6 @@
                         this.$store.commit('loginSuccess', res);
                         this.$router.push({path: '/'});
                     })
-                    .catch((error) => {
-                        this.$store.commit('loginFailed', {error});
-                    });
             },
         },
         data: () => ({

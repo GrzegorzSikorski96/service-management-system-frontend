@@ -19,29 +19,19 @@
                 label="Opis"
         ></v-textarea>
 
-        <v-autocomplete
-                v-if="isAdmin()"
-                :items="agencies"
-                :rules="rules.device.agency_id"
-                v-model="credentials.agency_id"
-                label="Oddział"
-                item-text="agencyString"
-                item-value="id"
-        >
-            <template v-slot:item="data">
-                <v-list-item-content>
-                    <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ data.item.address }}</v-list-item-subtitle>
-                </v-list-item-content>
-            </template>
-        </v-autocomplete>
+        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"></agencies-autocomplete>
 
     </v-form>
 </template>
 
 <script>
+    import AgenciesAutocomplete from "../../Forms/Autocomplete/Agencies";
+
     export default {
         name: 'DeviceForm',
+        components: {
+            AgenciesAutocomplete
+        },
         props: {
             device: {},
         },
@@ -65,9 +55,6 @@
                 if (this.device) {
                     this.credentials = JSON.parse(JSON.stringify(this.device))
                 }
-            },
-            isAdmin() {
-                return this.$store.state.currentUser.role.name === 'administrator';
             },
             createAgenciesString() {
                 this.agencies.forEach(function (value) {

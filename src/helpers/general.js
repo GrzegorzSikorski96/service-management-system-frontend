@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue'
 
 export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
@@ -22,12 +23,24 @@ export function initialize(store, router) {
 
     axios.interceptors.response.use(null, (error => {
         switch (error.response.status) {
+            case 400: {
+                Vue.toasted.show(error.response.data.message, {
+                    type: 'error'
+                });
+                break;
+            }
             case 401: {
+                Vue.toasted.show(error.response.data.message, {
+                    type: 'error'
+                });
                 store.commit('logout');
                 router.push('/login');
                 break;
             }
             case 404: {
+                Vue.toasted.show(error.response.data.message, {
+                    type: 'error'
+                });
                 router.push('/');
                 break;
             }

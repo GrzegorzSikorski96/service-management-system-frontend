@@ -22,6 +22,14 @@ Vue.use(Toasted, {
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
+Vue.mixin({
+    methods: {
+        isAdmin() {
+            return store.state.currentUser.role.name === 'administrator';
+        },
+    }
+});
+
 axios.defaults.baseURL = "http://sms.test";
 
 initialize(store, router);

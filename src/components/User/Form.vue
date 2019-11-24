@@ -132,9 +132,6 @@
                     this.credentials.agency_id = this.$store.state.currentUser.agency_id;
                 }
             },
-            isAdmin() {
-                return this.$store.state.currentUser.role.name === 'administrator';
-            },
         },
         created() {
             this.parseFormData();

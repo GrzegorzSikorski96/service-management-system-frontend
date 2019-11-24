@@ -6,6 +6,9 @@
         </v-card-title>
 
         <v-card-text>
+
+            <slot name="createForm"></slot>
+
             <v-timeline dense v-if="itemsCount">
                 <slot></slot>
             </v-timeline>

@@ -54,9 +54,6 @@
             checkValid(value) {
                 this.valid = value
             },
-            isAdmin() {
-                return this.$store.state.currentUser.role.name === 'administrator';
-            },
         },
     }
 </script>

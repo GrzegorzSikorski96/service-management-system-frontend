@@ -14,7 +14,6 @@
             </v-btn>
         </v-card-actions>
     </span>
-
 </template>
 
 <script>
@@ -34,11 +33,6 @@
                     .then(() => {
                         this.$toasted.show('Dodano klienta do oddziału', {
                             type: 'success'
-                        });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
                         });
                     })
             },

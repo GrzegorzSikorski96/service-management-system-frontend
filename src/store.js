@@ -44,14 +44,6 @@ export default new Vuex.Store({
                 type: 'success'
             });
         },
-        loginFailed(state, payload) {
-            state.loading = false;
-            state.auth_error = payload.error;
-
-            Vue.toasted.show('Błąd podczas logowania', {
-                type: 'error'
-            });
-        },
         logout(state) {
             localStorage.removeItem("user");
             state.isLoggedIn = false;

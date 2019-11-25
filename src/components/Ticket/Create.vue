@@ -1,27 +1,32 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid>
         <v-row>
-            <v-card
-                    class="col-8 mx-auto"
-                    raised
-                    shaped
-            >
-                <v-card-text>
-                    <p class="display-1 text--primary">Tworzenie zgłoszenia</p>
+            <v-col class="col-12">
+                <v-card class="ma-3" :elevation="5">
+                    <v-card-title>
+                        Tworzenie zgłoszenia
+                    </v-card-title>
+                </v-card>
+            </v-col>
 
-                    <ticket-form ref="createForm" @valid="checkValid"></ticket-form>
-                </v-card-text>
-                <v-card-actions>
-                    <v-btn
-                            text
-                            class="mx-auto font-weight-bold"
-                            @click="createTicket"
-                            :disabled="!valid"
-                    >
-                        Dodaj zgłoszenie
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+            <v-col class="col-12">
+                <v-card class="ma-3" elevation="5">
+                    <v-card-text>
+                        <ticket-form ref="createForm" @valid="checkValid"></ticket-form>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-btn
+                                text
+                                class="mx-auto font-weight-bold"
+                                @click="createTicket"
+                                :disabled="!valid"
+                        >
+                            Dodaj zgłoszenie
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
         </v-row>
     </v-container>
 </template>

@@ -5,6 +5,11 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Informacje o kliencie: {{ client.name }}
+
+                        <v-spacer></v-spacer>
+
+                        <client-management :client="client"/>
+
                     </v-card-title>
                 </v-card>
             </v-col>
@@ -26,6 +31,7 @@
     import Timeline from "../Timelines/Timeline";
     import Ticket from "../Timelines/Items/Ticket"
     import Client from "./Client";
+    import ClientManagement from "./Management/Management";
 
     export default {
         name: 'ClientSummary',
@@ -36,7 +42,8 @@
         components: {
             Timeline,
             Ticket,
-            Client
+            Client,
+            ClientManagement
         },
         methods: {
             async fetchClient() {

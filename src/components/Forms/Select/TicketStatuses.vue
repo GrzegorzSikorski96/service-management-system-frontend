@@ -32,7 +32,9 @@
             async fetchTicketStatuses() {
                 this.$http.get(`/api/ticketStatuses`).then((response) => {
                     this.ticketStatuses = response.data.data.ticket_statuses;
-                    this.setTicketStatusId(this.ticket_status_id);
+                    if (this.ticket_status_id) {
+                        this.setTicketStatusId(this.ticket_status_id);
+                    }
                 });
             },
             setTicketStatusId(value) {

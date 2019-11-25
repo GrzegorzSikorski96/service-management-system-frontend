@@ -38,6 +38,16 @@
                 <a :href="'tel:'+user.phone_number">
                     {{ user.phone_number }}
                 </a>
+
+                <span v-if="isAdmin()">
+                    <br>
+
+                    <span class="font-weight-bold">
+                        Rola użytkownika:
+                    </span>
+                    {{ user.role.name}}
+                </span>
+
             </v-card-text>
         </span>
 

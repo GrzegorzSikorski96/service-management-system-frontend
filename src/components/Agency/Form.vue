@@ -2,54 +2,39 @@
     <v-form v-model="valid">
         <v-text-field
                 v-model="credentials.name"
-                :rules="rules.client.name"
-                label="Nazwa klienta"
+                :rules="rules.agency.name"
+                label="Nazwa oddziału"
                 required
         ></v-text-field>
 
         <v-text-field
                 v-model="credentials.address"
-                :rules="rules.client.address"
+                :rules="rules.agency.address"
                 label="Adres"
                 required
-                aria-multiline="true"
         ></v-text-field>
 
         <v-text-field
                 v-model="credentials.phone_number"
-                :rules="rules.client.phone_number"
+                :rules="rules.agency.phone_number"
                 label="Numer telefonu"
                 required
         ></v-text-field>
 
-        <v-text-field
-                v-model="credentials.email"
-                :rules="rules.client.email"
-                label="Email"
-                required
-        ></v-text-field>
-
-        <v-textarea
-                v-model="credentials.description"
-                label="Opis"
-        ></v-textarea>
     </v-form>
 </template>
 
 <script>
     export default {
-        name: 'ClientForm',
+        name: 'AgencyForm',
         props: {
-            client: {},
+            agency: {},
         },
         data: () => ({
-            credentials: {},
             valid: false,
+            credentials: {},
             rules: {
-                client: {
-                    description: [
-                        v => !!v || 'Opis jest wymagany.',
-                    ],
+                agency: {
                     name: [
                         v => !!v || 'Nazwa jest wymagana.',
                     ],
@@ -59,18 +44,15 @@
                     phone_number: [
                         v => !!v || 'Numer telefonu jest wymagany.',
                     ],
-                    email: [
-                        v => /.+@.+/.test(v) || 'Wprowawdź prawidłowy adres E-mail',
-                    ],
                 }
             },
         }),
-        methods:{
-            parseFormData(){
-                if(this.client){
-                    this.credentials = JSON.parse(JSON.stringify(this.client))
+        methods: {
+            parseFormData() {
+                if (this.agency) {
+                    this.credentials = JSON.parse(JSON.stringify(this.agency))
                 }
-            },
+            }
         },
         created() {
             this.parseFormData();

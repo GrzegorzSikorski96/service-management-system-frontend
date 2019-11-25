@@ -60,8 +60,9 @@
     .route {
         text-decoration: none;
     }
-    .content{
-        background-color: #f5ebe1;
+
+    .content {
+        background-color: #eceff1;
     }
 </style>
 
@@ -84,10 +85,5 @@
                 this.$router.push('/login');
             },
         },
-        computed: {
-            currentUser() {
-                return this.$store.getters.currentUser;
-            },
-        }
     }
 </script>

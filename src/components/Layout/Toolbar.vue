@@ -3,11 +3,12 @@
             app
             dense
             clipped-left
-            color="#f2cdba"
+            dark
+            color="#60687b"
     >
         <slot></slot>
 
-        <v-toolbar-title class="toolbar">{{ applicationName }}</v-toolbar-title>
+        <v-toolbar-title>{{ applicationName }}</v-toolbar-title>
     </v-app-bar>
 </template>
 
@@ -21,7 +22,4 @@
 </script>
 
 <style scoped>
-    .toolbar {
-        color: #202338;
-    }
 </style>

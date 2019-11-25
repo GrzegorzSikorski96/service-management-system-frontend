@@ -4,7 +4,7 @@
             <v-col class="col-12">
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
-                        Tworzenie użytkownika
+                        Tworzenie oddziału
                     </v-card-title>
                 </v-card>
             </v-col>
@@ -12,17 +12,17 @@
             <v-col class="col-12">
                 <v-card class="ma-3" elevation="5">
                     <v-card-text>
-                        <user-form ref="createForm" @valid="checkValid"></user-form>
+                        <agency-form ref="createForm" @valid="checkValid"></agency-form>
                     </v-card-text>
 
                     <v-card-actions>
                         <v-btn
                                 text
                                 class="mx-auto font-weight-bold"
-                                @click="createUser"
+                                @click="createAgency"
                                 :disabled="!valid"
                         >
-                            Dodaj użytkownika
+                            Dodaj oddział
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -32,33 +32,28 @@
 </template>
 
 <script>
-    import UserForm from "./Form"
+    import AgencyForm from "./Form"
 
     export default {
-        name: 'UserCreate',
+        name: 'AgencyCreate',
         data: () => ({
             valid: false,
         }),
         components: {
-            UserForm
+            AgencyForm
         },
         methods: {
-            async createUser() {
-                this.$http.post('/api/user', this.$refs.createForm.credentials)
+            async createAgency() {
+                this.$http.post('/api/agency', this.$refs.createForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Utworzono uzytkownika', {
+                        this.$toasted.show('Utworzono oddział', {
                             type: 'success'
-                        });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
                         });
                     })
             },
             checkValid(value) {
                 this.valid = value
-            },
+            }
         },
     }
 </script>

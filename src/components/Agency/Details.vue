@@ -2,7 +2,7 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
-                Dane zgłoszenia
+                Dane oddziału
 
                 <v-spacer></v-spacer>
 
@@ -10,46 +10,32 @@
                     <font-awesome-icon icon="user-edit" size="lg"/>
                 </v-btn>
 
-                <v-btn v-if="!checkRoute" icon :to="{name: 'TicketSummary', params: { id: ticket.id,}}">
+                <v-btn v-if="!checkRoute" icon :to="{name: 'AgencySummary', params: { id: agency.id,}}">
                     <font-awesome-icon icon="external-link-alt" size="lg"/>
                 </v-btn>
             </v-card-title>
 
             <v-card-text>
                 <span class="font-weight-bold">
-                    Numer:
+                    Nazwa:
                 </span>
-                {{ ticket.token }}
+                {{ agency.name }}
 
                 <br>
 
                 <span class="font-weight-bold">
-                                Opis:
+                                Adres:
                             </span>
-                {{ ticket.description }}
+                {{ agency.address }}
 
                 <br>
 
                 <span class="font-weight-bold">
-                                Dodatkowe informacje:
+                                Numer telefonu:
                             </span>
-                {{ ticket.additional_information }}
-
-                <span v-if="ticket.message">
-                    <br>
-
-                    <span class="font-weight-bold">
-                                    Wiadomość zwrotna:
-                                </span>
-                    {{ ticket.message }}
-                </span>
-
-                <br>
-
-                <span class="font-weight-bold">
-                                Status zgłoszenia:
-                            </span>
-                {{ ticket.ticket_status.name }}
+                <a :href="'tel:'+ agency.phone_number">
+                    {{ agency.phone_number }}
+                </a>
 
             </v-card-text>
         </span>
@@ -65,9 +51,9 @@
 
 <script>
     export default {
-        name: 'TicketDetails',
+        name: 'AgencyDetails',
         props: {
-            ticket: {},
+            agency: {},
             loading: {},
         },
         methods: {
@@ -77,7 +63,7 @@
         },
         computed: {
             checkRoute() {
-                return this.$router.currentRoute.name === 'TicketSummary'
+                return this.$router.currentRoute.name === 'AgencySummary'
             }
         },
     }

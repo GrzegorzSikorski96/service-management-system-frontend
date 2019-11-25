@@ -27,6 +27,14 @@ Vue.mixin({
         isAdmin() {
             return store.state.currentUser.role.name === 'administrator';
         },
+        isManager() {
+            return store.state.currentUser.role.name === 'manager' || this.isAdmin();
+        },
+    },
+    computed: {
+        currentUser() {
+            return this.$store.getters.currentUser;
+        },
     }
 });
 

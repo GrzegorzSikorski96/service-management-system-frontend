@@ -5,6 +5,12 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                        Klienci
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn v-if="isAdmin()" icon :to="{name: 'ClientCreate'}">
+                            <font-awesome-icon icon="plus" size="lg"/>
+                        </v-btn>
                     </v-card-title>
                 </v-card>
             </v-col>
@@ -68,6 +74,7 @@
                 {text: 'Adres', value: 'address'},
                 {text: 'Email', value: 'email'},
                 {text: 'Numer Telefonu', value: 'phone_number', sortable: false,},
+                {text: 'NIP', value: 'NIP', sortable: false,},
                 {value: 'actions', sortable: false, align: 'right'},
             ],
         }),

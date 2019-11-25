@@ -2,11 +2,11 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
             <v-card-title>
-                Edycja urządzenia
+                Edycja Oddziału
 
                 <v-spacer></v-spacer>
 
-                <v-btn color="green" :disabled="!valid" icon @click="updateDevice">
+                <v-btn color="green" :disabled="!valid" icon @click="updateAgency">
                     <font-awesome-icon icon="save" size="lg"/>
                 </v-btn>
 
@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <device-form :device="device" ref="editForm" :edit="true" @valid="checkValid"></device-form>
+                <agency-form :agency="agency" :edit="true" ref="editForm" @valid="checkValid"></agency-form>
             </v-card-text>
         </span>
 
@@ -30,31 +30,26 @@
 </template>
 
 <script>
-    import DeviceForm from "./Forms/Form";
+    import AgencyForm from "./Form";
 
     export default {
-        name: 'Edit',
+        name: 'AgencyEdit',
         data: () => ({
             valid: false,
         }),
         props: {
-            device: {},
+            agency: {},
             loading: {},
         },
         components: {
-            DeviceForm
+            AgencyForm
         },
         methods: {
-            async updateDevice() {
-                this.$http.put('/api/device', this.$refs.editForm.credentials)
+            async updateAgency() {
+                this.$http.put('/api/agency', this.$refs.editForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Zedytowano Urządzenie', {
+                        this.$toasted.show('Zedytowano oddział', {
                             type: 'success'
-                        });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
                         });
                     })
             },
@@ -65,16 +60,8 @@
                 this.valid = value
             }
         },
-        computed: {
-            checkRoute() {
-                return this.$router.currentRoute.name === 'Device'
-            },
-        },
     }
 </script>
 
 <style>
-    a {
-        text-decoration: none;
-    }
 </style>

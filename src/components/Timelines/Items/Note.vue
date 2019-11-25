@@ -3,7 +3,12 @@
             color="green lighten-2"
             icon="assignment"
     >
-        <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>
+        <router-link v-if="isAdmin() || isManager() && !checkRoute" :to="{name: 'UserSummary', params: { id: note.author.id }}"
+                     class="route">
+            <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>
+        </router-link>
+
+        <span class="font-weight-bold" v-else>{{ note.author.name }} {{ note.author.surname }} </span>
         <v-spacer></v-spacer>
 
         <v-card class="elevation-2">
@@ -30,6 +35,11 @@
         name: 'Notes',
         props: {
             note: {},
+        },
+        computed: {
+            checkRoute() {
+                return this.$router.currentRoute.name === 'UserSummary'
+            }
         },
     }
 </script>

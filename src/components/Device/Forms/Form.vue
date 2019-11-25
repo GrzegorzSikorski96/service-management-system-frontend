@@ -19,7 +19,7 @@
                 label="Opis"
         ></v-textarea>
 
-        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"></agencies-autocomplete>
+        <agencies-autocomplete v-if="isAdmin() && !edit" v-model="credentials.agency_id"></agencies-autocomplete>
 
     </v-form>
 </template>
@@ -34,6 +34,7 @@
         },
         props: {
             device: {},
+            edit: {},
         },
         data: () => ({
             credentials: {},
@@ -69,16 +70,10 @@
                     });
                 }
             },
-            setDefault() {
-                if (!this.isAdmin()) {
-                    this.credentials.agency_id = this.$store.state.currentUser.agency_id;
-                }
-            },
         },
         created() {
             this.parseFormData();
             this.fetchAgencies();
-            this.setDefault();
         },
         watch: {
             valid: function (value) {

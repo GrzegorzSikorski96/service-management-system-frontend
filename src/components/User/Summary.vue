@@ -5,8 +5,24 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Informacje o pracowniku: {{ user.name }} {{ user.surname }}
+
+                        <v-spacer></v-spacer>
+
+                        <user-management :user="user"></user-management>
+
                     </v-card-title>
                 </v-card>
+
+                <v-alert
+                        v-if="user.blocked_at"
+                        class="ma-3"
+                        elevation="5"
+                        prominent
+                        icon="block"
+                        type="error"
+                >
+                       Użytkownik jest zablokowany
+                </v-alert>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -26,6 +42,7 @@
     import Timeline from "../Timelines/Timeline";
     import Note from "../Timelines/Items/Note"
     import User from "./User";
+    import UserManagement from "../User/Management/Management"
 
     export default {
         name: 'UserSummary',
@@ -36,7 +53,8 @@
         components: {
             Timeline,
             Note,
-            User
+            User,
+            UserManagement,
         },
         methods: {
             async fetchUser() {

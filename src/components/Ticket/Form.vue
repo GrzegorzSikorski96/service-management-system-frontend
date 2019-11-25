@@ -21,6 +21,13 @@
             <devices-autocomplete v-model="credentials.device_id" :agency_id="agency_id"/>
         </template>
 
+        <template v-if="edit">
+            <v-text-field
+                    v-model="credentials.message"
+                    label="Wiadomość zwrotna."
+            ></v-text-field>
+        </template>
+
         <ticket-statuses-select v-model="credentials.ticket_status_id"
                                 :ticket_status_id="credentials.ticket_status_id"/>
 
@@ -69,14 +76,6 @@
             },
         }),
         methods: {
-            async createTicket() {
-                this.$http.post('/api/ticket', this.credentials)
-                    .then(() => {
-                        this.$toasted.show('Utworzono zgłoszenie', {
-                            type: 'success'
-                        });
-                    })
-            },
             parseFormData() {
                 if (this.ticket) {
                     this.credentials = JSON.parse(JSON.stringify(this.ticket))

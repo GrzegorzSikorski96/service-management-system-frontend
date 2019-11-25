@@ -5,6 +5,12 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Użytkowicy
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon :to="{name: 'UserCreate'}">
+                            <font-awesome-icon icon="plus" size="lg"/>
+                        </v-btn>
                     </v-card-title>
                 </v-card>
             </v-col>

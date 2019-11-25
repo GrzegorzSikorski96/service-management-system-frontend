@@ -5,6 +5,10 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Informacje o zgłoszeniu: {{ ticket.token }}
+
+                        <v-spacer></v-spacer>
+
+                        <ticket-management :ticket="ticket"></ticket-management>
                     </v-card-title>
                 </v-card>
             </v-col>
@@ -37,12 +41,12 @@
     import Client from "../Client/Client";
     import Ticket from "../Ticket/Ticket"
     import NotesCreate from "../Notes/Create"
+    import TicketManagement from "./Management/Management"
 
     export default {
         name: 'TicketSummary',
         data: () => ({
             ticket: [],
-            editTicket: false,
             loading: true,
             note: {
                 credentials: {},
@@ -55,6 +59,7 @@
             Note,
             Ticket,
             NotesCreate,
+            TicketManagement
         },
         methods: {
             fetchData() {
@@ -63,9 +68,6 @@
                     this.loading = false;
                     this.loadDefault();
                 });
-            },
-            ticketEdit(value) {
-                this.editTicket = value
             },
             async addNote() {
                 this.$http.post('/api/note', this.note.credentials)

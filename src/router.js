@@ -15,6 +15,9 @@ import ClientSummary from "./components/Client/Summary";
 import UserSummary from "./components/User/Summary"
 import UserCreate from "./components/User/Create"
 import UsersList from "./components/User/List"
+import AgencyList from "./components/Agency/List";
+import AgencyCreate from "./components/Agency/Create";
+import AgencySummary from "./components/Agency/Summary";
 
 Vue.use(Router);
 
@@ -138,6 +141,31 @@ export default new Router({
             props: true,
             meta: {
                 roles: ['administrator', 'manager'],
+            },
+        },
+        {
+            path: '/agencies',
+            name: 'AgencyList',
+            component: AgencyList,
+            meta: {
+                roles: ['administrator',],
+            },
+        },
+        {
+            path: '/agency/create',
+            name: 'AgencyCreate',
+            component: AgencyCreate,
+            meta: {
+                roles: ['administrator',],
+            },
+        },
+        {
+            path: '/agency/:id',
+            name: 'AgencySummary',
+            component: AgencySummary,
+            props: true,
+            meta: {
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
     ]

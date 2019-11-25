@@ -5,6 +5,10 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Informacje o urządzeniu: {{ device.name }}
+
+                        <v-spacer></v-spacer>
+
+                        <device-management :device="device"></device-management>
                     </v-card-title>
                 </v-card>
             </v-col>
@@ -25,7 +29,8 @@
 <script>
     import Ticket from "../Timelines/Items/Ticket";
     import Timeline from "../Timelines/Timeline";
-    import Device from "./Device";
+    import Device from "./Device"
+    import DeviceManagement from "./Management/Management"
 
     export default {
         name: 'DeviceSummary',
@@ -36,7 +41,8 @@
         components: {
             Ticket,
             Device,
-            Timeline
+            Timeline,
+            DeviceManagement
         },
         methods: {
             async fetchDevice() {

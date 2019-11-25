@@ -5,6 +5,12 @@
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
                         Zgłoszenia
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn v-if="isAdmin()" icon :to="{name: 'TicketCreate'}">
+                            <font-awesome-icon icon="plus" size="lg"/>
+                        </v-btn>
                     </v-card-title>
                 </v-card>
             </v-col>

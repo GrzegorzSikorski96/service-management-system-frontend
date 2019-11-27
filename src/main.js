@@ -45,8 +45,6 @@ Vue.mixin({
     }
 });
 
-axios.defaults.baseURL = "http://sms.test";
-
 initialize(store, router);
 
 new Vue({

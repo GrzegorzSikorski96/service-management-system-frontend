@@ -21,6 +21,12 @@ export function initialize(store, router) {
         }
     );
 
+    axios.interceptors.request.use((config) => {
+        config.baseURL = process.env.VUE_APP_BACKEND_URL;
+
+        return config;
+    });
+
     axios.interceptors.response.use(null, (error => {
         switch (error.response.status) {
             case 400: {

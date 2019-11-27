@@ -51,21 +51,22 @@
             </v-card-text>
         </span>
 
-        <v-progress-circular v-else
-                             class="mx-auto"
-                             :size="80"
-                             indeterminate
-                             color="primary"
-        ></v-progress-circular>
+        <loading v-else/>
+
     </v-card>
 </template>
 
 <script>
+    import Loading from '../Helpers/Loading'
+
     export default {
         name: 'UserDetails',
         props: {
             user: {},
             loading: {},
+        },
+        components: {
+            Loading,
         },
         methods: {
             changeEditState() {

@@ -33,7 +33,7 @@
                             :headers="headers"
                             :items="tickets"
                             :search="search"
-                            :loading="!loading"
+                            :loading="loading"
                     >
                         <template v-slot:item.client.name="{ item }">
                             <router-link :to="{name: 'ClientSummary', params: { id: item.client.id }}" class="route">
@@ -42,7 +42,8 @@
                         </template>
 
                         <template v-slot:item.device.name="{ item }">
-                            <router-link text :to="{name: 'DeviceSummary', params: { id: item.device.id }}" class="route">
+                            <router-link text :to="{name: 'DeviceSummary', params: { id: item.device.id }}"
+                                         class="route">
                                 {{ item.device.name }}
                             </router-link>
                         </template>
@@ -71,6 +72,7 @@
         name: 'List',
         data: () => ({
             search: '',
+            loading: true,
             tickets: [],
             headers: [
                 {text: 'Token', value: 'token', align: 'left', sortable: false,},
@@ -85,6 +87,7 @@
             fetchTickets() {
                 this.$http.get(`/api/tickets`).then((response) => {
                     this.tickets = response.data.data.tickets;
+                    this.loading = false;
                 });
             },
             initPusher() {
@@ -98,11 +101,6 @@
             this.fetchTickets();
             this.initPusher();
         },
-        computed: {
-            loading() {
-                return this.tickets.length;
-            }
-        }
     }
 </script>
 

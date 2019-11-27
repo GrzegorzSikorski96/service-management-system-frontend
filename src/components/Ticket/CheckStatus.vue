@@ -22,12 +22,15 @@
                     <v-alert
                             border="left"
                             colored-border
-                            type="info"
+                            :color="status.color"
                             elevation="2"
                             v-if="!!status"
                     >
-                        Status zgłoszenia to: {{status.name}}
+                        Status zgłoszenia: {{status.name}}
                     </v-alert>
+
+
+                    <loading v-if="loading"/>
                 </v-card-text>
 
                 <v-card-actions>
@@ -46,11 +49,17 @@
 </template>
 
 <script>
+    import Loading from "./../Helpers/Loading"
+
     export default {
         name: 'CheckStatus',
+        components:{
+            Loading
+        },
         data: () => ({
             valid: false,
             token: '',
+            loading: false,
             status: null,
             rules: {
                 ticket: {
@@ -63,10 +72,14 @@
         }),
         methods: {
             checkStatus() {
+                this.loading = true;
+                this.status = null;
+
                 this.$http.get(`/api/ticket/${this.token}/status`).then((response) => {
                     this.status = response.data.data.status
+                    this.loading = false;
                 });
-            }
+            },
         }
     }
 </script>

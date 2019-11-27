@@ -30,8 +30,17 @@
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline :loading="loading" title="Notatki" :itemsCount="notesLength">
-                    <note v-for="note in user.notes" :key="note.id" :note="note"></note>
+                <timeline v-if="notesLength" :loading="loading" title="Notatki" :itemsCount="notesLength">
+                    <note v-for="note in notes.data" :key="note.id" :note="note"></note>
+
+                    <template v-slot:pagination>
+                        <v-pagination
+                                v-model="page"
+                                :length="notes.last_page"
+                                total-visible="7"
+                                circle
+                        ></v-pagination>
+                    </template>
                 </timeline>
             </v-col>
         </v-row>
@@ -48,6 +57,9 @@
         name: 'UserSummary',
         data: () => ({
             user: [],
+            notes: [],
+            notesLoading: true,
+            page: 1,
             loading: true,
         }),
         components: {
@@ -62,6 +74,14 @@
                     this.user = response.data.data.user;
                     this.loading = false;
                 });
+
+                this.getUserNotes(1);
+            },
+            getUserNotes(page) {
+                this.$http.get(`/api/user/${this.$route.params.id}/notes?page=${page}`).then((response) => {
+                    this.notes = response.data.data.notes;
+                    this.notesLoading = false;
+                });
             },
         },
         created() {
@@ -69,13 +89,18 @@
         },
         computed: {
             notesLength() {
-                if ('notes' in this.user) {
-                    return this.user.notes.length;
+                if (this.notes.data) {
+                    return this.notes.data.length;
                 } else {
                     return 0;
                 }
             },
-        }
+        },
+        watch: {
+            page: function (value) {
+                this.getUserNotes(value);
+            },
+        },
     }
 </script>
 

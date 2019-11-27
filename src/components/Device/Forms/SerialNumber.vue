@@ -7,7 +7,7 @@
                 required
         ></v-text-field>
 
-        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"></agencies-autocomplete>
+        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"/>
 
     </v-form>
 </template>
@@ -17,7 +17,7 @@
 
     export default {
         name: 'SerialNumberForm',
-        components:{
+        components: {
             AgenciesAutocomplete,
         },
         data: () => ({

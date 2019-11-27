@@ -2,89 +2,77 @@
     <v-form v-model="valid">
         <v-text-field
                 v-model="credentials.name"
-                :rules="rules.client.name"
-                label="Nazwa klienta"
+                :rules="rules.service.name"
+                label="Nazwa serwisu"
                 required
         ></v-text-field>
 
         <v-text-field
                 v-model="credentials.address"
-                :rules="rules.client.address"
+                :rules="rules.service.address"
                 label="Adres"
                 required
-                aria-multiline="true"
         ></v-text-field>
 
         <v-text-field
                 v-model="credentials.NIP"
+                :rules="rules.service.NIP"
                 label="Numer NIP"
                 required
         ></v-text-field>
 
         <v-text-field
                 v-model="credentials.phone_number"
-                :rules="rules.client.phone_number"
+                :rules="rules.service.phone_number"
                 label="Numer telefonu"
                 required
         ></v-text-field>
 
         <v-text-field
-                v-model="credentials.email"
-                :rules="rules.client.email"
-                label="Email"
+                v-model="credentials.description"
+                :rules="rules.service.description"
+                label="Opis"
                 required
         ></v-text-field>
 
-        <v-textarea
-                v-model="credentials.description"
-                label="Opis"
-        ></v-textarea>
-
-        <agencies-autocomplete v-if="isAdmin() && !edit" v-model="credentials.agency_id"/>
     </v-form>
 </template>
 
 <script>
-    import AgenciesAutocomplete from "../../Forms/Autocomplete/Agencies"
-
     export default {
-        name: 'ClientForm',
+        name: 'ServiceForm',
         props: {
-            client: {},
-            edit: {},
-        },
-        components: {
-            AgenciesAutocomplete
+            service: {},
         },
         data: () => ({
-            credentials: {},
             valid: false,
+            credentials: {},
             rules: {
-                client: {
-                    description: [
-                        v => !!v || 'Opis jest wymagany.',
-                    ],
+                service: {
                     name: [
                         v => !!v || 'Nazwa jest wymagana.',
                     ],
                     address: [
                         v => !!v || 'Adres jest wymagany.',
                     ],
+                    description: [
+                        v => !!v || 'Opis jest wymagany.',
+                    ],
                     phone_number: [
                         v => !!v || 'Numer telefonu jest wymagany.',
                     ],
-                    email: [
-                        v => /.+@.+/.test(v) || 'Wprowawdź prawidłowy adres E-mail',
+                    NIP: [
+                        v => !!v || 'Numer NIP jest wymagany.',
                     ],
                 }
             },
         }),
-        methods:{
-            parseFormData(){
-                if(this.client){
-                    this.credentials = JSON.parse(JSON.stringify(this.client))
+        methods: {
+            parseFormData() {
+                if (this.service) {
+                    this.credentials = JSON.parse(JSON.stringify(this.service))
                 }
-            },
+            }
         },
         created() {
             this.parseFormData();

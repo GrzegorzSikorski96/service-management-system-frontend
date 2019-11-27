@@ -37,43 +37,32 @@
         ></v-text-field>
 
         <span v-if="isAdmin()">
-            <v-autocomplete
-                    :items="agencies"
-                    :rules="rules.user.agency_id"
-                    v-model="credentials.agency_id"
-                    label="Oddział"
-                    item-text="agencyString"
-                    item-value="id"
-            >
-                <template v-slot:item="data">
-                    <v-list-item-content>
-                        <v-list-item-title>{{ data.item.name }}</v-list-item-title>
-                        <v-list-item-subtitle>{{ data.item.address }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                </template>
-            </v-autocomplete>
+            <agencies-autocomplete v-if="!edit" v-model="credentials.agency_id"></agencies-autocomplete>
 
-            <v-select
-                    :items="agencyRoles"
-                    :rules="rules.user.agency_role_id"
-                    label="Rola użytkownika"
-                    v-model="credentials.agency_role_id"
-                    item-text="name"
-                    item-value="id"
-            ></v-select>
+            <agency-role-select v-if="user" v-model="credentials.agency_role_id" :agencyRoleId="user.agency_role_id"></agency-role-select>
+            <agency-role-select v-else v-model="credentials.agency_role_id"></agency-role-select>
         </span>
     </v-form>
 </template>
 
 <script>
+    import AgenciesAutocomplete from "../Forms/Autocomplete/Agencies"
+    import AgencyRoleSelect from "../Forms/Select/Roles"
+
     export default {
         name: 'UserForm',
         props: {
             user: {},
+            edit: {},
+        },
+        components: {
+            AgenciesAutocomplete,
+            AgencyRoleSelect
         },
         data: () => ({
             credentials: {},
             valid: false,
+            agencyValid: {},
             agencies: [],
             agencyRoles: [],
             rules: {
@@ -105,24 +94,10 @@
                     this.credentials = JSON.parse(JSON.stringify(this.user))
                 }
             },
-            createAgenciesString() {
-                this.agencies.forEach(function (value) {
-                    value['agencyString'] = value.name + ' ' + value.address;
-                })
-            },
-            async fetchAgencies() {
-                if (this.isAdmin()) {
-                    this.$http.get(`/api/agencies`,).then((response) => {
-                        this.agencies = response.data.data.agencies;
-                        this.createAgenciesString()
-                    });
-                }
-            },
             async fetchAgencyRoles() {
                 if (this.isAdmin()) {
                     this.$http.get(`/api/agency/roles`,).then((response) => {
                         this.agencyRoles = response.data.data.roles;
-                        this.createAgenciesString()
                     });
                 }
             },
@@ -135,7 +110,6 @@
         },
         created() {
             this.parseFormData();
-            this.fetchAgencies();
             this.fetchAgencyRoles();
             this.setDefault();
         },

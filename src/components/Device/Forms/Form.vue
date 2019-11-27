@@ -19,7 +19,7 @@
                 label="Opis"
         ></v-textarea>
 
-        <agencies-autocomplete v-if="isAdmin() && !edit" v-model="credentials.agency_id"></agencies-autocomplete>
+        <agencies-autocomplete v-if="isAdmin() && !edit" v-model="credentials.agency_id"/>
 
     </v-form>
 </template>
@@ -57,23 +57,17 @@
                     this.credentials = JSON.parse(JSON.stringify(this.device))
                 }
             },
-            createAgenciesString() {
-                this.agencies.forEach(function (value) {
-                    value['agencyString'] = value.name + ' ' + value.address;
-                })
-            },
-            async fetchAgencies() {
-                if (this.isAdmin()) {
-                    this.$http.get(`/api/agencies`,).then((response) => {
-                        this.agencies = response.data.data.agencies;
-                        this.createAgenciesString()
-                    });
-                }
+            checkValid(value) {
+                this.agencyValid = value
             },
         },
         created() {
             this.parseFormData();
-            this.fetchAgencies();
+        },
+        computed: {
+            formValid() {
+                return this.valid && this.agencyValid
+            }
         },
         watch: {
             valid: function (value) {

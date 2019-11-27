@@ -1,12 +1,11 @@
 <template>
-    <v-card class="ma-3 pa-1" :elevation="5">
-        <span v-if="!loading">
-        <v-card-title>
-            Edycja Oddziału
+    <v-card>
+        <v-card-title class="subtitle-2" dense>
+            Edytuj notatkę
 
             <v-spacer></v-spacer>
 
-            <v-btn color="green" :disabled="!valid" icon @click="updateAgency">
+            <v-btn color="green" :disabled="!valid" icon @click="editNote">
                 <font-awesome-icon icon="save" size="lg"/>
             </v-btn>
 
@@ -15,36 +14,31 @@
             </v-btn>
         </v-card-title>
 
-        <v-card-text>
-            <agency-form :agency="agency" :edit="true" ref="editForm" @valid="checkValid"></agency-form>
+        <v-card-text class="white text--primary">
+            <edit-form :ticket_id="currentUser.id" :note="note" ref="editForm" @valid="checkValid"/>
         </v-card-text>
-        </span>
-        <loading v-else/>
     </v-card>
 </template>
 
 <script>
-    import AgencyForm from "./Form";
-    import Loading from "../Helpers/Loading"
+    import EditForm from "./Form"
 
     export default {
-        name: 'AgencyEdit',
+        name: 'Notes',
+        components:{
+          EditForm
+        },
         data: () => ({
             valid: false,
         }),
         props: {
-            agency: {},
-            loading: {},
-        },
-        components: {
-            AgencyForm,
-            Loading
+            note: {},
         },
         methods: {
-            async updateAgency() {
-                this.$http.put('/api/agency', this.$refs.editForm.credentials)
+            async editNote() {
+                this.$http.put('/api/note', this.$refs.editForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Zedytowano oddział', {
+                        this.$toasted.show('Zedytowano zgłoszenie', {
                             type: 'success'
                         });
                     })

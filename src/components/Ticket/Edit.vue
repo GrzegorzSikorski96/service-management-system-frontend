@@ -20,17 +20,13 @@
             </v-card-text>
         </span>
 
-        <v-progress-circular v-else
-                             class="mx-auto"
-                             :size="80"
-                             indeterminate
-                             color="primary"
-        ></v-progress-circular>
+        <loading v-else/>
     </v-card>
 </template>
 
 <script>
     import TicketForm from "./Form";
+    import Loading from "./../Helpers/Loading"
 
     export default {
         name: 'TicketEdit',
@@ -42,7 +38,8 @@
             loading: {},
         },
         components: {
-            TicketForm
+            TicketForm,
+            Loading
         },
         methods: {
             async updateTicket() {
@@ -50,11 +47,6 @@
                     .then(() => {
                         this.$toasted.show('Zedytowano zgłoszenie', {
                             type: 'success'
-                        });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
                         });
                     })
             },

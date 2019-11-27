@@ -1,89 +1,67 @@
 <template>
-    <v-app id="app">
-        <v-navigation-drawer
-                v-model="drawer"
-                app
-                clipped
-                dark
-                color="#202338"
-        >
+    <div>
+        <div v-if="!loading">
+            <div v-if="isInitialized">
+                <Main></Main>
+            </div>
 
-            <v-list-item v-if="currentUser">
-                <v-list-item-content>
-                    <v-list-item-title class="title">
-                        {{ currentUser.name }} {{ currentUser.surname }}
-                    </v-list-item-title>
-                    <v-list-item-subtitle>
-                        {{ currentUser.role.name }}
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>
+            <div v-else>
+                <v-app id="app">
+                    <v-content class="content" v-if="!currentUser">
+                        <login></login>
+                    </v-content>
+                    <v-content class="content" v-else>
+                        <initialize @initialized="checkInitialized"></initialize>
+                    </v-content>
+                </v-app>
+            </div>
+        </div>
 
-            <NavigationDrawerItems>
-            </NavigationDrawerItems>
-
-            <template v-slot:append>
-                <v-list-item link :ripple="{ class: 'red-text' }" @click="logout" v-if="currentUser">
-                    <v-list-item-action>
-                        <font-awesome-icon icon="sign-out-alt" size="lg" class="red--text"/>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title class="red--text">Wyloguj</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-
-                <router-link :to="{name: 'Login'}" class="route" v-else>
-                    <v-list-item link :ripple="{ class: 'green-text' }">
-                        <v-list-item-action>
-                            <font-awesome-icon icon="sign-in-alt" size="lg" class="green--text"/>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title class="green--text">Zaloguj</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </router-link>
-            </template>
-        </v-navigation-drawer>
-
-        <Toolbar>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        </Toolbar>
-
-        <v-content class="content">
-            <router-view></router-view>
-        </v-content>
-
-    </v-app>
+        <div v-else>
+            <v-app id="app">
+                <v-content class="content">
+                    <loading/>
+                </v-content>
+            </v-app>
+        </div>
+    </div>
 </template>
 
 <style>
-    .route {
-        text-decoration: none;
-    }
-
     .content {
         background-color: #eceff1;
     }
 </style>
 
 <script>
-    import Toolbar from "./components/Layout/Toolbar";
-    import NavigationDrawerItems from "./components/Layout/NavigationDrawerItems";
+    import Login from "./components/Login";
+    import Initialize from "./components/Service/Initialize";
+    import Main from "./components/Layout/Main";
+    import Loading from "./components/Helpers/Loading"
 
     export default {
         data: () => ({
-            drawer: null,
+            service: [],
             logged: false,
+            loading: true,
         }),
         components: {
-            Toolbar,
-            NavigationDrawerItems,
+            Main,
+            Login,
+            Initialize,
+            Loading
         },
         methods: {
-            logout() {
-                this.$store.commit('logout');
-                this.$router.push('/login');
+            checkInitialized() {
+                this.$http.get('/api/service/initialized')
+                    .then((response) => {
+                        this.isInitialized = response.data.data.initialized;
+                        this.loading = false;
+                    })
             },
         },
+        created() {
+            this.checkInitialized();
+        }
     }
 </script>

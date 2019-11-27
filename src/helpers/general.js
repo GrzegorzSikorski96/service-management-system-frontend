@@ -38,14 +38,10 @@ export function initialize(store, router) {
                 break;
             }
             case 404: {
-                Vue.toasted.show(error.response.data.message, {
-                    type: 'error'
-                });
                 router.push('/');
                 break;
             }
         }
-
     }));
 
     if (store.getters.currentUser) {

@@ -6,6 +6,7 @@
             label="Oddział"
             item-text="agencyString"
             item-value="id"
+            required
     >
         <template v-slot:item="data">
             <v-list-item-content>
@@ -21,7 +22,7 @@
         name: 'AgenciesAutocomplete',
         data: () => ({
             agencies: [],
-            agency_id: {},
+            agency_id: null,
             rules: {
                 agency_id: {
                     required: [

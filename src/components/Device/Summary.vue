@@ -18,8 +18,17 @@
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
-                    <ticket v-for="ticket in device.tickets" :key="ticket.id" :ticket="ticket"></ticket>
+                <timeline v-if="ticketsLength" :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
+                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"></ticket>
+
+                    <template v-slot:pagination>
+                        <v-pagination
+                                v-model="page"
+                                :length="tickets.last_page"
+                                total-visible="7"
+                                circle
+                        ></v-pagination>
+                    </template>
                 </timeline>
             </v-col>
         </v-row>
@@ -36,6 +45,9 @@
         name: 'DeviceSummary',
         data: () => ({
             device: [],
+            tickets: [],
+            ticketsLoading: true,
+            page: 1,
             loading: true,
         }),
         components: {
@@ -50,6 +62,14 @@
                     this.device = response.data.data.device;
                     this.loading = false;
                 });
+
+                this.getDeviceTickets(1);
+            },
+            getDeviceTickets(page) {
+                this.$http.get(`/api/device/${this.$route.params.id}/tickets?page=${page}`).then((response) => {
+                    this.tickets = response.data.data.tickets;
+                    this.ticketsLoading = false;
+                });
             },
         },
         created() {
@@ -57,13 +77,18 @@
         },
         computed: {
             ticketsLength() {
-                if ('tickets' in this.device) {
-                    return this.device.tickets.length;
+                if (this.tickets.data) {
+                    return this.tickets.data.length;
                 } else {
                     return 0;
                 }
             },
-        }
+        },
+        watch: {
+            page: function (value) {
+                this.getDeviceTickets(value);
+            },
+        },
     }
 </script>
 

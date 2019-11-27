@@ -66,6 +66,9 @@
                     client_id: [
                         v => !!v || 'Klient jest wymagany.',
                     ],
+                    agency_id: [
+                        v => !!v || 'Oddział jest wymagany.',
+                    ],
                     device_id: [
                         v => !!v || 'Urządzenie jest wymagane.',
                     ],

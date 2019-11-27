@@ -13,13 +13,13 @@
     export default {
         name: 'RolesSelect',
         props: {
-            agency_role_id: {
+            agencyRoleId: {
                 default: null,
             },
         },
         data: () => ({
             agencyRoles: [],
-            agencyRoleId: {},
+            agency_role_id: null,
             rules: {
                 agency_role_id: {
                     required: [
@@ -32,22 +32,18 @@
             async fetchAgencyRoles() {
                 this.$http.get(`/api/agency/roles`).then((response) => {
                     this.agencyRoles = response.data.data.roles;
-                    if (this.agency_role_id) {
-                        this.setAgencyRoleId(this.agency_role_id);
-                    }
                 });
             },
-            setAgencyRoleId(value) {
-                this.agencyRoleId = value;
-            }
         },
         created() {
             this.fetchAgencyRoles();
+            if (this.agencyRoleId) {
+                this.agency_role_id = this.agencyRoleId
+            }
         },
         watch: {
-            agencyRoleId: function (value) {
-                this.setAgencyRoleId(value);
-                this.$emit('input', this.agencyRoleId)
+            agency_role_id: function () {
+                this.$emit('input', this.agency_role_id)
             },
         },
     }

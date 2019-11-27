@@ -1,6 +1,6 @@
 <template>
     <v-list dense shaped>
-        <v-list-item v-if="currentUser && currentUser.agency_id" ripple link
+        <v-list-item v-if="isManager() && currentUser.agency_id" ripple link
                      :to="{name: 'AgencySummary', params: { id: currentUser.agency_id }}"
                      class="route"
                      active-class="item-active"

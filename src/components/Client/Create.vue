@@ -39,7 +39,7 @@
 
                         <v-tab-item value="create">
                             <v-card-text>
-                                <device-form ref="createForm" @valid="checkValid"></device-form>
+                                <client-form ref="createForm" @valid="checkValid"></client-form>
                             </v-card-text>
 
                             <v-card-actions>
@@ -58,12 +58,10 @@
             </v-col>
         </v-row>
     </v-container>
-
-
 </template>
 
 <script>
-    import DeviceForm from "./Forms/Form"
+    import ClientForm from "./Forms/Form"
     import CheckExist from "./Forms/CheckExist"
 
     export default {
@@ -73,14 +71,14 @@
             tab: null,
         }),
         components: {
-            DeviceForm,
+            ClientForm,
             CheckExist
         },
         methods: {
             async createClient() {
                 this.$http.post('/api/client', this.$refs.createForm.credentials)
                     .then(() => {
-                        this.$toasted.show('Utworzono zgłoszenie', {
+                        this.$toasted.show('Utworzono klienta', {
                             type: 'success'
                         });
                     })

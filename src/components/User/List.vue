@@ -4,7 +4,7 @@
             <v-col class="col-12">
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
-                        Użytkowicy
+                        Pracownicy
 
                         <v-spacer></v-spacer>
 
@@ -72,6 +72,9 @@
     export default {
         name: 'UsersList',
         loading: true,
+        props: {
+            agency: {},
+        },
         data: () => ({
             search: '',
             loading: true,
@@ -87,14 +90,27 @@
         }),
         methods: {
             async fetchUsers() {
-                this.$http.get(`/api/users`).then((response) => {
+                this.$http.get('/api/users').then((response) => {
                     this.users = response.data.data.users;
                     this.loading = false;
                 });
             },
+            async fetchEmployees() {
+                this.$http.get(`/api/agency/${this.$route.params.id}/employees`).then((response) => {
+                    this.users = response.data.data.employees;
+                    this.loading = false;
+                });
+            },
+            fetchData() {
+                if (this.agency) {
+                    this.fetchEmployees();
+                } else {
+                    this.fetchUsers();
+                }
+            }
         },
         created() {
-            this.fetchUsers();
+            this.fetchData();
         },
     }
 </script>

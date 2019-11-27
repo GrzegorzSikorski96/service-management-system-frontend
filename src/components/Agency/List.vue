@@ -33,7 +33,7 @@
                             :headers="headers"
                             :items="agencies"
                             :search="search"
-                            :loading="!loading"
+                            :loading="loading"
                     >
                         <template v-slot:item.phone_number="{ item }">
                             <a :href="'tel:'+item.phone_number" class="route">
@@ -60,6 +60,7 @@
         data: () => ({
             search: '',
             agencies: [],
+            loading: true,
             headers: [
                 {text: 'Nazwa', value: 'name', align: 'left',},
                 {text: 'Adres', value: 'address'},
@@ -71,17 +72,13 @@
             fetchAgencies() {
                 this.$http.get(`/api/agencies`).then((response) => {
                     this.agencies = response.data.data.agencies;
+                    this.loading = false;
                 });
             },
         },
         created() {
             this.fetchAgencies();
         },
-        computed: {
-            loading() {
-                return this.agencies.length;
-            }
-        }
     }
 </script>
 

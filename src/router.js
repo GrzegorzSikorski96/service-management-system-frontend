@@ -23,7 +23,6 @@ Vue.use(Router);
 
 export default new Router({
     mode: "history",
-
     routes: [
         {
             path: '/',
@@ -31,9 +30,7 @@ export default new Router({
             component: HomePage,
         },
         {
-            path: '/login',
-            name: 'Login',
-            component: Login,
+            path: '/login', name: 'Login', component: Login,
             meta: {
                 forVisitors: true
             },
@@ -164,9 +161,7 @@ export default new Router({
             name: 'AgencySummary',
             component: AgencySummary,
             props: true,
-            meta: {
-                roles: ['administrator', 'manager', 'serwisant'],
-            },
+            meta: {roles: ['administrator', 'manager'],},
         },
     ]
 })

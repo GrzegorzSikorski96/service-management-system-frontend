@@ -19,8 +19,17 @@
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
-                    <ticket v-for="ticket in client.tickets" :key="ticket.id" :ticket="ticket"></ticket>
+                <timeline v-if="ticketsLength" :loading="ticketsLoading" title="Zgłoszenia" :itemsCount="ticketsLength">
+                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"></ticket>
+
+                    <template v-slot:pagination>
+                        <v-pagination
+                                v-model="page"
+                                :length="tickets.last_page"
+                                total-visible="7"
+                                circle
+                        ></v-pagination>
+                    </template>
                 </timeline>
             </v-col>
         </v-row>
@@ -37,7 +46,10 @@
         name: 'ClientSummary',
         data: () => ({
             client: [],
+            tickets: [],
             loading: true,
+            ticketsLoading: true,
+            page: 1,
         }),
         components: {
             Timeline,
@@ -51,6 +63,14 @@
                     this.client = response.data.data.client;
                     this.loading = false;
                 });
+
+                this.getClientTickets(1);
+            },
+            getClientTickets(page) {
+                this.$http.get(`/api/client/${this.$route.params.id}/tickets?page=${page}`).then((response) => {
+                    this.tickets = response.data.data.tickets;
+                    this.ticketsLoading = false;
+                });
             },
         },
         created() {
@@ -58,13 +78,18 @@
         },
         computed: {
             ticketsLength() {
-                if ('tickets' in this.client) {
-                    return this.client.tickets.length;
+                if (this.tickets.data) {
+                    return this.tickets.data.length;
                 } else {
                     return 0;
                 }
             },
-        }
+        },
+        watch: {
+            page: function (value) {
+                this.getClientTickets(value);
+            },
+        },
     }
 </script>
 

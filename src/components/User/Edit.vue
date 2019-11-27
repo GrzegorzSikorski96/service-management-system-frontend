@@ -16,21 +16,17 @@
             </v-card-title>
 
             <v-card-text>
-                <user-form :user="user" ref="editForm" @valid="checkValid"></user-form>
+                <user-form :user="user" ref="editForm" :edit="true"></user-form>
             </v-card-text>
         </span>
 
-        <v-progress-circular v-else
-                             class="mx-auto"
-                             :size="80"
-                             indeterminate
-                             color="primary"
-        ></v-progress-circular>
+        <loading v-else/>
     </v-card>
 </template>
 
 <script>
     import UserForm from "./Form";
+    import Loading from "./../Helpers/Loading"
 
     export default {
         name: 'UserEdit',
@@ -42,7 +38,8 @@
             loading: {},
         },
         components: {
-            UserForm
+            UserForm,
+            Loading
         },
         methods: {
             async updateUser() {

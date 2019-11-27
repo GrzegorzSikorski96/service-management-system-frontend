@@ -20,7 +20,6 @@
                 label="Numer telefonu"
                 required
         ></v-text-field>
-
     </v-form>
 </template>
 

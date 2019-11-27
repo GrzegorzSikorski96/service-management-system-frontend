@@ -2,16 +2,12 @@
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
         <v-card-title>
-            Dane oddziału
+            Dane serwisu
 
             <v-spacer></v-spacer>
 
             <v-btn icon @click="changeEditState" color="info">
                 <font-awesome-icon icon="user-edit" size="lg"/>
-            </v-btn>
-
-            <v-btn v-if="!checkRoute" icon :to="{name: 'AgencySummary', params: { id: agency.id,}}">
-                <font-awesome-icon icon="external-link-alt" size="lg"/>
             </v-btn>
         </v-card-title>
 
@@ -19,23 +15,37 @@
                 <span class="font-weight-bold">
                     Nazwa:
                 </span>
-            {{ agency.name }}
-
-            <br>
-
-            <span class="font-weight-bold">
-                                Adres:
-                            </span>
-            {{ agency.address }}
+            {{ service.name }}
 
             <br>
 
             <span class="font-weight-bold">
                                 Numer telefonu:
                             </span>
-            <a :href="'tel:'+ agency.phone_number">
-                {{ agency.phone_number }}
+            <a :href="'tel:'+ service.phone_number">
+                {{ service.phone_number }}
             </a>
+
+            <br>
+
+            <span class="font-weight-bold">
+                                Adres:
+                            </span>
+            {{ service.address }}
+
+            <br>
+
+            <span class="font-weight-bold">
+                                NIP:
+                            </span>
+            {{ service.NIP }}
+
+            <br>
+
+            <span class="font-weight-bold">
+                                Opis:
+                            </span>
+            {{ service.description }}
 
         </v-card-text>
         </span>
@@ -44,25 +54,20 @@
 </template>
 
 <script>
-    import Loading from "../Helpers/Loading"
+    import Loading from "./../Helpers/Loading"
 
     export default {
-        name: 'AgencyDetails',
-        props: {
-            agency: {},
-            loading: {},
-        },
+        name: 'ServiceDetails',
         components: {
             Loading
+        },
+        props: {
+            service: {},
+            loading: {},
         },
         methods: {
             changeEditState() {
                 this.$emit('editCard', true)
-            }
-        },
-        computed: {
-            checkRoute() {
-                return this.$router.currentRoute.name === 'AgencySummary'
             }
         },
     }

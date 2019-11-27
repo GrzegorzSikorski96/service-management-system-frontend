@@ -23,12 +23,19 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
 Vue.mixin({
+    data: () => ({
+        isInitialized: false,
+    }),
     methods: {
         isAdmin() {
-            return store.state.currentUser.role.name === 'administrator';
+            if (this.currentUser) {
+                return store.state.currentUser.role.name === 'administrator';
+            }
         },
         isManager() {
-            return store.state.currentUser.role.name === 'manager' || this.isAdmin();
+            if (this.currentUser) {
+                return store.state.currentUser.role.name === 'manager' || this.isAdmin();
+            }
         },
     },
     computed: {

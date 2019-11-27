@@ -20,14 +20,23 @@
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline :loading="loading" title="Notatki" :itemsCount="notesLength">
+                <timeline v-if="notesLength" :loading="notesLoading" title="Notatki" :itemsCount="notesLength">
 
                     <template v-slot:createForm>
                         <notes-create :ticket_id="ticket.id"></notes-create>
                     </template>
 
-                    <note v-for="note in ticket.notes" :key="note.id"
+                    <note v-for="note in notes.data" :key="note.id"
                           :note="note"></note>
+
+                    <template v-slot:pagination>
+                        <v-pagination
+                                v-model="page"
+                                :length="notes.last_page"
+                                total-visible="7"
+                                circle
+                        ></v-pagination>
+                    </template>
                 </timeline>
             </v-col>
         </v-row>
@@ -47,6 +56,9 @@
         name: 'TicketSummary',
         data: () => ({
             ticket: [],
+            notes: [],
+            notesLoading: true,
+            page: 1,
             loading: true,
             note: {
                 credentials: {},
@@ -68,6 +80,14 @@
                     this.loading = false;
                     this.loadDefault();
                 });
+
+                this.getTicketNotes(1);
+            },
+            getTicketNotes(page) {
+                this.$http.get(`/api/ticket/${this.$route.params.id}/notes?page=${page}`).then((response) => {
+                    this.notes = response.data.data.notes;
+                    this.notesLoading = false;
+                });
             },
             async addNote() {
                 this.$http.post('/api/note', this.note.credentials)
@@ -86,13 +106,18 @@
         },
         computed: {
             notesLength() {
-                if ('notes' in this.ticket) {
-                    return this.ticket.notes.length;
+                if (this.notes.data) {
+                    return this.notes.data.length;
                 } else {
                     return 0;
                 }
             },
-        }
+        },
+        watch: {
+            page: function (value) {
+                this.getTicketNotes(value);
+            },
+        },
     }
 </script>
 

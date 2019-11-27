@@ -1,8 +1,18 @@
 <template>
     <v-timeline-item
             :color="ticket.ticket_status.color"
-            icon="assignment"
     >
+        <template v-slot:icon>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <font-awesome-icon icon="sticky-note" size="lg" color="white" v-on="on"/>
+                </template>
+                <span>
+                    {{ ticket.ticket_status.name }}
+                </span>
+            </v-tooltip>
+        </template>
+
         <template>
             <router-link :to="{name: 'TicketSummary', params: { id: ticket.id }}"
                          class="route">

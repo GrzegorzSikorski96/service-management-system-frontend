@@ -18,9 +18,13 @@
                      color="#202338"
                      dark>
                     Brak
-                </v-alert>
+            </v-alert>
         </v-card-text>
         </span>
+
+        <v-card-actions v-if="itemsCount">
+            <slot name="pagination"></slot>
+        </v-card-actions>
 
         <v-progress-circular v-else
                              class="mx-auto"

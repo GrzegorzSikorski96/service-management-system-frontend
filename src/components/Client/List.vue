@@ -4,7 +4,7 @@
             <v-col class="col-12">
                 <v-card class="ma-3" :elevation="5">
                     <v-card-title>
-                       Klienci
+                        Klienci
 
                         <v-spacer></v-spacer>
 
@@ -49,7 +49,8 @@
                         </template>
 
                         <template v-slot:item.actions="{ item }">
-                            <v-btn text icon color="info" :to="{name: 'ClientSummary', params: { id: item.id, client: item}}"
+                            <v-btn text icon color="info"
+                                   :to="{name: 'ClientSummary', params: { id: item.id, client: item}}"
                                    elevation="2">
                                 <v-icon>keyboard_arrow_right</v-icon>
                             </v-btn>
@@ -80,14 +81,24 @@
         }),
         methods: {
             async fetchClients() {
-                this.$http.get(`/api/clients`).then((response) => {
+                await this.$http.get(`/api/clients`).then((response) => {
                     this.clients = response.data.data.clients;
                     this.loading = false;
                 });
             },
+            initPusher() {
+                let clients = this.$pusher.subscribe('clients');
+
+                clients.bind('update', this.fetchClients);
+            },
+            init() {
+                this.fetchClients().then(() => {
+                    this.initPusher();
+                })
+            },
         },
         created() {
-            this.fetchClients();
+            this.init();
         },
     }
 </script>

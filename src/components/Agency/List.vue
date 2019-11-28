@@ -69,15 +69,24 @@
             ],
         }),
         methods: {
-            fetchAgencies() {
-                this.$http.get(`/api/agencies`).then((response) => {
+            async fetchAgencies() {
+                await this.$http.get(`/api/agencies`).then((response) => {
                     this.agencies = response.data.data.agencies;
                     this.loading = false;
                 });
             },
+            init() {
+                this.fetchAgencies().then(() => {
+                    this.initPusher();
+                })
+            },
+            initPusher() {
+                let agencies = this.$pusher.subscribe('agencies');
+                agencies.bind('update', this.fetchAgencies);
+            },
         },
         created() {
-            this.fetchAgencies();
+            this.init();
         },
     }
 </script>

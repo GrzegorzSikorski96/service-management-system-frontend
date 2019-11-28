@@ -53,25 +53,33 @@
             AgencyStatistics
         },
         methods: {
-            fetchData() {
-                this.fetchAgency();
-                this.fetchStatistics();
-            },
-            fetchAgency() {
-                this.$http.get(`/api/agency/${this.$route.params.id}`).then((response) => {
+            async fetchAgency() {
+                await this.$http.get(`/api/agency/${this.$route.params.id}`).then((response) => {
                     this.agency = response.data.data.agency;
                     this.agencyLoading = false;
                 });
             },
             fetchStatistics() {
-                this.$http.get(`/api/agency/${this.$route.params.id}/statistics`).then((response) => {
+                this.$http.get(`/api/agency/${this.agency.id}/statistics`).then((response) => {
                     this.statistics = response.data.data;
                     this.statisticsLoading = false;
                 });
             },
+            initPusher() {
+                let agency = this.$pusher.subscribe(`agency-${this.agency.id}`);
+
+                agency.bind('update', this.fetchAgency);
+                agency.bind('statistics', this.fetchStatistics);
+            },
+            init() {
+                this.fetchAgency().then(() => {
+                    this.fetchStatistics();
+                    this.initPusher();
+                })
+            }
         },
         created() {
-            this.fetchData();
+            this.init();
         },
     }
 </script>

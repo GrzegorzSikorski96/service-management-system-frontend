@@ -74,14 +74,18 @@
             TicketManagement
         },
         methods: {
-            fetchData() {
-                this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
+            init() {
+                this.fetchTicket().then(() => {
+                    this.getTicketNotes(1);
+                    this.initPusher();
+                });
+            },
+            async fetchTicket() {
+                await this.$http.get(`/api/ticket/${this.$route.params.id}`).then((response) => {
                     this.ticket = response.data.data.ticket;
                     this.loading = false;
-                    this.loadDefault();
+                    this.note.credentials.ticket_id = this.ticket.id;
                 });
-
-                this.getTicketNotes(1);
             },
             getTicketNotes(page) {
                 this.$http.get(`/api/ticket/${this.$route.params.id}/notes?page=${page}`).then((response) => {
@@ -89,7 +93,7 @@
                     this.notesLoading = false;
                 });
             },
-            async addNote() {
+            addNote() {
                 this.$http.post('/api/note', this.note.credentials)
                     .then(() => {
                         this.$toasted.show('Utworzono notatkę', {
@@ -97,12 +101,30 @@
                         });
                     })
             },
-            loadDefault() {
-                this.note.credentials.ticket_id = this.ticket.id
+            initPusher() {
+                let ticket = this.$pusher.subscribe(`ticket-${this.ticket.id}`);
+                let device = this.$pusher.subscribe(`device-${this.ticket.device.id}`);
+                let client = this.$pusher.subscribe(`client-${this.ticket.client.id}`);
+
+                device.bind('update', (data) => {
+                    this.ticket.device = data.device;
+                });
+
+                client.bind('update', (data) => {
+                    this.ticket.client = data.client;
+                });
+
+                ticket.bind('remove', () => {
+                    this.$router.push('/tickets');
+                });
+                ticket.bind('update', this.fetchTicket);
+                ticket.bind('notes', () => {
+                    this.getTicketNotes(this.page);
+                });
             },
         },
         created() {
-            this.fetchData();
+            this.init();
         },
         computed: {
             notesLength() {

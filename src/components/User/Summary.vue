@@ -21,7 +21,7 @@
                         icon="block"
                         type="error"
                 >
-                       Użytkownik jest zablokowany
+                    Użytkownik jest zablokowany
                 </v-alert>
             </v-col>
 
@@ -70,22 +70,32 @@
         },
         methods: {
             async fetchUser() {
-                this.$http.get(`/api/user/${this.$route.params.id}`).then((response) => {
+                await this.$http.get(`/api/user/${this.$route.params.id}`).then((response) => {
                     this.user = response.data.data.user;
                     this.loading = false;
                 });
-
-                this.getUserNotes(1);
             },
-            getUserNotes(page) {
-                this.$http.get(`/api/user/${this.$route.params.id}/notes?page=${page}`).then((response) => {
+            getUserNotes() {
+                this.$http.get(`/api/user/${this.user.id}/notes?page=${this.page}`).then((response) => {
                     this.notes = response.data.data.notes;
                     this.notesLoading = false;
                 });
             },
+            initPusher() {
+                let user = this.$pusher.subscribe(`user-${this.user.id}`);
+
+                user.bind('update', this.fetchUser);
+                user.bind('notes', this.getUserNotes);
+            },
+            init() {
+                this.fetchUser().then(() => {
+                    this.initPusher();
+                    this.getUserNotes();
+                });
+            },
         },
         created() {
-            this.fetchUser()
+            this.init()
         },
         computed: {
             notesLength() {

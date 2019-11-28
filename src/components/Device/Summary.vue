@@ -58,22 +58,36 @@
         },
         methods: {
             async fetchDevice() {
-                this.$http.get(`/api/device/${this.$route.params.id}`).then((response) => {
+                await this.$http.get(`/api/device/${this.$route.params.id}`).then((response) => {
                     this.device = response.data.data.device;
                     this.loading = false;
                 });
-
-                this.getDeviceTickets(1);
             },
-            getDeviceTickets(page) {
-                this.$http.get(`/api/device/${this.$route.params.id}/tickets?page=${page}`).then((response) => {
+            getDeviceTickets() {
+                this.$http.get(`/api/device/${this.device.id}/tickets?page=${this.page}`).then((response) => {
                     this.tickets = response.data.data.tickets;
                     this.ticketsLoading = false;
                 });
             },
+            initPusher() {
+                let device = this.$pusher.subscribe(`device-${this.device.id}`);
+
+                device.bind('update', this.fetchDevice);
+                device.bind('tickets', this.getDeviceTickets);
+
+                device.bind('remove', () => {
+                    this.$router.push('/devices');
+                });
+            },
+            init() {
+                this.fetchDevice().then(() => {
+                    this.initPusher();
+                    this.getDeviceTickets();
+                });
+            },
         },
         created() {
-            this.fetchDevice()
+            this.init()
         },
         computed: {
             ticketsLength() {

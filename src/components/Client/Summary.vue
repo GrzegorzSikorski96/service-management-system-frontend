@@ -59,22 +59,35 @@
         },
         methods: {
             async fetchClient() {
-                this.$http.get(`/api/client/${this.$route.params.id}`).then((response) => {
+                await this.$http.get(`/api/client/${this.$route.params.id}`).then((response) => {
                     this.client = response.data.data.client;
                     this.loading = false;
                 });
-
-                this.getClientTickets(1);
             },
-            getClientTickets(page) {
-                this.$http.get(`/api/client/${this.$route.params.id}/tickets?page=${page}`).then((response) => {
+            getClientTickets() {
+                this.$http.get(`/api/client/${this.client.id}/tickets?page=${this.page}`).then((response) => {
                     this.tickets = response.data.data.tickets;
                     this.ticketsLoading = false;
                 });
             },
+            initPusher() {
+                let client = this.$pusher.subscribe(`client-${this.client.id}`);
+
+                client.bind('update', this.fetchClient);
+                client.bind('tickets', this.getClientTickets);
+                client.bind('remove', () => {
+                    this.$router.push('/clients');
+                });
+            },
+            init() {
+                this.fetchClient().then(() => {
+                    this.getClientTickets();
+                    this.initPusher();
+                })
+            },
         },
         created() {
-            this.fetchClient()
+            this.init()
         },
         computed: {
             ticketsLength() {

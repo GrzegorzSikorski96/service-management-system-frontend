@@ -84,22 +84,27 @@
             ],
         }),
         methods: {
-            fetchTickets() {
-                this.$http.get(`/api/tickets`).then((response) => {
+            async fetchTickets() {
+                await this.$http.get(`/api/tickets`).then((response) => {
                     this.tickets = response.data.data.tickets;
                     this.loading = false;
                 });
             },
             initPusher() {
-                this.channel = this.$pusher.subscribe(`tickets`);
-                this.channel.bind('ticketsListUpdated', () => {
+                let tickets = this.$pusher.subscribe('tickets');
+
+                tickets.bind('update', () => {
                     this.fetchTickets();
-                })
+                });
             },
+            init() {
+                this.fetchTickets().then(() => {
+                    this.initPusher();
+                })
+            }
         },
         created() {
-            this.fetchTickets();
-            this.initPusher();
+            this.init();
         },
     }
 </script>

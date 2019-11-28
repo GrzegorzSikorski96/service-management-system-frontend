@@ -37,7 +37,8 @@
                             :loading="loading"
                     >
                         <template v-slot:item.actions="{ item }">
-                            <v-btn text icon color="info" :to="{name: 'DeviceSummary', params: { id: item.id, device: item }}"
+                            <v-btn text icon color="info"
+                                   :to="{name: 'DeviceSummary', params: { id: item.id, device: item }}"
                                    elevation="2">
                                 <v-icon>keyboard_arrow_right</v-icon>
                             </v-btn>
@@ -65,18 +66,22 @@
             ],
         }),
         methods: {
-            fetchDevices() {
-                this.$http.get(`/api/devices`).then((response) => {
+            async fetchDevices() {
+                await this.$http.get(`/api/devices`).then((response) => {
                     this.devices = response.data.data.devices;
                     this.loading = false;
                 });
             },
             initPusher() {
-                this.channel = this.$pusher.subscribe(`devices`);
-                this.channel.bind('devicesListUpdated', () => {
-                    this.fetchDevices();
-                })
+                let devices = this.$pusher.subscribe('devices');
+
+                devices.bind('update', this.fetchDevices);
             },
+            init() {
+                this.fetchDevices().then(() => {
+                    this.initPusher();
+                })
+            }
         },
         created() {
             this.fetchDevices();

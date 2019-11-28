@@ -89,28 +89,37 @@
             ],
         }),
         methods: {
-            async fetchUsers() {
+            fetchUsers() {
                 this.$http.get('/api/users').then((response) => {
                     this.users = response.data.data.users;
                     this.loading = false;
                 });
             },
-            async fetchEmployees() {
+            fetchEmployees() {
                 this.$http.get(`/api/agency/${this.$route.params.id}/employees`).then((response) => {
                     this.users = response.data.data.employees;
                     this.loading = false;
                 });
             },
-            fetchData() {
+            async fetchData() {
                 if (this.agency) {
-                    this.fetchEmployees();
+                    await this.fetchEmployees();
                 } else {
-                    this.fetchUsers();
+                    await this.fetchUsers();
                 }
-            }
+            },
+            init() {
+                this.fetchData().then(() => {
+                    this.initPusher();
+                })
+            },
+            initPusher() {
+                let users = this.$pusher.subscribe('users');
+                users.bind('update', this.fetchData);
+            },
         },
         created() {
-            this.fetchData();
+            this.init();
         },
     }
 </script>

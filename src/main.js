@@ -12,15 +12,12 @@ import Toasted from 'vue-toasted';
 import * as pusher from './plugins/pusher'
 
 Vue.use(Vuex);
-
+Vue.use(VueAxios, axios);
 Vue.use(Toasted, {
     theme: "bubble",
     position: "top-center",
     duration: 5000
 });
-
-Vue.config.productionTip = false;
-Vue.use(VueAxios, axios);
 
 Vue.mixin({
     data: () => ({

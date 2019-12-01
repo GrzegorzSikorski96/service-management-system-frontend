@@ -11,7 +11,6 @@
                 <br>
 
                 <span class="error--text font-weight-bold text-uppercase mx-auto">Usuniętych elementów nie można przywrócić</span>
-
             </v-card-text>
 
             <v-card-actions>
@@ -27,9 +26,7 @@
     export default {
         name: 'RemoveTicketDialog',
         props: {
-            modal: {
-                default: {},
-            },
+            modal: {},
             ticket: {},
         },
         methods: {

@@ -5,8 +5,7 @@
             label="Rola użytkownika"
             v-model="agency_role_id"
             item-text="name"
-            item-value="id"
-    ></v-select>
+            item-value="id"/>
 </template>
 
 <script>

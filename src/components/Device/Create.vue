@@ -19,7 +19,7 @@
                             color="#202338"
                             background-color="transparent"
                     >
-                        <v-tabs-slider></v-tabs-slider>
+                        <v-tabs-slider/>
 
                         <v-tab href="#create">
                             Nowe urządzenie
@@ -34,12 +34,12 @@
 
                     <v-tabs-items v-model="tab">
                         <v-tab-item value="check">
-                            <check-exist></check-exist>
+                            <check-exist/>
                         </v-tab-item>
 
                         <v-tab-item value="create">
                             <v-card-text>
-                                <device-form ref="createForm" @valid="checkValid"></device-form>
+                                <device-form ref="createForm" @valid="checkValid"/>
                             </v-card-text>
 
                             <v-card-actions>

@@ -1,44 +1,44 @@
 <template>
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
-        <v-card-title>
-            Dane oddziału
+            <v-card-title>
+                Dane oddziału
 
-            <v-spacer></v-spacer>
+                <v-spacer/>
 
-            <v-btn icon @click="changeEditState" color="info">
-                <font-awesome-icon icon="user-edit" size="lg"/>
-            </v-btn>
+                <v-btn icon @click="changeEditState" color="info">
+                    <font-awesome-icon icon="user-edit" size="lg"/>
+                </v-btn>
 
-            <v-btn v-if="!checkRoute" icon :to="{name: 'AgencySummary', params: { id: agency.id,}}">
-                <font-awesome-icon icon="external-link-alt" size="lg"/>
-            </v-btn>
-        </v-card-title>
+                <v-btn v-if="!checkRoute" icon :to="{name: 'AgencySummary', params: { id: agency.id,}}">
+                    <font-awesome-icon icon="external-link-alt" size="lg"/>
+                </v-btn>
+            </v-card-title>
 
-        <v-card-text>
+            <v-card-text>
                 <span class="font-weight-bold">
                     Nazwa:
                 </span>
-            {{ agency.name }}
+                {{ agency.name }}
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                Adres:
-                            </span>
-            {{ agency.address }}
+                <span class="font-weight-bold">
+                    Adres:
+                </span>
+                {{ agency.address }}
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                Numer telefonu:
-                            </span>
-            <a :href="'tel:'+ agency.phone_number">
-                {{ agency.phone_number }}
-            </a>
-
-        </v-card-text>
+                <span class="font-weight-bold">
+                    Numer telefonu:
+                </span>
+                <a :href="'tel:'+ agency.phone_number">
+                    {{ agency.phone_number }}
+                </a>
+            </v-card-text>
         </span>
+
         <loading v-else/>
     </v-card>
 </template>

@@ -6,28 +6,27 @@
                     <v-card-title>
                         Informacje o urządzeniu: {{ device.name }}
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
-                        <device-management :device="device"></device-management>
+                        <device-management :device="device"/>
                     </v-card-title>
                 </v-card>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <device :device="device" :loading="loading"></device>
+                <device :device="device" :loading="loading"/>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline v-if="ticketsLength" :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
-                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"></ticket>
+                <timeline :loading="loading" title="Zgłoszenia" :itemsCount="ticketsLength">
+                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"/>
 
                     <template v-slot:pagination>
                         <v-pagination
                                 v-model="page"
                                 :length="tickets.last_page"
                                 total-visible="7"
-                                circle
-                        ></v-pagination>
+                                circle/>
                     </template>
                 </timeline>
             </v-col>

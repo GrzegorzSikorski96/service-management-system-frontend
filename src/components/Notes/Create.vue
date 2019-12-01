@@ -1,6 +1,6 @@
 <template>
     <span>
-        <note-form ref="createForm" :ticket_id="ticket_id" @valid="checkValid"></note-form>
+        <note-form ref="createForm" :ticket_id="ticket_id" @valid="checkValid"/>
 
         <v-btn block class="mb-3" :disabled="!valid" @click="addNote()">
             Dodaj notatkę
@@ -16,12 +16,12 @@
         props:{
           ticket_id: {}
         },
-        data: () => ({
-            valid: false,
-        }),
         components: {
             NoteForm
         },
+        data: () => ({
+            valid: false,
+        }),
         methods: {
             async addNote() {
                 this.$http.post('/api/note', this.$refs.createForm.credentials)

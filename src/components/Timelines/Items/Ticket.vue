@@ -27,7 +27,7 @@
             </v-card-text>
 
             <v-card-actions class="text--secondary">
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 {{ ticket.created_at }}
             </v-card-actions>
         </v-card>

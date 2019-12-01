@@ -4,7 +4,7 @@
             <v-card-title>
                 Edycja Zgłoszenia
 
-                <v-spacer></v-spacer>
+                <v-spacer/>
 
                 <v-btn color="green" :disabled="!valid" icon @click="updateTicket">
                     <font-awesome-icon icon="save" size="lg"/>
@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <ticket-form :ticket="ticket" :edit="true" ref="editForm" @valid="checkValid"></ticket-form>
+                <ticket-form :ticket="ticket" :edit="true" ref="editForm" @valid="checkValid"/>
             </v-card-text>
         </span>
 
@@ -30,9 +30,6 @@
 
     export default {
         name: 'TicketEdit',
-        data: () => ({
-            valid: false,
-        }),
         props: {
             ticket: {},
             loading: {},
@@ -41,6 +38,9 @@
             TicketForm,
             Loading
         },
+        data: () => ({
+            valid: false,
+        }),
         methods: {
             async updateTicket() {
                 this.$http.put('/api/ticket', this.$refs.editForm.credentials)

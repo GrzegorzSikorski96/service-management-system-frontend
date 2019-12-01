@@ -15,7 +15,6 @@
 <script>
     export default {
         data: () => ({
-            drawer: null,
             applicationName: 'Service Management System',
         }),
     }

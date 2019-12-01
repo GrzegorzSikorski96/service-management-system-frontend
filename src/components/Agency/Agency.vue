@@ -1,8 +1,7 @@
 <template>
     <span>
-        <agency-details v-if="!editAgency" :agency="agency" :loading="loading"
-                        @editCard="agencyEdit"></agency-details>
-        <agency-edit v-else :agency="agency" @editCard="agencyEdit"></agency-edit>
+        <agency-details v-if="!editAgency" :agency="agency" :loading="loading" @editCard="agencyEdit"/>
+        <agency-edit v-else :agency="agency" @editCard="agencyEdit"/>
     </span>
 </template>
 
@@ -12,9 +11,6 @@
 
     export default {
         name: 'Agency',
-        data: () => ({
-            editAgency: false,
-        }),
         props: {
             agency: {},
             loading: {},
@@ -23,6 +19,9 @@
             AgencyDetails,
             AgencyEdit
         },
+        data: () => ({
+            editAgency: false,
+        }),
         methods: {
             agencyEdit(value) {
                 this.editAgency = value

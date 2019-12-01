@@ -7,8 +7,7 @@
                 required
         />
 
-        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"></agencies-autocomplete>
-
+        <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"/>
     </v-form>
 </template>
 

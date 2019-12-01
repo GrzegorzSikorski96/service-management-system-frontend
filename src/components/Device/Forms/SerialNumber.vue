@@ -4,11 +4,9 @@
                 v-model="credentials.serial_number"
                 :rules="rules.serial_number.required"
                 label="Numer seryjny"
-                required
-        ></v-text-field>
+                required/>
 
         <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"/>
-
     </v-form>
 </template>
 

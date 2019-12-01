@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
 Vue.use(require('vue-pusher'), {
-    api_key: 'b523965da7bc10d9d529',
+    api_key: process.env.VUE_APP_PUSHER_API_KEY,
     options: {
-        cluster: 'eu',
+        cluster: process.env.VUE_APP_PUSHER_CLUSTER,
         forceTLS: true
     }
 });

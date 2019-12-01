@@ -6,36 +6,34 @@
                     <v-card-title>
                         Informacje o zgłoszeniu: {{ ticket.token }}
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
-                        <ticket-management :ticket="ticket"></ticket-management>
+                        <ticket-management :ticket="ticket"/>
                     </v-card-title>
                 </v-card>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <ticket :ticket="ticket" :loading="loading"></ticket>
-                <device :device="ticket.device" :loading="loading"></device>
-                <client :client="ticket.client" :loading="loading"></client>
+                <ticket :ticket="ticket" :loading="loading"/>
+                <device :device="ticket.device" :loading="loading"/>
+                <client :client="ticket.client" :loading="loading"/>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline v-if="notesLength" :loading="notesLoading" title="Notatki" :itemsCount="notesLength">
+                <timeline :loading="notesLoading" title="Notatki" :itemsCount="notesLength">
 
                     <template v-slot:createForm>
-                        <notes-create :ticket_id="ticket.id"></notes-create>
+                        <notes-create :ticket_id="ticket.id"/>
                     </template>
 
-                    <note v-for="note in notes.data" :key="note.id"
-                          :note="note"></note>
+                    <note v-for="note in notes.data" :key="note.id" :note="note"/>
 
                     <template v-slot:pagination>
                         <v-pagination
                                 v-model="page"
                                 :length="notes.last_page"
                                 total-visible="7"
-                                circle
-                        ></v-pagination>
+                                circle/>
                     </template>
                 </timeline>
             </v-col>

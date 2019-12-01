@@ -18,11 +18,10 @@
                 <br>
 
                 <span class="error--text font-weight-bold text-uppercase mx-auto">Usuniętych elementów nie można przywrócić</span>
-
             </v-card-text>
 
             <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn color="red darken-1" text @click="removeUser()">Usuń</v-btn>
                 <v-btn color="darken-1" text @click="closeDialog()">Anuluj</v-btn>
             </v-card-actions>
@@ -34,9 +33,7 @@
     export default {
         name: 'RemoveUserDialog',
         props: {
-            modal: {
-                default: {},
-            },
+            modal: {},
             user: {},
         },
         methods: {

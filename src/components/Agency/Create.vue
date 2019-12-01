@@ -12,7 +12,7 @@
             <v-col class="col-12">
                 <v-card class="ma-3" elevation="5">
                     <v-card-text>
-                        <agency-form ref="createForm" @valid="checkValid"></agency-form>
+                        <agency-form ref="createForm" @valid="checkValid"/>
                     </v-card-text>
 
                     <v-card-actions>
@@ -36,14 +36,14 @@
 
     export default {
         name: 'AgencyCreate',
-        data: () => ({
-            valid: false,
-        }),
         components: {
             AgencyForm
         },
+        data: () => ({
+            valid: false,
+        }),
         methods: {
-            async createAgency() {
+            createAgency() {
                 this.$http.post('/api/agency', this.$refs.createForm.credentials)
                     .then(() => {
                         this.$toasted.show('Utworzono oddział', {

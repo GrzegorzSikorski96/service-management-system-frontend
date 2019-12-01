@@ -1,6 +1,6 @@
 <template>
     <v-footer app inset>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn
                 v-for="link in links"
                 :key="link.url"
@@ -10,7 +10,7 @@
             <font-awesome-icon :icon="['fab', link.icon]"/>
         </v-btn>
 
-        <v-spacer></v-spacer>
+        <v-spacer/>
 
         <span>Grzegorz <span class="font-weight-bold">Sikorski</span> &copy; 2019</span>
     </v-footer>

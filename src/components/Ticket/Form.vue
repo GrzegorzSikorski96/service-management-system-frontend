@@ -4,14 +4,12 @@
                 v-model="credentials.description"
                 :rules="rules.ticket.description"
                 label="Opis zgłoszenia"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.additional_information"
                 label="Dodatkowe informacje"
-                required
-        ></v-text-field>
+                required/>
 
         <template v-if="!edit">
             <agencies-autocomplete v-if="isAdmin()" v-model="agency_id"/>
@@ -24,13 +22,11 @@
         <template v-if="edit">
             <v-text-field
                     v-model="credentials.message"
-                    label="Wiadomość zwrotna."
-            ></v-text-field>
+                    label="Wiadomość zwrotna."/>
         </template>
 
         <ticket-statuses-select v-model="credentials.ticket_status_id"
                                 :ticket_status_id="credentials.ticket_status_id"/>
-
     </v-form>
 </template>
 

@@ -4,7 +4,7 @@
             icon="assignment"
     >
         <note v-if="!editNote" :note="note" @editCard="noteEdit"/>
-        <note-edit v-else :note="note" @editCard="noteEdit"></note-edit>
+        <note-edit v-else :note="note" @editCard="noteEdit"/>
     </v-timeline-item>
 </template>
 
@@ -14,9 +14,6 @@
 
     export default {
         name: 'Notes',
-        data: () => ({
-            editNote: false,
-        }),
         props: {
             note: {},
         },
@@ -24,6 +21,9 @@
             Note,
             NoteEdit
         },
+        data: () => ({
+            editNote: false,
+        }),
         methods: {
             noteEdit(value) {
                 this.editNote = value

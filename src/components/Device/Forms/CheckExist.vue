@@ -1,7 +1,7 @@
 <template>
     <span>
         <v-card-text>
-            <serial-number-form ref="serialNumberForm" @valid="checkValid"></serial-number-form>
+            <serial-number-form ref="serialNumberForm" @valid="checkValid"/>
         </v-card-text>
         <v-card-actions>
             <v-btn
@@ -14,7 +14,6 @@
             </v-btn>
         </v-card-actions>
     </span>
-
 </template>
 
 <script>

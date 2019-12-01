@@ -6,7 +6,7 @@
                     <v-card-title>
                         Urządzenia
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
                         <v-btn v-if="isAdmin()" icon :to="{name: 'DeviceCreate'}">
                             <font-awesome-icon icon="plus" size="lg"/>

@@ -6,8 +6,7 @@
                 label="Treść notatki"
                 :rules="rules.note.content"
                 rows="1"
-                class="mb-2"
-        />
+                class="mb-2"/>
     </v-form>
 </template>
 

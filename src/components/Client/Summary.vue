@@ -6,21 +6,20 @@
                     <v-card-title>
                         Informacje o kliencie: {{ client.name }}
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
                         <client-management :client="client"/>
-
                     </v-card-title>
                 </v-card>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <client :client="client" :loading="loading"></client>
+                <client :client="client" :loading="loading"/>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline v-if="ticketsLength" :loading="ticketsLoading" title="Zgłoszenia" :itemsCount="ticketsLength">
-                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"></ticket>
+                <timeline :loading="ticketsLoading" title="Zgłoszenia" :itemsCount="ticketsLength">
+                    <ticket v-for="ticket in tickets.data" :key="ticket.id" :ticket="ticket"/>
 
                     <template v-slot:pagination>
                         <v-pagination
@@ -28,7 +27,7 @@
                                 :length="tickets.last_page"
                                 total-visible="7"
                                 circle
-                        ></v-pagination>
+                        />
                     </template>
                 </timeline>
             </v-col>

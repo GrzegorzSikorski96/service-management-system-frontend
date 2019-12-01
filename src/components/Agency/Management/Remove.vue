@@ -24,11 +24,15 @@
                         Użytkownicy
                     </li>
                 </ul>
+
                 <br>
+
                 <span class="mt-2">Abu usunąć oddział wpisz: </span>
 
                 <br>
+
                 <span class="font-weight-bold">{{agency.name}}, {{agency.address}}</span>
+
                 <br>
 
                 <v-text-field
@@ -36,14 +40,14 @@
                         label="Przepisz tekst"
                         required onCopy="return false" onDrag="return false" onDrop="return false"
                         onPaste="return false" autocomplete=off
-                ></v-text-field>
+                />
 
                 <span class="error--text font-weight-bold text-uppercase mx-auto">Usuniętych elementów nie można przywrócić</span>
 
             </v-card-text>
 
             <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn v-if="valid" color="red darken-1" text @click="removeAgency()">Usuń</v-btn>
                 <v-btn color="darken-1" text @click="closeDialog()">Anuluj</v-btn>
             </v-card-actions>
@@ -55,16 +59,14 @@
     export default {
         name: 'RemoveAgencyDialog',
         props: {
-            modal: {
-                default: {},
-            },
+            modal: {},
             agency: {},
         },
         data: () => ({
             confirmation: '',
         }),
         methods: {
-            async removeAgency() {
+            removeAgency() {
                 this.$http.delete(`/api/agency/${this.agency.id}`)
                     .then(() => {
                         this.$toasted.show('Usunięto oddział', {

@@ -4,7 +4,7 @@
             <v-card-title>
                 Dane pracownika
 
-                <v-spacer></v-spacer>
+                <v-spacer/>
 
                 <v-btn icon @click="changeEditState" color="info">
                     <font-awesome-icon icon="user-edit" size="lg"/>
@@ -24,8 +24,8 @@
                 <br>
 
                 <span class="font-weight-bold">
-                                Email:
-                            </span>
+                    Email:
+                </span>
                 <a :href="'mailto:'+user.email">
                     {{ user.email }}
                 </a>
@@ -33,8 +33,8 @@
                 <br>
 
                 <span class="font-weight-bold">
-                                Numer telefonu:
-                            </span>
+                    Numer telefonu:
+                </span>
                 <a :href="'tel:'+user.phone_number">
                     {{ user.phone_number }}
                 </a>
@@ -47,12 +47,10 @@
                     </span>
                     {{ user.role.name}}
                 </span>
-
             </v-card-text>
         </span>
 
         <loading v-else/>
-
     </v-card>
 </template>
 

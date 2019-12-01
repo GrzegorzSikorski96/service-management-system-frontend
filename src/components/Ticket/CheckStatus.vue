@@ -15,8 +15,7 @@
                                 :rules="rules.ticket.token"
                                 :counter="15"
                                 label="Numer zgłoszenia"
-                                required
-                        ></v-text-field>
+                                required/>
                     </v-form>
 
                     <v-alert
@@ -28,7 +27,6 @@
                     >
                         Status zgłoszenia: {{status.name}}
                     </v-alert>
-
 
                     <loading v-if="loading"/>
                 </v-card-text>

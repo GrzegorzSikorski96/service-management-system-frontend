@@ -4,7 +4,7 @@
             <v-card-title>
                 Dane zgłoszenia
 
-                <v-spacer></v-spacer>
+                <v-spacer/>
 
                 <v-btn icon @click="changeEditState" color="info">
                     <font-awesome-icon icon="user-edit" size="lg"/>
@@ -24,33 +24,32 @@
                 <br>
 
                 <span class="font-weight-bold">
-                                Opis:
-                            </span>
+                    Opis:
+                </span>
                 {{ ticket.description }}
 
                 <br>
 
                 <span class="font-weight-bold">
-                                Dodatkowe informacje:
-                            </span>
+                    Dodatkowe informacje:
+                </span>
                 {{ ticket.additional_information }}
 
                 <span v-if="ticket.message">
                     <br>
 
                     <span class="font-weight-bold">
-                                    Wiadomość zwrotna:
-                                </span>
+                        Wiadomość zwrotna:
+                    </span>
                     {{ ticket.message }}
                 </span>
 
                 <br>
 
                 <span class="font-weight-bold">
-                                Status zgłoszenia:
-                            </span>
+                    Status zgłoszenia:
+                </span>
                 {{ ticket.ticket_status.name }}
-
             </v-card-text>
         </span>
 
@@ -63,12 +62,12 @@
 
     export default {
         name: 'TicketDetails',
-        components:{
-            Loading,
-        },
         props: {
             ticket: {},
             loading: {},
+        },
+        components:{
+            Loading,
         },
         methods: {
             changeEditState() {

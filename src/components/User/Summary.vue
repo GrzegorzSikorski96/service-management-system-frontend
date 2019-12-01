@@ -6,10 +6,9 @@
                     <v-card-title>
                         Informacje o pracowniku: {{ user.name }} {{ user.surname }}
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
-                        <user-management :user="user"></user-management>
-
+                        <user-management :user="user"/>
                     </v-card-title>
                 </v-card>
 
@@ -26,20 +25,19 @@
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <user :user="user" :loading="loading"></user>
+                <user :user="user" :loading="loading"/>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                <timeline v-if="notesLength" :loading="loading" title="Notatki" :itemsCount="notesLength">
-                    <note v-for="note in notes.data" :key="note.id" :note="note"></note>
+                <timeline :loading="loading" title="Notatki" :itemsCount="notesLength">
+                    <note v-for="note in notes.data" :key="note.id" :note="note"/>
 
                     <template v-slot:pagination>
                         <v-pagination
                                 v-model="page"
                                 :length="notes.last_page"
                                 total-visible="7"
-                                circle
-                        ></v-pagination>
+                                circle/>
                     </template>
                 </timeline>
             </v-col>
@@ -55,6 +53,12 @@
 
     export default {
         name: 'UserSummary',
+        components: {
+            Timeline,
+            Note,
+            User,
+            UserManagement,
+        },
         data: () => ({
             user: [],
             notes: [],
@@ -62,12 +66,6 @@
             page: 1,
             loading: true,
         }),
-        components: {
-            Timeline,
-            Note,
-            User,
-            UserManagement,
-        },
         methods: {
             async fetchUser() {
                 await this.$http.get(`/api/user/${this.$route.params.id}`).then((response) => {
@@ -97,6 +95,11 @@
         created() {
             this.init()
         },
+        watch: {
+            page: function (value) {
+                this.getUserNotes(value);
+            },
+        },
         computed: {
             notesLength() {
                 if (this.notes.data) {
@@ -104,11 +107,6 @@
                 } else {
                     return 0;
                 }
-            },
-        },
-        watch: {
-            page: function (value) {
-                this.getUserNotes(value);
             },
         },
     }

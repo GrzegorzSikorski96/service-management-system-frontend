@@ -18,8 +18,7 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <NavigationDrawerItems>
-            </NavigationDrawerItems>
+            <NavigationDrawerItems/>
 
             <template v-slot:append>
                 <v-list-item link :ripple="{ class: 'red-text' }" @click="logout" v-if="currentUser">
@@ -45,11 +44,11 @@
         </v-navigation-drawer>
 
         <Toolbar>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
         </Toolbar>
 
         <v-content class="content">
-            <router-view></router-view>
+            <router-view/>
         </v-content>
     </v-app>
 </template>

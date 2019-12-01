@@ -5,8 +5,7 @@
                     class="mx-auto"
                     :size="80"
                     indeterminate
-                    color="primary"
-            ></v-progress-circular>
+                    color="primary"/>
         </v-row>
     </v-container>
 </template>

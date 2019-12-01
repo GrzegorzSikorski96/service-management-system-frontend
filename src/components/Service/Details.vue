@@ -1,54 +1,54 @@
 <template>
     <v-card class="ma-3 pa-1" :elevation="5">
         <span v-if="!loading">
-        <v-card-title>
-            Dane serwisu
+            <v-card-title>
+                Dane serwisu
 
-            <v-spacer></v-spacer>
+                <v-spacer/>
 
-            <v-btn icon @click="changeEditState" color="info">
-                <font-awesome-icon icon="user-edit" size="lg"/>
-            </v-btn>
-        </v-card-title>
+                <v-btn icon @click="changeEditState" color="info">
+                    <font-awesome-icon icon="user-edit" size="lg"/>
+                </v-btn>
+            </v-card-title>
 
-        <v-card-text>
+            <v-card-text>
                 <span class="font-weight-bold">
                     Nazwa:
                 </span>
-            {{ service.name }}
+                {{ service.name }}
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                Numer telefonu:
-                            </span>
-            <a :href="'tel:'+ service.phone_number">
-                {{ service.phone_number }}
-            </a>
+                <span class="font-weight-bold">
+                    Numer telefonu:
+                </span>
+                <a :href="'tel:'+ service.phone_number">
+                    {{ service.phone_number }}
+                </a>
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                Adres:
-                            </span>
-            {{ service.address }}
+                <span class="font-weight-bold">
+                    Adres:
+                </span>
+                {{ service.address }}
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                NIP:
-                            </span>
-            {{ service.NIP }}
+                <span class="font-weight-bold">
+                    NIP:
+                </span>
+                {{ service.NIP }}
 
-            <br>
+                <br>
 
-            <span class="font-weight-bold">
-                                Opis:
-                            </span>
-            {{ service.description }}
-
-        </v-card-text>
+                <span class="font-weight-bold">
+                    Opis:
+                </span>
+                {{ service.description }}
+            </v-card-text>
         </span>
+
         <loading v-else/>
     </v-card>
 </template>
@@ -58,12 +58,12 @@
 
     export default {
         name: 'ServiceDetails',
-        components: {
-            Loading
-        },
         props: {
             service: {},
             loading: {},
+        },
+        components: {
+            Loading
         },
         methods: {
             changeEditState() {

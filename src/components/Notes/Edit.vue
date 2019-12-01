@@ -3,7 +3,7 @@
         <v-card-title class="subtitle-2" dense>
             Edytuj notatkę
 
-            <v-spacer></v-spacer>
+            <v-spacer/>
 
             <v-btn color="green" :disabled="!valid" icon @click="editNote">
                 <font-awesome-icon icon="save" size="lg"/>
@@ -25,15 +25,15 @@
 
     export default {
         name: 'Notes',
+        props: {
+            note: {},
+        },
         components:{
           EditForm
         },
         data: () => ({
             valid: false,
         }),
-        props: {
-            note: {},
-        },
         methods: {
             async editNote() {
                 this.$http.put('/api/note', this.$refs.editForm.credentials)

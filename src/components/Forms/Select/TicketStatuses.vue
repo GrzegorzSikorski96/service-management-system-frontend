@@ -5,8 +5,7 @@
             label="Status zgłoszenia"
             v-model="ticketStatusId"
             item-text="name"
-            item-value="id"
-    ></v-select>
+            item-value="id"/>
 </template>
 
 <script>

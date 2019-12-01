@@ -25,12 +25,9 @@
             </v-list>
         </v-menu>
 
-        <remove-user-dialog :modal="removeUser" :user="user"
-                            @modal="removeDialog"></remove-user-dialog>
-        <block-user-dialog :modal="blockUser" :user="user"
-                           @modal="blockDialog"></block-user-dialog>
-        <unblock-user-dialog :modal="unblockUser" :user="user"
-                             @modal="unblockDialog"></unblock-user-dialog>
+        <remove-user-dialog :modal="removeUser" :user="user" @modal="removeDialog"/>
+        <block-user-dialog :modal="blockUser" :user="user" @modal="blockDialog"/>
+        <unblock-user-dialog :modal="unblockUser" :user="user" @modal="unblockDialog"/>
     </span>
 </template>
 
@@ -41,6 +38,9 @@
 
     export default {
         name: 'UserManagement',
+        props: {
+            user: {},
+        },
         components: {
             RemoveUserDialog,
             BlockUserDialog,
@@ -51,9 +51,6 @@
             blockUser: false,
             unblockUser: false,
         }),
-        props: {
-            user: {},
-        },
         methods: {
             closeDialog() {
                 this.$emit('modal', false)

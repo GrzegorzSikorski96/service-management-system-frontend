@@ -6,7 +6,7 @@
                     <v-card-title>
                         Oddziały
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
                         <v-btn v-if="isAdmin()" icon :to="{name: 'AgencyCreate'}">
                             <font-awesome-icon icon="plus" size="lg"/>
@@ -27,7 +27,7 @@
                                 label="Szukaj"
                                 single-line
                                 hide-details
-                        ></v-text-field>
+                        />
                     </v-card-title>
                     <v-data-table
                             :headers="headers"

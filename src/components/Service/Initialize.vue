@@ -5,11 +5,11 @@
                 <v-stepper-header>
                     <v-stepper-step :complete="step > 1" step="1">Tworzenie serwisu</v-stepper-step>
 
-                    <v-divider></v-divider>
+                    <v-divider/>
 
                     <v-stepper-step :complete="step > 2" step="2">Tworzenie pierwszego oddziału</v-stepper-step>
 
-                    <v-divider></v-divider>
+                    <v-divider/>
 
                     <v-stepper-step :complete="step > 3" step="3">Gotowe!</v-stepper-step>
                 </v-stepper-header>
@@ -61,12 +61,12 @@
 
     export default {
         name: 'ServiceInitialize',
+        props: {
+            loading: {},
+        },
         components: {
             ServiceForm,
             AgencyForm
-        },
-        props: {
-            loading: {},
         },
         data: () => ({
             step: 1,

@@ -6,7 +6,7 @@
                     <v-card-title>
                         Klienci
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
                         <v-btn v-if="isAdmin()" icon :to="{name: 'ClientCreate'}">
                             <font-awesome-icon icon="plus" size="lg"/>
@@ -26,8 +26,7 @@
                                 append-icon="search"
                                 label="Search"
                                 single-line
-                                hide-details
-                        ></v-text-field>
+                                hide-details/>
                     </v-card-title>
 
                     <v-data-table

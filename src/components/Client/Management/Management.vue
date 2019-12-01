@@ -17,8 +17,7 @@
             </v-list>
         </v-menu>
 
-        <remove-client-dialog :modal="removeClient" :client="client"
-                              @modal="removeDialog"></remove-client-dialog>
+        <remove-client-dialog :modal="removeClient" :client="client" @modal="removeDialog"/>
     </span>
 </template>
 
@@ -27,15 +26,15 @@
 
     export default {
         name: 'ClientManagement',
+        props: {
+            client: {},
+        },
         components: {
             RemoveClientDialog,
         },
         data: () => ({
             removeClient: false,
         }),
-        props: {
-            client: {},
-        },
         methods: {
             closeDialog() {
                 this.$emit('modal', false)

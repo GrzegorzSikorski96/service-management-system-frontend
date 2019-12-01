@@ -2,16 +2,16 @@
     <div>
         <div v-if="!loading">
             <div v-if="isInitialized">
-                <Main></Main>
+                <Main/>
             </div>
 
             <div v-else>
                 <v-app id="app">
                     <v-content class="content" v-if="!currentUser">
-                        <login></login>
+                        <login/>
                     </v-content>
                     <v-content class="content" v-else>
-                        <initialize @initialized="checkInitialized"></initialize>
+                        <initialize @initialized="checkInitialized"/>
                     </v-content>
                 </v-app>
             </div>
@@ -40,17 +40,18 @@
     import Loading from "./components/Helpers/Loading"
 
     export default {
-        data: () => ({
-            service: [],
-            logged: false,
-            loading: true,
-        }),
+        name: 'App',
         components: {
             Main,
             Login,
             Initialize,
             Loading
         },
+        data: () => ({
+            service: [],
+            logged: false,
+            loading: true,
+        }),
         methods: {
             checkInitialized() {
                 this.$http.get('/api/service/initialized')

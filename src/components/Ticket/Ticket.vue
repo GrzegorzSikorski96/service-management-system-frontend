@@ -1,8 +1,7 @@
 <template>
     <span>
-        <ticket-details v-if="!editTicket" :ticket="ticket" :loading="loading"
-                        @editCard="ticketEdit"></ticket-details>
-        <ticket-edit v-else :ticket="ticket" @editCard="ticketEdit"></ticket-edit>
+        <ticket-details v-if="!editTicket" :ticket="ticket" :loading="loading" @editCard="ticketEdit"/>
+        <ticket-edit v-else :ticket="ticket" @editCard="ticketEdit"/>
     </span>
 </template>
 
@@ -12,9 +11,6 @@
 
     export default {
         name: 'Client',
-        data: () => ({
-            editTicket: false,
-        }),
         props: {
             ticket: {},
             loading: {},
@@ -23,6 +19,9 @@
             TicketDetails,
             TicketEdit
         },
+        data: () => ({
+            editTicket: false,
+        }),
         methods: {
             ticketEdit(value) {
                 this.editTicket = value

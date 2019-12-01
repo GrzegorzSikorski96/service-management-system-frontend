@@ -4,43 +4,37 @@
                 v-model="credentials.name"
                 :rules="rules.user.name"
                 label="Imię"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.surname"
                 :rules="rules.user.surname"
                 label="Nazwisko"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.password"
                 :rules="rules.user.password"
                 label="Hasło"
                 type="password"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.phone_number"
                 :rules="rules.user.phone_number"
                 label="Numer telefonu"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.email"
                 :rules="rules.user.email"
                 label="Email"
-                required
-        ></v-text-field>
+                required/>
 
         <span v-if="isAdmin()">
-            <agencies-autocomplete v-if="!edit" v-model="credentials.agency_id"></agencies-autocomplete>
-
-            <agency-role-select v-if="user" v-model="credentials.agency_role_id" :agencyRoleId="user.agency_role_id"></agency-role-select>
-            <agency-role-select v-else v-model="credentials.agency_role_id"></agency-role-select>
+            <agencies-autocomplete v-if="!edit" v-model="credentials.agency_id"/>
+            <agency-role-select v-if="user" v-model="credentials.agency_role_id" :agencyRoleId="user.agency_role_id"/>
+            <agency-role-select v-else v-model="credentials.agency_role_id"/>
         </span>
     </v-form>
 </template>

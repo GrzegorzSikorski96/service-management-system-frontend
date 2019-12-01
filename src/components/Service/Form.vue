@@ -4,37 +4,31 @@
                 v-model="credentials.name"
                 :rules="rules.service.name"
                 label="Nazwa serwisu"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.address"
                 :rules="rules.service.address"
                 label="Adres"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.NIP"
                 :rules="rules.service.NIP"
                 label="Numer NIP"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.phone_number"
                 :rules="rules.service.phone_number"
                 label="Numer telefonu"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.description"
                 :rules="rules.service.description"
                 label="Opis"
-                required
-        ></v-text-field>
-
+                required/>
     </v-form>
 </template>
 

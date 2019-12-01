@@ -16,7 +16,7 @@
             </v-card-title>
 
             <v-card-text>
-                <user-form :user="user" ref="editForm" :edit="true" @valid="checkValid"></user-form>
+                <user-form :user="user" ref="editForm" :edit="true" @valid="checkValid"/>
             </v-card-text>
         </span>
 

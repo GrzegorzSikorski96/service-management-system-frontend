@@ -6,12 +6,12 @@
                          class="route">
                 <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>
 
-                <v-spacer></v-spacer>
+                <v-spacer/>
             </router-link>
 
             <span class="font-weight-bold" v-else>{{ note.author.name }} {{ note.author.surname }} </span>
 
-            <v-spacer></v-spacer>
+            <v-spacer/>
 
             <v-btn icon v-if="currentUser.id === note.author.id" color="info" @click="changeEditState">
                 <font-awesome-icon icon="pen"/>
@@ -29,7 +29,7 @@
                 {{ note.ticket.token }}
             </router-link>
 
-            <v-spacer></v-spacer>
+            <v-spacer/>
             {{ note.created_at }}
         </v-card-actions>
     </v-card>

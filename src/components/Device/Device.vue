@@ -1,8 +1,7 @@
 <template>
     <span>
-        <device-details v-if="!editDevice" :device="device" :loading="loading"
-                        @editCard="deviceEdit"></device-details>
-        <device-edit v-else :device="device" @editCard="deviceEdit"></device-edit>
+        <device-details v-if="!editDevice" :device="device" :loading="loading" @editCard="deviceEdit"/>
+        <device-edit v-else :device="device" @editCard="deviceEdit"/>
     </span>
 </template>
 
@@ -12,9 +11,6 @@
 
     export default {
         name: 'Device',
-        data: () => ({
-            editDevice: false,
-        }),
         props: {
             device: {},
             loading: {},
@@ -23,6 +19,9 @@
             DeviceDetails,
             DeviceEdit,
         },
+        data: () => ({
+            editDevice: false,
+        }),
         methods: {
             deviceEdit(value) {
                 this.editDevice = value

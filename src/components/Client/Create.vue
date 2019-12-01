@@ -34,12 +34,12 @@
 
                     <v-tabs-items v-model="tab">
                         <v-tab-item value="check">
-                            <check-exist></check-exist>
+                            <check-exist/>
                         </v-tab-item>
 
                         <v-tab-item value="create">
                             <v-card-text>
-                                <client-form ref="createForm" @valid="checkValid"></client-form>
+                                <client-form ref="createForm" @valid="checkValid"/>
                             </v-card-text>
 
                             <v-card-actions>
@@ -66,14 +66,14 @@
 
     export default {
         name: 'ClientCreate',
-        data: () => ({
-            valid: false,
-            tab: null,
-        }),
         components: {
             ClientForm,
             CheckExist
         },
+        data: () => ({
+            valid: false,
+            tab: null,
+        }),
         methods: {
             async createClient() {
                 this.$http.post('/api/client', this.$refs.createForm.credentials)

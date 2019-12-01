@@ -17,8 +17,7 @@
             </v-list>
         </v-menu>
 
-        <remove-ticket-dialog :modal="removeTicket" :ticket="ticket"
-                              @modal="removeDialog"></remove-ticket-dialog>
+        <remove-ticket-dialog :modal="removeTicket" :ticket="ticket" @modal="removeDialog"/>
     </span>
 </template>
 
@@ -27,15 +26,15 @@
 
     export default {
         name: 'ClientManagement',
+        props: {
+            ticket: {},
+        },
         components: {
             RemoveTicketDialog,
         },
         data: () => ({
             removeTicket: false,
         }),
-        props: {
-            ticket: {},
-        },
         methods: {
             closeDialog() {
                 this.$emit('modal', false)

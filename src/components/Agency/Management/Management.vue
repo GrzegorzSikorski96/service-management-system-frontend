@@ -17,8 +17,7 @@
             </v-list>
         </v-menu>
 
-        <remove-agency-dialog :modal="removeAgency" :agency="agency"
-                                  @modal="removeDialog"></remove-agency-dialog>
+        <remove-agency-dialog :modal="removeAgency" :agency="agency" @modal="removeDialog"/>
     </span>
 </template>
 
@@ -27,15 +26,15 @@
 
     export default {
         name: 'AgencyManagement',
+        props: {
+            agency: {},
+        },
         components: {
             RemoveAgencyDialog
         },
         data: () => ({
             removeAgency: false,
         }),
-        props: {
-            agency: {},
-        },
         methods: {
             closeDialog() {
                 this.$emit('modal', false)

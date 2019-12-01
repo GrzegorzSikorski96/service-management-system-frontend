@@ -1,8 +1,7 @@
 <template>
     <span>
-        <user-details v-if="!editUser" :user="user" :loading="loading"
-                        @editCard="userEdit"></user-details>
-        <user-edit v-else :user="user" @editCard="userEdit"></user-edit>
+        <user-details v-if="!editUser" :user="user" :loading="loading" @editCard="userEdit"/>
+        <user-edit v-else :user="user" @editCard="userEdit"/>
     </span>
 </template>
 
@@ -12,9 +11,6 @@
 
     export default {
         name: 'User',
-        data: () => ({
-            editUser: false,
-        }),
         props: {
             user: {},
             loading: {},
@@ -23,6 +19,9 @@
             UserDetails,
             UserEdit,
         },
+        data: () => ({
+            editUser: false,
+        }),
         methods: {
             userEdit(value) {
                 this.editUser = value

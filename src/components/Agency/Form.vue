@@ -4,22 +4,19 @@
                 v-model="credentials.name"
                 :rules="rules.agency.name"
                 label="Nazwa oddziału"
-                required
-        ></v-text-field>
+                required />
 
         <v-text-field
                 v-model="credentials.address"
                 :rules="rules.agency.address"
                 label="Adres"
-                required
-        ></v-text-field>
+                required />
 
         <v-text-field
                 v-model="credentials.phone_number"
                 :rules="rules.agency.phone_number"
                 label="Numer telefonu"
-                required
-        ></v-text-field>
+                required />
     </v-form>
 </template>
 

@@ -6,25 +6,25 @@
                     <v-card-title>
                         Informacje o oddziale: {{ agency.name }}
 
-                        <v-spacer></v-spacer>
+                        <v-spacer/>
 
-                        <agency-management :agency="agency"></agency-management>
+                        <agency-management :agency="agency"/>
                     </v-card-title>
                 </v-card>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <agency :agency="agency" :loading="agencyLoading"></agency>
+                <agency :agency="agency" :loading="agencyLoading"/>
             </v-col>
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
                 <agency-statistics v-if="isManager()" :statistics="statistics"
-                                   :loading="statisticsLoading"></agency-statistics>
+                                   :loading="statisticsLoading"/>
             </v-col>
         </v-row>
 
         <v-row class="col-12">
-            <users-list v-if="isManager() && !agencyLoading" :agency="true"></users-list>
+            <users-list v-if="isManager() && !agencyLoading" :agency="true"/>
         </v-row>
     </v-container>
 </template>
@@ -37,6 +37,12 @@
 
     export default {
         name: 'AgencySummary',
+        components: {
+            Agency,
+            AgencyManagement,
+            UsersList,
+            AgencyStatistics
+        },
         data: () => ({
             agency: [],
             statistics: [],
@@ -46,12 +52,6 @@
                 credentials: {},
             }
         }),
-        components: {
-            Agency,
-            AgencyManagement,
-            UsersList,
-            AgencyStatistics
-        },
         methods: {
             async fetchAgency() {
                 await this.$http.get(`/api/agency/${this.$route.params.id}`).then((response) => {

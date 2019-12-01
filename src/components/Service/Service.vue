@@ -1,8 +1,7 @@
 <template>
     <span>
-        <service-details v-if="!editService" :service="service" :loading="loading"
-                         @editCard="serviceEdit"></service-details>
-        <service-edit v-else :service="service" @editCard="serviceEdit"></service-edit>
+        <service-details v-if="!editService" :service="service" :loading="loading" @editCard="serviceEdit"/>
+        <service-edit v-else :service="service" @editCard="serviceEdit"/>
     </span>
 </template>
 

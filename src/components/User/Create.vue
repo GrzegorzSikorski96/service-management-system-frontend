@@ -12,7 +12,7 @@
             <v-col class="col-12">
                 <v-card class="ma-3" elevation="5">
                     <v-card-text>
-                        <user-form ref="createForm" @valid="checkValid"></user-form>
+                        <user-form ref="createForm" @valid="checkValid"/>
                     </v-card-text>
 
                     <v-card-actions>

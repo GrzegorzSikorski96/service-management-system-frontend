@@ -10,7 +10,7 @@
             </v-card-text>
 
             <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn color="red darken-1" text @click="blockUser()">Zablokuj</v-btn>
                 <v-btn color="darken-1" text @click="closeDialog()">Anuluj</v-btn>
             </v-card-actions>
@@ -22,9 +22,7 @@
     export default {
         name: 'RemoveUserDialog',
         props: {
-            modal: {
-                default: {},
-            },
+            modal: {},
             user: {},
         },
         methods: {

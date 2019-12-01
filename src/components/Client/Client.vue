@@ -1,8 +1,7 @@
 <template>
     <span>
-        <client-details v-if="!editClient" :client="client" :loading="loading"
-                        @editCard="clientEdit"></client-details>
-        <client-edit v-else :client="client" @editCard="clientEdit"></client-edit>
+        <client-details v-if="!editClient" :client="client" :loading="loading" @editCard="clientEdit"/>
+        <client-edit v-else :client="client" @editCard="clientEdit"/>
     </span>
 </template>
 
@@ -12,9 +11,6 @@
 
     export default {
         name: 'Client',
-        data: () => ({
-            editClient: false,
-        }),
         props: {
             client: {},
             loading: {},
@@ -23,6 +19,9 @@
             ClientDetails,
             ClientEdit,
         },
+        data: () => ({
+            editClient: false,
+        }),
         methods: {
             clientEdit(value) {
                 this.editClient = value

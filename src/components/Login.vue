@@ -15,17 +15,14 @@
                                 :rules='rules.credentials.email'
                                 type='email'
                                 label='Email'
-                                required
-                        ></v-text-field>
+                                required/>
                         <v-text-field
                                 v-model='credentials.password'
                                 :rules='[rules.credentials.password.required, rules.credentials.password.min, ]'
                                 type='password'
                                 label='Hasło'
-                                required
-                        ></v-text-field>
+                                required/>
                     </v-form>
-
                 </v-card-text>
                 <v-card-actions>
                     <v-btn

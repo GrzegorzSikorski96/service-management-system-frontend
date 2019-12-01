@@ -17,8 +17,7 @@
             </v-list>
         </v-menu>
 
-        <remove-device-dialog :modal="removeDevice" :device="device"
-                              @modal="removeDialog"></remove-device-dialog>
+        <remove-device-dialog :modal="removeDevice" :device="device" @modal="removeDialog"/>
     </span>
 </template>
 
@@ -27,15 +26,15 @@
 
     export default {
         name: 'DeviceManagement',
+        props: {
+            device: {},
+        },
         components: {
             RemoveDeviceDialog,
         },
         data: () => ({
             removeDevice: false,
         }),
-        props: {
-            device: {},
-        },
         methods: {
             closeDialog() {
                 this.$emit('modal', false)

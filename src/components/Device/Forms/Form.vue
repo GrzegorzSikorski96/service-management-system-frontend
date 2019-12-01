@@ -4,20 +4,17 @@
                 v-model="credentials.serial_number"
                 :rules="rules.device.serial_number"
                 label="Numer seryjny"
-                required
-        ></v-text-field>
+                required/>
 
         <v-text-field
                 v-model="credentials.name"
                 :rules="rules.device.name"
                 label="Nazwa urządzenia"
-                required
-        ></v-text-field>
+                required/>
 
         <v-textarea
                 v-model="credentials.description"
-                label="Opis"
-        ></v-textarea>
+                label="Opis"/>
 
         <agencies-autocomplete v-if="isAdmin() && !edit" v-model="credentials.agency_id"/>
 
@@ -29,12 +26,12 @@
 
     export default {
         name: 'DeviceForm',
-        components: {
-            AgenciesAutocomplete
-        },
         props: {
             device: {},
             edit: {},
+        },
+        components: {
+            AgenciesAutocomplete
         },
         data: () => ({
             credentials: {},
@@ -58,16 +55,11 @@
                 }
             },
             checkValid(value) {
-                this.agencyValid = value
+                this.valid = value
             },
         },
         created() {
             this.parseFormData();
-        },
-        computed: {
-            formValid() {
-                return this.valid && this.agencyValid
-            }
         },
         watch: {
             valid: function (value) {

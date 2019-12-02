@@ -13,7 +13,7 @@
 
             <v-spacer/>
 
-            <v-btn icon v-if="currentUser.id === note.author.id" color="info" @click="changeEditState">
+            <v-btn icon v-if="currentUser.id === note.author.id && note.editable" color="info" @click="changeEditState">
                 <font-awesome-icon icon="pen"/>
             </v-btn>
         </v-card-title>

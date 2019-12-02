@@ -15,7 +15,8 @@
                                 :rules="rules.ticket.token"
                                 :counter="15"
                                 label="Numer zgłoszenia"
-                                required/>
+                                required
+                        />
                     </v-form>
 
                     <v-alert

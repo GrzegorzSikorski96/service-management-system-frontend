@@ -48,6 +48,8 @@
                         this.$toasted.show('Zedytowano Klienta', {
                             type: 'success'
                         });
+
+                        this.changeEditState();
                     })
             },
             changeEditState() {

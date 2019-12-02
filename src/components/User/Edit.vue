@@ -48,11 +48,8 @@
                         this.$toasted.show('Zedytowano Użytkownika', {
                             type: 'success'
                         });
-                    })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
-                        });
+
+                        this.changeEditState();
                     })
             },
             changeEditState() {

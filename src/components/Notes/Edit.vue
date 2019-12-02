@@ -41,6 +41,8 @@
                         this.$toasted.show('Zedytowano zgłoszenie', {
                             type: 'success'
                         });
+
+                        this.changeEditState();
                     })
             },
             changeEditState() {

@@ -48,6 +48,8 @@
                         this.$toasted.show('Zedytowano oddział', {
                             type: 'success'
                         });
+
+                        this.changeEditState();
                     })
             },
             changeEditState() {

@@ -48,6 +48,8 @@
                         this.$toasted.show('Zedytowano serwis', {
                             type: 'success'
                         });
+
+                        this.changeEditState();
                     })
             },
             changeEditState() {

@@ -8,6 +8,7 @@
                     text
                     class="mx-auto font-weight-bold"
                     @click="addDeviceBySerialNumber"
+                    @keyup.enter.native="addDeviceBySerialNumber"
                     :disabled="!valid"
             >
                 Dodaj urządzenie

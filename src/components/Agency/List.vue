@@ -88,6 +88,9 @@
         created() {
             this.init();
         },
+        destroyed() {
+            this.$pusher.unsubscribe('agencies');
+        }
     }
 </script>
 

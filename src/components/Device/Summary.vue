@@ -102,6 +102,9 @@
                 this.getDeviceTickets(value);
             },
         },
+        destroyed() {
+            this.$puhser.unsubscribe(`device-${this.device.id}`)
+        }
     }
 </script>
 

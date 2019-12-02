@@ -12,11 +12,11 @@
                 required/>
 
         <template v-if="!edit">
-            <agencies-autocomplete v-if="isAdmin()" v-model="agency_id"/>
+            <agencies-autocomplete v-if="isAdmin()" v-model="credentials.agency_id"/>
 
-            <clients-autocomplete v-model="credentials.client_id" :agency_id="agency_id"/>
+            <clients-autocomplete v-model="credentials.client_id" :agency_id="credentials.agency_id"/>
 
-            <devices-autocomplete v-model="credentials.device_id" :agency_id="agency_id"/>
+            <devices-autocomplete v-model="credentials.device_id" :agency_id="credentials.agency_id"/>
         </template>
 
         <template v-if="edit">
@@ -51,9 +51,7 @@
         data: () => ({
             agency_id: null,
             valid: false,
-            credentials: {
-                description: '',
-            },
+            credentials: {},
             rules: {
                 ticket: {
                     description: [

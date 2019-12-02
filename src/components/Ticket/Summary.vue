@@ -74,7 +74,7 @@
         methods: {
             init() {
                 this.fetchTicket().then(() => {
-                    this.getTicketNotes(1);
+                    this.getTicketNotes();
                     this.initPusher();
                 });
             },
@@ -85,8 +85,8 @@
                     this.note.credentials.ticket_id = this.ticket.id;
                 });
             },
-            getTicketNotes(page) {
-                this.$http.get(`/api/ticket/${this.$route.params.id}/notes?page=${page}`).then((response) => {
+            getTicketNotes() {
+                this.$http.get(`/api/ticket/${this.$route.params.id}/notes?page=${this.page}`).then((response) => {
                     this.notes = response.data.data.notes;
                     this.notesLoading = false;
                 });
@@ -138,6 +138,11 @@
                 this.getTicketNotes(value);
             },
         },
+        destroyed() {
+            this.$pusher.unsubscribe(`ticket-${this.ticket.id}`);
+            this.$pusher.unsubscribe(`device-${this.ticket.device.id}`);
+            this.$pusher.unsubscribe(`client-${this.ticket.client.id}`);
+        }
     }
 </script>
 

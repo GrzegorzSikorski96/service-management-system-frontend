@@ -102,6 +102,9 @@
                 this.getClientTickets(value);
             },
         },
+        destroyed() {
+            this.$puhser.unsubscribe(`client-${this.client.id}`)
+        }
     }
 </script>
 

@@ -81,6 +81,9 @@
         created() {
             this.init();
         },
+        destroyed() {
+            this.$pusher.unsubscribe(`agency-${this.agency.id}`);
+        }
     }
 </script>
 

@@ -105,6 +105,9 @@
         created() {
             this.init();
         },
+        destroyed() {
+            this.$pusher.unsubscribe('tickets');
+        }
     }
 </script>
 

@@ -99,6 +99,9 @@
         created() {
             this.init();
         },
+        destroyed() {
+            this.$puhser.unsubscribe('clients')
+        }
     }
 </script>
 

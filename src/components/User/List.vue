@@ -120,6 +120,9 @@
         created() {
             this.init();
         },
+        destroyed() {
+            this.$puhser.unsubscribe(`users`)
+        }
     }
 </script>
 

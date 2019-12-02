@@ -15,7 +15,7 @@
 <script>
     export default {
         data: () => ({
-            applicationName: 'Service Management System',
+            applicationName: process.env.VUE_APP_NAME,
         }),
     }
 </script>

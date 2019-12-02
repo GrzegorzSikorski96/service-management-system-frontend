@@ -109,6 +109,9 @@
                 }
             },
         },
+        destroyed() {
+            this.$puhser.unsubscribe(`user-${this.user.id}`)
+        }
     }
 </script>
 

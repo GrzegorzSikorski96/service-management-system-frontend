@@ -10,6 +10,7 @@ import store from './store';
 import {initialize} from "./helpers/general";
 import Toasted from 'vue-toasted';
 import * as pusher from './plugins/pusher'
+import vuelayers from './plugins/vuelayers'
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
@@ -49,5 +50,6 @@ new Vue({
     router,
     store,
     pusher,
+    vuelayers,
     render: h => h(App)
 }).$mount('#app')

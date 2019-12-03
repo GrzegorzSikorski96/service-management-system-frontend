@@ -25,8 +25,6 @@
                     label="Wiadomość zwrotna."/>
         </template>
 
-        <ticket-statuses-select v-model="credentials.ticket_status_id"
-                                :ticket_status_id="credentials.ticket_status_id"/>
     </v-form>
 </template>
 
@@ -34,7 +32,6 @@
     import AgenciesAutocomplete from "../Forms/Autocomplete/Agencies";
     import DevicesAutocomplete from "../Forms/Autocomplete/Devices";
     import ClientsAutocomplete from "../Forms/Autocomplete/Clients";
-    import TicketStatusesSelect from "../Forms/Select/TicketStatuses";
 
     export default {
         name: 'TicketForm',
@@ -46,7 +43,6 @@
             AgenciesAutocomplete,
             DevicesAutocomplete,
             ClientsAutocomplete,
-            TicketStatusesSelect,
         },
         data: () => ({
             agency_id: null,

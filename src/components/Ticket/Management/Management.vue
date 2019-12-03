@@ -11,6 +11,10 @@
             </template>
 
             <v-list>
+                <v-list-item @click="generateDocuments = true">
+                    <v-list-item-title>Wygeneruj dokumenty</v-list-item-title>
+                </v-list-item>
+
                 <v-list-item @click="removeTicket = true">
                     <v-list-item-title class="red--text">Usuń</v-list-item-title>
                 </v-list-item>
@@ -18,11 +22,13 @@
         </v-menu>
 
         <remove-ticket-dialog :modal="removeTicket" :ticket="ticket" @modal="removeDialog"/>
+        <generate-documents-dialog :modal="generateDocuments" :ticket="ticket" @modal="generateDocumentsDialog"/>
     </span>
 </template>
 
 <script>
     import RemoveTicketDialog from "./Remove"
+    import GenerateDocumentsDialog from "./GenerateDocuments"
 
     export default {
         name: 'ClientManagement',
@@ -31,9 +37,11 @@
         },
         components: {
             RemoveTicketDialog,
+            GenerateDocumentsDialog
         },
         data: () => ({
             removeTicket: false,
+            generateDocuments: false,
         }),
         methods: {
             closeDialog() {
@@ -41,6 +49,9 @@
             },
             removeDialog(value) {
                 this.removeTicket = value
+            },
+            generateDocumentsDialog(value) {
+                this.generateDocuments = value
             },
         }
     }

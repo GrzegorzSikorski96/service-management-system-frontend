@@ -43,13 +43,6 @@
                     </span>
                     {{ ticket.message }}
                 </span>
-
-                <br>
-
-                <span class="font-weight-bold">
-                    Status zgłoszenia:
-                </span>
-                {{ ticket.ticket_status.name }}
             </v-card-text>
         </span>
 

@@ -15,6 +15,7 @@
 
             <v-col class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <ticket :ticket="ticket" :loading="loading"/>
+                <ticket-status :ticket="ticket" :loading="loading"/>
                 <device :device="ticket.device" :loading="loading"/>
                 <client :client="ticket.client" :loading="loading"/>
             </v-col>
@@ -47,6 +48,7 @@
     import Note from "../Timelines/Items/Note";
     import Client from "../Client/Client";
     import Ticket from "../Ticket/Ticket"
+    import TicketStatus from "./TicketStatus";
     import NotesCreate from "../Notes/Create"
     import TicketManagement from "./Management/Management"
 
@@ -69,7 +71,8 @@
             Note,
             Ticket,
             NotesCreate,
-            TicketManagement
+            TicketManagement,
+            TicketStatus
         },
         methods: {
             init() {

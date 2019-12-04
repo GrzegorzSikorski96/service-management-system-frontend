@@ -103,7 +103,7 @@
             },
         },
         destroyed() {
-            this.$puhser.unsubscribe(`client-${this.client.id}`)
+            this.$pusher.unsubscribe(`client-${this.client.id}`)
         }
     }
 </script>

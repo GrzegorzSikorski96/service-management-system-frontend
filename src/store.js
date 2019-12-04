@@ -40,7 +40,17 @@ export default new Vuex.Store({
             state.currentUser = Object.assign({}, payload.data.user, {token: payload.data.token});
 
             localStorage.setItem("user", JSON.stringify(state.currentUser));
+
             Vue.toasted.show('Zalogowano', {
+                type: 'success'
+            });
+        },
+        refreshToken(state, payload) {
+            state.currentUser.token = payload.data.token;
+
+            localStorage.setItem("user", JSON.stringify(state.currentUser));
+
+            Vue.toasted.show('refreshed', {
                 type: 'success'
             });
         },

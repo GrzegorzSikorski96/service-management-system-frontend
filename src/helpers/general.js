@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Vue from 'vue'
+import {refreshToken} from '../helpers/auth';
 
 export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
@@ -36,15 +37,33 @@ export function initialize(store, router) {
                 break;
             }
             case 401: {
-                Vue.toasted.show(error.response.data.message, {
-                    type: 'error'
-                });
-                store.commit('logout');
-                router.push('/login');
+                // eslint-disable-next-line no-console
+                console.log(error.response.data.message)
+                switch (error.response.data.message) {
+                    case 'TOKEN_EXPIRED':
+                        refreshToken()
+                            .then((res) => {
+                                store.commit('refreshToken', res);
+                                router.go(0);
+                            });
+                        break;
+                    case 'TOKEN_BLACKLISTED':
+                    case 'TOKEN_INVALID':
+                        store.commit('logout');
+                        router.push('/login');
+                        break;
+                    default:
+                        router.push('/unauthorized')
+                }
+
+                break;
+            }
+            case 403: {
+                router.push('/forbidden');
                 break;
             }
             case 404: {
-                router.push('/');
+                router.push('/404');
                 break;
             }
         }

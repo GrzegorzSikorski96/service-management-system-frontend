@@ -18,6 +18,8 @@ import UsersList from "./components/User/List"
 import AgencyList from "./components/Agency/List";
 import AgencyCreate from "./components/Agency/Create";
 import AgencySummary from "./components/Agency/Summary";
+import NotFound from "./components/System/NotFound";
+import Forbidden from "./components/System/Forbidden"
 
 Vue.use(Router);
 
@@ -120,7 +122,7 @@ export default new Router({
             name: 'UsersList',
             component: UsersList,
             meta: {
-                roles: ['administrator', 'manager'],
+                roles: ['administrator', 'manager', 'serwisant'],
             },
         },
         {
@@ -163,5 +165,17 @@ export default new Router({
             props: true,
             meta: {roles: ['administrator', 'manager'],},
         },
+        {
+            path: '/forbidden',
+            component: Forbidden,
+        },
+        {
+            path: '/notfound',
+            component: NotFound,
+        },
+        {
+            path: '*',
+            redirect: '/notfound'
+        }
     ]
 })

@@ -82,11 +82,6 @@
                             type: 'success'
                         });
                     })
-                    .catch(() => {
-                        this.$toasted.show('Nie udało się utworzyć zgłoszenia', {
-                            type: 'error'
-                        });
-                    })
             },
             checkValid(value) {
                 this.valid = value

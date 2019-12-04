@@ -75,8 +75,11 @@
                 })
             },
             logout() {
-                this.$store.commit('logout');
-                this.$router.push('/login');
+                this.$http.post('/api/auth/logout')
+                    .then(() => {
+                        this.$store.commit('logout');
+                        this.$router.push('/login');
+                    });
             },
         },
         created() {

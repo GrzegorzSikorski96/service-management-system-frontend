@@ -88,7 +88,7 @@
             this.initPusher();
         },
         destroyed() {
-            this.$puhser.unsubscribe('devices')
+            this.$pusher.unsubscribe('devices')
         }
     }
 </script>

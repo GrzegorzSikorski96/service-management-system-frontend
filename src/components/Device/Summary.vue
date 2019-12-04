@@ -103,7 +103,7 @@
             },
         },
         destroyed() {
-            this.$puhser.unsubscribe(`device-${this.device.id}`)
+            this.$pusher.unsubscribe(`device-${this.device.id}`)
         }
     }
 </script>

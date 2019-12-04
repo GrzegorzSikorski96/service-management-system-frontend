@@ -121,7 +121,7 @@
             this.init();
         },
         destroyed() {
-            this.$puhser.unsubscribe(`users`)
+            this.$pusher.unsubscribe(`users`)
         }
     }
 </script>

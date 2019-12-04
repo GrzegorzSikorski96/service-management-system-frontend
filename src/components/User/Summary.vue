@@ -110,7 +110,7 @@
             },
         },
         destroyed() {
-            this.$puhser.unsubscribe(`user-${this.user.id}`)
+            this.$pusher.unsubscribe(`user-${this.user.id}`)
         }
     }
 </script>

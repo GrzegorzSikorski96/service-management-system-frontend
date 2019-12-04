@@ -122,7 +122,7 @@ export default new Router({
             name: 'UsersList',
             component: UsersList,
             meta: {
-                roles: ['administrator', 'manager', 'serwisant'],
+                roles: ['administrator', 'manager',],
             },
         },
         {

@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="subtitle-2" dense>
-            <router-link v-if="isAdmin() || isManager() && !checkRoute"
+            <router-link v-if="isAdmin() || (isManager() && currentUser.agency_id === note.author.agency_id ) && !checkRoute"
                          :to="{name: 'UserSummary', params: { id: note.author.id }}"
                          class="route">
                 <span class="font-weight-bold">{{ note.author.name }} {{ note.author.surname }} </span>

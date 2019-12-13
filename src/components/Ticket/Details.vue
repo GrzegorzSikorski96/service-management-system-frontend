@@ -7,7 +7,7 @@
                 <v-spacer/>
 
                 <v-btn icon @click="changeEditState" color="info">
-                    <font-awesome-icon icon="user-edit" size="lg"/>
+                    <font-awesome-icon icon="pen" size="lg"/>
                 </v-btn>
 
                 <v-btn v-if="!checkRoute" icon :to="{name: 'TicketSummary', params: { id: ticket.id,}}">

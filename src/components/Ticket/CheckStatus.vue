@@ -2,7 +2,7 @@
     <v-container fluid fill-height>
         <v-row>
             <v-card
-                    class="col-8 mx-auto"
+                    class="col-10 mx-auto"
                     raised
                     shaped
             >

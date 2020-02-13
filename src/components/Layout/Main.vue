@@ -21,6 +21,15 @@
             <NavigationDrawerItems/>
 
             <template v-slot:append>
+                <v-list-item link :ripple="{ class: 'blue-text' }" @click="showAuthor = true">
+                    <v-list-item-action>
+                        <font-awesome-icon icon="info-circle" size="lg" class="blue--text"/>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title class="blue--text">O aplikacji</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                 <v-list-item link :ripple="{ class: 'red-text' }" @click="logout" v-if="currentUser">
                     <v-list-item-action>
                         <font-awesome-icon icon="sign-out-alt" size="lg" class="red--text"/>
@@ -50,22 +59,28 @@
         <v-content class="content">
             <router-view/>
         </v-content>
+
+
+        <author-dialog :modal="showAuthor" @modal="authorDialog"/>
     </v-app>
 </template>
 
 <script>
     import Toolbar from "./Toolbar";
     import NavigationDrawerItems from "./NavigationDrawerItems";
+    import AuthorDialog from "../System/Author";
 
     export default {
         name: 'MainLayout',
         components: {
             Toolbar,
             NavigationDrawerItems,
+            AuthorDialog,
         },
         data: () => ({
             drawer: null,
             service: {},
+            showAuthor: false,
         }),
         methods: {
             fetchService() {
@@ -80,6 +95,9 @@
                         this.$store.commit('logout');
                         this.$router.push('/login');
                     });
+            },
+            authorDialog(value) {
+                this.showAuthor = value
             },
         },
         created() {

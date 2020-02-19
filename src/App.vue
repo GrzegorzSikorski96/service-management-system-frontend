@@ -1,28 +1,68 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div>
+        <div v-if="!loading">
+            <div v-if="isInitialized">
+                <Main/>
+            </div>
+
+            <div v-else>
+                <v-app id="app">
+                    <v-content class="content" v-if="!currentUser">
+                        <login/>
+                    </v-content>
+                    <v-content class="content" v-else>
+                        <initialize @initialized="checkInitialized"/>
+                    </v-content>
+                </v-app>
+            </div>
+        </div>
+
+        <div v-else>
+            <v-app id="app">
+                <v-content class="content">
+                    <loading/>
+                </v-content>
+            </v-app>
+        </div>
+    </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    .content {
+        background-color: #eceff1;
+    }
 </style>
+
+<script>
+    import Login from "./components/Login";
+    import Initialize from "./components/Service/Initialize";
+    import Main from "./components/Layout/Main";
+    import Loading from "./components/Helpers/Loading"
+
+    export default {
+        name: 'App',
+        components: {
+            Main,
+            Login,
+            Initialize,
+            Loading
+        },
+        data: () => ({
+            service: [],
+            logged: false,
+            loading: true,
+        }),
+        methods: {
+            checkInitialized() {
+                this.$http.get('/api/service/initialized')
+                    .then((response) => {
+                        this.isInitialized = response.data.data.initialized;
+                        this.loading = false;
+                    })
+            },
+        },
+        created() {
+            this.checkInitialized();
+        }
+    }
+</script>

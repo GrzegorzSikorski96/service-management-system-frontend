@@ -1,8 +1,55 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import './plugins/fontawesome';
+import App from './App.vue';
+import router from './router';
+import vuetify from './plugins/vuetify';
+import axios from "axios";
+import VueAxios from 'vue-axios';
+import Vuex from 'vuex';
+import store from './store';
+import {initialize} from "./helpers/general";
+import Toasted from 'vue-toasted';
+import * as pusher from './plugins/pusher'
+import vuelayers from './plugins/vuelayers'
 
-Vue.config.productionTip = false
+Vue.use(Vuex);
+Vue.use(VueAxios, axios);
+Vue.use(Toasted, {
+    theme: "bubble",
+    position: "top-center",
+    duration: 5000
+});
+
+Vue.mixin({
+    data: () => ({
+        isInitialized: false,
+    }),
+    methods: {
+        isAdmin() {
+            if (this.currentUser) {
+                return store.state.currentUser.role.name === 'administrator';
+            }
+        },
+        isManager() {
+            if (this.currentUser) {
+                return store.state.currentUser.role.name === 'manager' || this.isAdmin();
+            }
+        },
+    },
+    computed: {
+        currentUser() {
+            return this.$store.getters.currentUser;
+        },
+    }
+});
+
+initialize(store, router);
 
 new Vue({
-  render: h => h(App),
+    vuetify,
+    router,
+    store,
+    pusher,
+    vuelayers,
+    render: h => h(App)
 }).$mount('#app')

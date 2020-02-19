@@ -1,24 +1,23 @@
-# sms-web
+# Aplikacja do zarządzania siecią serwisów
 
-## Project setup
+## Instalacja zależności polecenie:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+##Uruchomienie aplikacji
+
+Aby poprawnie uruchomić aplikację należy najpierw 
+utworzyć plik .env.developement.local na podstawie pliku .env.production.example 
+oraz uzupełnić go odpowiednimi wartościami. Następnie należy użyć następujących poleceń:
+
+
+### Kompilacja oraz automatyczne przełatowywanie aplikacji:
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Budowanie projektu aplikjacji do przeniesnienia na serwer produkcyjny:
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

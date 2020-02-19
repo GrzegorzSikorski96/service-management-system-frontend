@@ -12,8 +12,11 @@
                 <br>
                 <strong>Uczelnia: </strong> Państwowa Wyższa Szkoła Zawodowa im. Witelona w Legnicy <br>
                 <strong>Temat pracy: </strong> Aplikacja webowa do zarządzania siecią serwisów <br>
-                <strong>Autor: </strong> Grzegorz Sikorski
+                <strong>Autor: </strong> Grzegorz Sikorski <br>
 
+                <br>
+
+                Praca dyplomowa inżynierska napisana pod kierunkiem dr inż.Zbigniewa Fryźlewicza.
             </v-card-text>
 
             <v-card-actions>
